@@ -1,0 +1,25 @@
+.dashboard-tabs {
+    justify-content: center;
+}
+
+.dashboard-tab {
+  font-size: 14pt;
+}
+
+.dashboard-content {
+  max-width: 1080px;
+}
+
+.material-icons {
+  color: darkgray;
+}
+
+.mdl-navigation__link {
+  padding-left: 4px;
+}
+
+.mat-icon {
+  height: 18px;
+  width: 18px;
+  font-size: 18px;
+}

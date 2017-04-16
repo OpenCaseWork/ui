@@ -1,0 +1,29 @@
+<div fxLayout="row" class="background">
+  <div class="full-screen">
+    <div class="max-width">    
+        <md-grid-list cols="2"  rowHeight="fit" class="padding-10" >
+        <md-card class="z-depth-5">
+            <md-card-title class="login-text"><h2>OpenCaseWork</h2></md-card-title>
+            <md-card-subtitle><h4>Secure Sign-In</h4></md-card-subtitle>
+            <md-card-content>
+            <div class="login-text">
+                <md-input-container class="full-width">
+                <input type="text" [(ngModel)]="username" mdInput placeholder="Username" id="username" required >
+                </md-input-container>
+            </div>    
+            <div class="login-text">
+                <md-input-container class="full-width">
+                <input type="password" [(ngModel)]="password" mdInput placeholder="Password" id="password" required >
+                </md-input-container>
+            </div>    
+            </md-card-content>
+            <md-card-actions><button class="mdl-button mdl-button--raised mdl-button--colored" (click)="login();">Sign In</button></md-card-actions>
+            <md-card-title item-height="330px" >
+                <img />
+            </md-card-title>
+        </md-card>
+        </md-grid-list>
+    </div>   
+  </div> 
+</div>
+

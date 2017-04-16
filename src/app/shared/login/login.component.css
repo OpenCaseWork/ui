@@ -1,0 +1,102 @@
+.parent {
+  width: 330px;
+}
+
+.full-height {
+  height: 100%;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.scaling-img {
+  display: block;
+  max-width:130px;
+  max-height:95px;
+  width: auto;
+  height: auto;
+}
+
+.full-screen {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+
+}
+
+.z-depth-5 {
+  box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.3);
+}
+
+.max-width {
+  max-width:400px;
+  margin: auto;
+  align-content: center; 
+  height: 100%;
+ 
+
+}
+
+.background {
+   background-image: url('../../../assets/images/mountains.jpg'); 
+   background-size: 100%;
+   position:relative;
+   background-repeat:no-repeat;
+
+
+
+}
+
+.padding-10 {
+  padding: 10px;
+}
+
+.left-padding-8 {
+  padding-left: 10px;
+}
+
+.left-padding-12 {
+  padding-left: 13px;
+}
+
+.no-margin {
+  margin: 0px;
+}
+
+.full-width {
+  width: 100%;
+  margin: 0px;
+  min-width: 300px;
+}
+ 
+.login-text {
+  color: #5B616A
+}
+
+.md-input-container {
+   font-size: 12pt;
+}
+
+.mdl-card-placeholder {
+  background-color: white;
+  min-height: 100px;
+}
+
+.mdl-card-alliant-logo {
+  background-color: white;
+}
+
+.alliant-logo {
+  vertical-align: bottom;
+}
+
+.button-image {
+  cursor:pointer;  
+}
+
+.example-full-width {
+  min-width: 300px;
+}
