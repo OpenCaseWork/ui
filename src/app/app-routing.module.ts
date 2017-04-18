@@ -2,9 +2,10 @@ import { NgModule }           from '@angular/core';
 import { RouterModule }       from '@angular/router';
 import { LoginComponent}      from './shared/login/login.component';
 import { DashboardComponent}  from './dashboard/dashboard.component';
+import { ConstituentComponent}  from './constituent/constituent.component';
 import { AuthGuardService}    from './core/auth-guard.service';
 import { RouteUrlLogin,
-         RouteUrlDashboard }       from './app-routing.urls';
+         RouteUrlDashboard, RouteUrlConstituent }       from './app-routing.urls';
 
 @NgModule({
   imports: [

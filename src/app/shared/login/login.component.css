@@ -1,3 +1,23 @@
+.font-20 {
+  font-size: 20px;
+}
+
+.help {
+  font-size: 14px;
+  position: relative;
+  top: 4px;
+  color: #448aff;
+  
+}
+
+.secure {
+  font-size: 20px;
+  width:30px;
+  position: relative;
+  text-align: right;
+  top: 3px;
+}
+
 .parent {
   width: 330px;
 }
@@ -41,13 +61,11 @@ img {
 }
 
 .background {
-   background-image: url('../../../assets/images/mountains.jpg'); 
-   background-size: 100%;
-   position:relative;
-   background-repeat:no-repeat;
-
-
-
+  background-image: url('../../../assets/images/mountains.jpg'); 
+  background-position: center center;
+	background-repeat:  no-repeat;
+	background-attachment: fixed;
+	background-size:  cover;
 }
 
 .padding-10 {

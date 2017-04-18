@@ -11,4 +11,7 @@ export function RouteUrlDashboard() {
 export function RouteUrlHome() {
   return 'home';
 }
- 
+
+export function RouteUrlConstituent() {
+  return 'test';
+}

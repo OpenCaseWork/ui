@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
-import { Router}              from '@angular/router';
-import { RouteUrlLogin }  from '../app-routing.urls';
+import { Router } from '@angular/router';
+import { RouteUrlLogin } from '../app-routing.urls';
 import { EnvironmentService } from './environment.service';
 
 @Injectable()
@@ -13,7 +13,6 @@ export class AuthService {
   redirectUrl: string;
 
   constructor(
-    private router: Router,
     private environmentService: EnvironmentService,
     private oauthService: OAuthService) {
 
@@ -53,17 +52,17 @@ export class AuthService {
     // If authentication succeeds, resolve and return true
     // Upon authentication failure, reject and return false
     // Can return any and reject caught error, too.
-    return new Promise<boolean> ((resolve, reject) => {
-      console.log( 'before oauthService call' );
+    return new Promise<boolean>((resolve, reject) => {
+      console.log('before oauthService call');
       this.oauthService
         .fetchTokenUsingPasswordFlowAndLoadUserProfile(userName, password)
         .then((response) => {
-          console.log( 'AuthService.login success', response );
+          console.log('AuthService.login success', response);
           this.loggedIn = true;
           return resolve(this.loggedIn);
         })
         .catch((err) => {
-          console.log( 'AuthService.login error', err );
+          console.log('AuthService.login error', err);
           this.loggedIn = false;
           return reject(this.loggedIn);
         });
@@ -87,7 +86,6 @@ export class AuthService {
     this.loggedIn = false;
     // Route to login page;
     console.log('log out');
-    this.router.navigate([RouteUrlLogin()]);
 
     // TODO: clear out local storage
   }

@@ -2,6 +2,7 @@ import { Component, OnInit }  from '@angular/core';
 import { Router }             from '@angular/router';
 import { AuthService }        from '../core/auth.service';
 import { IdleService }        from '../core/idle.service';
+import { RouteUrlConstituent } from '../app-routing.urls';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,19 +12,19 @@ import { IdleService }        from '../core/idle.service';
 export class DashboardComponent implements OnInit {
   title = 'app works!';
   invert = false;
-  selected = ''; 
-  items = [ 
-    {text: 'Refresh'}, 
-    {text: 'Settings'}, 
-    {text: 'Help', disabled: true}, 
-    {text: 'Sign Out'} 
-  ]; 
- 
-  iconItems = [ 
-    {text: 'Redial', icon: 'dialpad'}, 
-    {text: 'Check voicemail', icon: 'voicemail', disabled: true}, 
-    {text: 'Disable alerts', icon: 'notifications_off'} 
-  ]; 
+  selected = '';
+  items = [
+    {text: 'Refresh'},
+    {text: 'Settings'},
+    {text: 'Help', disabled: true},
+    {text: 'Sign Out'}
+  ];
+
+  iconItems = [
+    {text: 'Redial', icon: 'dialpad'},
+    {text: 'Check voicemail', icon: 'voicemail', disabled: true},
+    {text: 'Disable alerts', icon: 'notifications_off'}
+  ];
 
   constructor( private router: Router,
                private authService: AuthService,
@@ -36,6 +37,10 @@ export class DashboardComponent implements OnInit {
   logout() {
     this.authService.logout();
     this.idleService.stop();
+  }
+
+  newConstituent() {
+    this.router.navigateByUrl(RouteUrlConstituent());
   }
 
 }

@@ -4,6 +4,7 @@ import { FormsModule }            from '@angular/forms';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { MaterialModule }         from '@angular/material';
 
+import { ConstituentComponent } from '../constituent/constituent.component';
 import { DashboardComponent }     from './dashboard.component';
 import { AccountsService }        from './shared/accounts.service';
 
@@ -16,6 +17,7 @@ import { AccountsService }        from './shared/accounts.service';
   ],
   declarations: [
     DashboardComponent,
+    ConstituentComponent,
   ],
   providers: [
     AccountsService

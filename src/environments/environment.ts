@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  idleSeconds: 15, // time in seconds before the browser triggers warning for inactivity
+  idleSeconds: 600, // time in seconds before the browser triggers warning for inactivity
   idleCountdownSeconds: 10, // time in seconds that browser gives user to respond to inactivity warning
   hmr: true,
   apiBaseUrl : 'https://localhost:44358/',
