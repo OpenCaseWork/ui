@@ -3,7 +3,7 @@ import { Idle,
          DEFAULT_INTERRUPTSOURCES } from '@ng-idle/core';
 import { IdleState, IdleStateEnum } from './models/idle-state.model';
 import { LogService }               from './logging/log.service';
-import { AuthService }              from './auth.service';
+import { AuthService }              from './auth/auth.service';
 import { EnvironmentService }       from './environment.service';
 
 /** Service used to monitor user activity, warn user when inactive,

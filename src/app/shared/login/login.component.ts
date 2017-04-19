@@ -3,8 +3,7 @@ import { Router, ActivatedRoute}  from '@angular/router';
 import { Observable }             from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
-import { AuthService }            from '../../core/auth.service';
-//import { authServiceProvider }    from '../../core/auth.service.factory';
+import { AuthService }            from '../../core/auth/auth.service';;
 import { LogService }             from '../../core/logging/log.service';
 import { RouteUrlDashboard }      from '../../app-routing.urls';
 
@@ -29,8 +28,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     // reset login status
     // TODO: replace calls to authService.logout to instead navigate to login?
-    // this.authService.logout();
-    // get return url from route parameters or default to 'olb'
+    this.authService.logout();
+    // get return url from route parameters or default to 'deshboard'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || RouteUrlDashboard();
   }
 

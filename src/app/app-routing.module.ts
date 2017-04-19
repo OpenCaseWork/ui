@@ -1,23 +1,23 @@
-import { NgModule }           from '@angular/core';
-import { RouterModule }       from '@angular/router';
-import { LoginComponent}      from './shared/login/login.component';
-import { DashboardComponent}  from './dashboard/dashboard.component';
-import { ConstituentComponent}  from './constituent/constituent.component';
-import { AuthGuardService}    from './core/auth-guard.service';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { LoginComponent } from './shared/login/login.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ConstituentComponent } from './constituent/constituent.component';
+import { AuthGuardService } from './core/auth/auth-guard.service';
 import { RouteUrlLogin,
-         RouteUrlDashboard, RouteUrlConstituent }       from './app-routing.urls';
+         RouteUrlDashboard } from './app-routing.urls';
 
 @NgModule({
   imports: [
     RouterModule.forRoot([
-          { path: '',       redirectTo: RouteUrlLogin(),            pathMatch: 'full' },
-          { path: RouteUrlLogin(),  component: LoginComponent },
-          { path: RouteUrlDashboard(),    component: DashboardComponent,  canActivate: [AuthGuardService] },
-          { path: '**',     redirectTo: RouteUrlLogin() }
-        ])
+      { path: '', redirectTo: RouteUrlLogin(), pathMatch: 'full' },
+      { path: RouteUrlLogin(), component: LoginComponent },
+      { path: RouteUrlDashboard(), component: DashboardComponent, canActivate: [AuthGuardService] },
+      { path: '**', redirectTo: RouteUrlLogin() }
+    ])
   ],
   exports: [
     RouterModule
   ]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

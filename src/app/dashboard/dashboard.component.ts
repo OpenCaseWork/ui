@@ -1,8 +1,8 @@
 import { Component, OnInit }  from '@angular/core';
-import { Router }             from '@angular/router';
-import { AuthService }        from '../core/auth.service';
+import { Router, ActivatedRoute }             from '@angular/router';
+import { AuthService }        from '../core/auth/auth.service';
 import { IdleService }        from '../core/idle.service';
-import { RouteUrlConstituent } from '../app-routing.urls';
+import { RouteUrlConstituent } from './dashboard-routing.urls';
 
 @Component({
   selector: 'app-dashboard',
@@ -27,6 +27,7 @@ export class DashboardComponent implements OnInit {
   ];
 
   constructor( private router: Router,
+               private route: ActivatedRoute,
                private authService: AuthService,
                private idleService: IdleService) { }
 
@@ -40,7 +41,7 @@ export class DashboardComponent implements OnInit {
   }
 
   newConstituent() {
-    this.router.navigateByUrl(RouteUrlConstituent());
+    this.router.navigate([RouteUrlConstituent()], { relativeTo: this.route });
   }
 
 }

@@ -26,24 +26,10 @@
 
   <md-menu #appMenu2="mdMenu" [overlapTrigger]="false">
     <button md-menu-item><md-icon>search</md-icon>Search</button>
-    <button md-menu-item> New </button>
-    <a routerLink="constituent"><button md-menu-item>New Customer</button></a>
+    <button md-menu-item (click)="newConstituent()"><md-icon>add</md-icon>New</button>
   </md-menu>
-  <button md-icon-button [mdMenuTriggerFor]="posYMenu" aria-label="Open y-positioned menu">
-    <md-icon>more_vert</md-icon>
-  </button>
 </md-toolbar>
-
-<md-menu y-position="above" #posYMenu="mdMenu">
-  <button md-menu-item *ngFor="let item of items" [disabled]="item.disabled">
-    {{ item.text }}
-  </button>
-</md-menu>
 
 <div>
   <router-outlet></router-outlet>
 </div>
-
-
-
-<!--/md-sidenav-container-->

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouteUrlLogin } from '../app-routing.urls';
 import { EnvironmentService } from './environment.service';
-import { AuthService } from './auth.service';
+import { AuthService } from './auth/auth.service';
 
 @Injectable()
 export class SessionService {

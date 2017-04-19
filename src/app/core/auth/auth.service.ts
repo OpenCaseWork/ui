@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
-import { Router } from '@angular/router';
-import { RouteUrlLogin } from '../app-routing.urls';
-import { EnvironmentService } from './environment.service';
+import { EnvironmentService } from '../environment.service';
 
 @Injectable()
 // see https://auth0.com/blog/angular-2-authentication/ for some implementation concepts
