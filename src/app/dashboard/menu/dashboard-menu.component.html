@@ -1,0 +1,33 @@
+<md-toolbar>
+  <div class="container" fxLayout="row" fxShow.gt-sm>
+    <button md-button [mdMenuTriggerFor]="appMenuConstituents" 
+      (mouseenter)="openMenu()"
+      (mouseleave)="closeMenu()"
+      #constituentMenuButton="mdMenuTrigger">Constituents</button>
+    <md-menu #appMenuConstituents="mdMenu" [overlapTrigger]="false">
+      <button md-menu-item (click)="searchConstituent()"><md-icon>search</md-icon>Search</button>
+      <button md-menu-item (click)="newConstituent()"><md-icon>add</md-icon>New</button>
+    </md-menu>
+
+    <button md-button [mdMenuTriggerFor]="appMenuHOW">HOW</button>
+    <md-menu #appMenuHOW="mdMenu" [overlapTrigger]="false">
+      <button md-menu-item (click)="howBilling()"><md-icon>attach_money</md-icon>Input Billing</button>
+      <button md-menu-item (click)="howReports()"><md-icon>list</md-icon>Reports</button>
+    </md-menu>
+
+    <button md-button [mdMenuTriggerFor]="appMenuHOW">Reports</button>
+    <md-menu #appMenuHOW="mdMenu" [overlapTrigger]="false">
+      <button md-menu-item (click)="howBilling()"><md-icon>attach_money</md-icon>Input Billing</button>
+      <button md-menu-item (click)="howReports()"><md-icon>list</md-icon>Reports</button>
+    </md-menu>
+
+
+    <button md-button [mdMenuTriggerFor]="appMenuSocial">Social Services</button>
+    <md-menu #appMenuSocial="mdMenu" [overlapTrigger]="false">
+      <button md-menu-item (click)="dailyTimeEntry()"><md-icon>event</md-icon>Daily Time Entry</button>
+      <button md-menu-item (click)="newNAPISIntake()"><md-icon>add</md-icon>New NAPIS Intake</button>
+      <button md-menu-item (click)="newNAPISIntake()"><md-icon>add</md-icon>Social Services</button>
+    </md-menu>  
+  </div>
+
+</md-toolbar>

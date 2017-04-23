@@ -23,3 +23,8 @@
   width: 18px;
   font-size: 18px;
 }
+
+.header-image{
+   background: url('../../assets/images/mountains.jpg') 100% 100% no-repeat;
+   background-size:  cover;
+}

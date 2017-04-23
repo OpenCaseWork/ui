@@ -1,5 +1,5 @@
 import { AuthService } from './auth.service';
-import { MockAuthService } from '../mock/mock.auth.service';
+import { MockAuthService } from './mock.auth.service';
 import { LogService } from '../logging/log.service';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { Router } from '@angular/router';
@@ -14,7 +14,7 @@ export function authServiceFactory(environmentService: EnvironmentService, oAuth
   }
 };
 
-export let authServiceProvider = {
+export let AuthServiceProvider = {
   provide: AuthService,
   useFactory: authServiceFactory,
   deps: [EnvironmentService, OAuthService]

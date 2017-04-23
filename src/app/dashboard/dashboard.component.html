@@ -1,4 +1,4 @@
-<md-toolbar color="primary">
+<md-toolbar color="primary" class="header-image">
   <span>OpenCaseWork</span>
   <!-- This fills the remaining space of the current row -->
   
@@ -18,18 +18,7 @@
 <!--md-toolbar color="accent">
   <span>NSSC: {{title}}</span>
 </md-toolbar-->
-
-<md-toolbar>
-  <button class="mat-button" [mdMenuTriggerFor]="appMenu2">
-    <span class="mat-button-wrapper">Constituents</span>
-  </button>
-
-  <md-menu #appMenu2="mdMenu" [overlapTrigger]="false">
-    <button md-menu-item><md-icon>search</md-icon>Search</button>
-    <button md-menu-item (click)="newConstituent()"><md-icon>add</md-icon>New</button>
-  </md-menu>
-</md-toolbar>
-
+<app-dashboard-menu></app-dashboard-menu>
 <div>
   <router-outlet></router-outlet>
 </div>

@@ -1,0 +1,24 @@
+<md-card class="md-elevation-z10">
+  <md-card-title>Constituent Search</md-card-title>
+  <md-card-subtitle class="font-20">Search Criteria</md-card-subtitle>
+  <md-card-content>
+    <div>
+      <md-input-container class="full-width">
+        <input type="text" [(ngModel)]="lastname" mdInput placeholder="Last Name" id="LastName">
+      </md-input-container>
+    </div>
+    <div>
+      <md-input-container class="full-width">
+        <input type="text" [(ngModel)]="firstname" mdInput placeholder="First Name" id="FirstName">
+      </md-input-container>
+    </div>
+  </md-card-content>
+  <md-card-actions>
+    <button md-button color="primary" (click)="login();">Search</button>
+  </md-card-actions>
+</md-card>
+<div><br></div>
+<div>
+  <button type="button" color="primary" md-raised-button (click)="dialogRef.close(true)">OK</button>
+  <button type="button" color="primary" md-button (click)="dialogRef.close()">Cancel</button>
+</div>

@@ -6,17 +6,17 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ConstituentSearchService {
 
-    constructor(private dialog: MdDialog) { }
+  constructor(private dialog: MdDialog) { }
 
-    // note: can pass in arguments here, like title: string
-    public search(): Observable<boolean> {
+  // note: can pass in arguments here, like title: string
+  public search(): Observable<boolean> {
 
-        let dialogRef: MdDialogRef<ConstituentSearchComponent>;
-        dialogRef = this.dialog.open(ConstituentSearchComponent);
+    let dialogRef: MdDialogRef<ConstituentSearchComponent>;
+    dialogRef = this.dialog.open(ConstituentSearchComponent);
 
-        // if you needed to set variable on the component
-        // dialogRef.componentInstance.title = title;
+    // if you needed to set variable on the component
+    // dialogRef.componentInstance.title = title;
 
-        return dialogRef.afterClosed();
-    }
+    return dialogRef.afterClosed();
+  }
 }

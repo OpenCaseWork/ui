@@ -1,3 +1,14 @@
+.aligner {
+  /* We first create a flex layout context */
+  display: flex;  
+  align-items: center;
+  justify-content: center;
+}
+
+.child {
+  margin: auto;
+}
+
 .font-20 {
   font-size: 20px;
 }

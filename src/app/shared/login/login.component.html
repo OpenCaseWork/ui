@@ -1,30 +1,30 @@
 <div fxLayout="row" class="background">
   <div class="full-screen">
-    <div class="max-width">    
-      <md-grid-list cols="2"  rowHeight="fit" class="padding-10" >        
+    <div class="max-width aligner">
         <md-card class="md-elevation-z10">
-          <md-card-title class="login-text"><h2>OpenCaseWork</h2></md-card-title>
-          <md-card-subtitle class="font-20">Secure Sign In<md-icon class="secure">lock</md-icon></md-card-subtitle>
+          <md-card-title class="login-text">
+            <h2>OpenCaseWork</h2>
+          </md-card-title>
+          <md-card-subtitle class="font-20">Secure Sign In
+            <md-icon class="secure">lock</md-icon>
+          </md-card-subtitle>
           <md-card-content>
             <div class="login-text">
-            <md-input-container class="full-width">
-              <input type="text" [(ngModel)]="username" mdInput placeholder="Username" id="username" required >
-            </md-input-container>
-            </div>    
+              <md-input-container class="full-width">
+                <input type="text" [(ngModel)]="username" mdInput placeholder="Username" id="username" required>
+              </md-input-container>
+            </div>
             <div class="login-text">
               <md-input-container class="full-width">
-                <input type="password" [(ngModel)]="password" mdInput placeholder="Password" id="password" required >
+                <input type="password" [(ngModel)]="password" mdInput placeholder="Password" id="password" required>
               </md-input-container>
-            </div>    
+            </div>
           </md-card-content>
           <md-card-actions>
             <button md-button color="primary" (click)="login();">Sign In</button>
-            <!--div class="mdl-layout-spacer"></div-->
             <button md-button color="primary" (click)="login();">Forgot Password<md-icon class="help">help</md-icon></button>
           </md-card-actions>
         </md-card>
-      </md-grid-list>
-    </div>   
-  </div> 
+    </div>
+  </div>
 </div>
-

@@ -1,14 +1,14 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { NgIdleModule } from '@ng-idle/core';
 import { OAuthModule } from 'angular-oauth2-oidc';
-import { MockAuthService } from './mock/mock.auth.service';
+import { MockAuthService } from './auth/mock.auth.service';
 import { LogService } from './logging/log.service';
-import { IdleService } from './idle.service';
 import { EnvironmentService } from './environment.service';
 import { AuthGuardService } from './auth/auth-guard.service';
 import { AuthService } from './auth/auth.service';
-import { authServiceProvider } from './auth/auth.service.factory';
-import { SessionService } from './session.service';
+import { AuthServiceProvider } from './auth/auth.service.provider';
+import { SessionService } from './session/session.service';
+import { IdleService } from './session/idle.service';
 
 @NgModule({
   imports: [
@@ -19,7 +19,7 @@ import { SessionService } from './session.service';
   ],
   providers: [
     AuthGuardService,
-    authServiceProvider,
+    AuthServiceProvider,
     LogService,
     IdleService,
     EnvironmentService,

@@ -1,10 +1,10 @@
 import { Injectable }               from '@angular/core';
 import { Idle,
          DEFAULT_INTERRUPTSOURCES } from '@ng-idle/core';
-import { IdleState, IdleStateEnum } from './models/idle-state.model';
-import { LogService }               from './logging/log.service';
-import { AuthService }              from './auth/auth.service';
-import { EnvironmentService }       from './environment.service';
+import { IdleState, IdleStateEnum } from '../models/idle-state.model';
+import { LogService }               from '../logging/log.service';
+import { SessionService }              from './session.service';
+import { EnvironmentService }       from '../environment.service';
 
 /** Service used to monitor user activity, warn user when inactive,
  * and log user out when activity limit reached
@@ -16,7 +16,7 @@ export class IdleService {
   constructor(
     private idle: Idle,
     private logService: LogService,
-    private authService: AuthService,
+    private sessionService: SessionService,
     private environmentService: EnvironmentService
     ) {
 
@@ -34,7 +34,7 @@ export class IdleService {
       this.idleState.state = IdleStateEnum.TimedOut;
       this.idleState.timedOut = true;
       logService.warn(this.idleState.state);
-      authService.logout(); // could also route to logon page...
+      sessionService.logout(); 
     });
     idle.onIdleStart.subscribe(() => {
       this.idleState.state = IdleStateEnum.Idle;
