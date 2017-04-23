@@ -9,5 +9,6 @@ export const environment = {
   idleCountdownSeconds: 10, // time in seconds that browser gives user to respond to inactivity warning
   hmr: true,
   apiBaseUrl : '',
-  idServer : ''
+  idServer : '',
+  useMock : true
 };

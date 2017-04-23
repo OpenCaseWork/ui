@@ -33,18 +33,14 @@ export class DashboardMenuComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
   }
 
-  newConstituent() {
-    this.router.navigate([RouteUrlConstituent()], { relativeTo: this.route });
-  }
-
   searchConstituent() {
     this.searchService.search().subscribe(res => this.result = res);
   }
 
   openMenu() {
     if (this.open === false) {
-    // TODO: find out how to programmatically control menu open/close
-    // right now can't seem to see if menu open or closed
+      // TODO: find out how to programmatically control menu open/close
+      // right now can't seem to see if menu open or closed
       this.constituentMenuTrigger.openMenu();
       this.open = true;
     }
@@ -52,6 +48,19 @@ export class DashboardMenuComponent implements OnInit, AfterViewInit {
 
   closeMenu() {
     // this.constituentMenuTrigger.closeMenu();
+  }
+
+  newConstituent() {
+    this.router.navigate([RouteUrlConstituent()], { relativeTo: this.route });
+  }
+
+  howBilling() {
+  }
+  howReports() {
+  }
+  dailyTimeEntry() {
+  }
+  newNAPISIntake() {
   }
 
 }

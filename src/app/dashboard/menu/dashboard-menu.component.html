@@ -1,9 +1,11 @@
 <md-toolbar class="card-1">
-  <div class="flex-toolbar" fxLayout="row" fxLayout.xs="column">
-    <button md-button [mdMenuTriggerFor]="appMenuConstituents" 
+  <div class="flex-toolbar" fxLayout="row">
+    <button md-button [mdMenuTriggerFor]="appMenuConstituents"     
+      fxShow.gt-sm="true" fxShow.lt-sm="false"
       (mouseenter)="openMenu()"
       (mouseleave)="closeMenu()"
       #constituentMenuButton="mdMenuTrigger"><md-icon class="menu-icon">people</md-icon>Constituents</button>
+    <button md-icon-button fxShow.gt-sm="false" [mdMenuTriggerFor]="appMenuConstituents" class="menu-icon"><md-icon>people</md-icon></button>
     <md-menu #appMenuConstituents="mdMenu" [overlapTrigger]="false">
       <button md-menu-item (click)="searchConstituent()"><md-icon>search</md-icon>Search</button>
       <button md-menu-item (click)="newConstituent()"><md-icon>add</md-icon>New</button>

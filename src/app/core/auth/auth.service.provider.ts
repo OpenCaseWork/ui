@@ -7,11 +7,12 @@ import { RouteUrlLogin } from '../../app-routing.urls';
 import { EnvironmentService } from '../environment.service';
 
 export function authServiceFactory(environmentService: EnvironmentService, oAuthService: OAuthService) {
-  if (environmentService.isProduction === false) {
+  // TODO: actually implement authentication =)
+  // if (environmentService.isProduction === false) {
     return new MockAuthService();
-  } else {
-    return new AuthService(environmentService, oAuthService);
-  }
+  // } else {
+  //   return new AuthService(environmentService, oAuthService);
+  // }
 };
 
 export let AuthServiceProvider = {

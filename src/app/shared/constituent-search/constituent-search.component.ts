@@ -9,8 +9,14 @@ export class ConstituentSearchComponent {
 
     public title: string; // 'Constituent Search';
     public message: string;
+    public lastname: string;
+    public firstname: string;
 
     constructor(public dialogRef: MdDialogRef<ConstituentSearchComponent>) {
+
+    }
+
+    search() {
 
     }
 }
