@@ -7,6 +7,7 @@ import { ConstituentSearchComponent } from './constituent-search/constituent-sea
 import { ConstituentSearchService } from './constituent-search/constituent-search.service';
 import { MessageBoxComponent } from './message-box/message-box.component';
 import { MessageBoxService } from './message-box/message-box.service';
+import { NotFoundComponent } from './not-found.component';
 
 @NgModule({
   imports: [
@@ -16,11 +17,13 @@ import { MessageBoxService } from './message-box/message-box.service';
   ],
   declarations: [
     ConstituentSearchComponent,
-    MessageBoxComponent
+    MessageBoxComponent,
+    NotFoundComponent
   ],
   exports: [
     ConstituentSearchComponent,
-    MessageBoxComponent
+    MessageBoxComponent,
+    NotFoundComponent
   ],
   providers: [
     ConstituentSearchService,

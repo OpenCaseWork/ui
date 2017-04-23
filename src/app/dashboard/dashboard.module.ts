@@ -1,17 +1,18 @@
-import { NgModule }               from '@angular/core';
-import { CommonModule }           from '@angular/common';
-import { FormsModule }            from '@angular/forms';
-import { DashboardRoutingModule } from './dashboard-routing.module';
-// import { MaterialModule }         from '@angular/material';
-import { CustomMaterialModule }         from '../shared/custom-material.module';
-
-import { ConstituentComponent }   from '../constituent/constituent.component';
-import { HomeComponent }          from './home/home.component';
-import { DashboardComponent }     from './dashboard.component';
-import { DashboardMenuComponent }     from './menu/dashboard-menu.component';
-import { AccountsService }        from './shared/accounts.service';
-import { SharedModule }           from '../shared/shared.module';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
+
+import { DashboardRoutingModule } from './dashboard-routing.module';
+import { SharedModule } from '../shared/shared.module';
+import { AdminModule } from '../admin/admin.module';
+import { CustomMaterialModule } from '../shared/custom-material.module';
+import { HomeComponent } from './home/home.component';
+import { DashboardComponent } from './dashboard.component';
+import { DashboardMenuComponent } from './menu/dashboard-menu.component';
+import { AccountsService } from './shared/accounts.service';
+import { NotFoundComponent } from '../shared/not-found.component';
+import { ConstituentModule } from '../constituent/constituent.module';
 
 @NgModule({
   imports: [
@@ -20,11 +21,12 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     DashboardRoutingModule,
     CustomMaterialModule,
     SharedModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    AdminModule,
+    ConstituentModule
   ],
   declarations: [
     DashboardComponent,
-    ConstituentComponent,
     HomeComponent,
     DashboardMenuComponent
   ],
@@ -32,4 +34,4 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     AccountsService
   ]
 })
-export class DashboardModule {}
+export class DashboardModule { }

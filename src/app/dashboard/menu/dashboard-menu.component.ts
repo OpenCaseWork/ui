@@ -3,7 +3,7 @@ import { Component,
          ViewChild,
          AfterViewInit }  from '@angular/core';
 import { Router, ActivatedRoute }             from '@angular/router';
-import { RouteUrlConstituent } from '../dashboard-routing.urls';
+import { RouteUrlConstituent, RouteUrlAdmin } from '../dashboard-routing.urls';
 import { ConstituentSearchService } from '../../shared/constituent-search/constituent-search.service';
 import { MdMenuTrigger, MdMenu } from '@angular/material';
 
@@ -56,11 +56,18 @@ export class DashboardMenuComponent implements OnInit, AfterViewInit {
 
   howBilling() {
   }
+
   howReports() {
   }
+
   dailyTimeEntry() {
+    this.router.navigate(['unkonwn'], { relativeTo: this.route });
   }
+
   newNAPISIntake() {
+  }
+  admininstration() {
+    this.router.navigate([RouteUrlAdmin()], { relativeTo: this.route });
   }
 
 }

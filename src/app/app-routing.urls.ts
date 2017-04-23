@@ -7,3 +7,7 @@ export function RouteUrlLogin() {
 export function RouteUrlDashboard() {
   return 'dashboard';
 }
+
+export function RouteUrlNotFound() {
+  return 'not-found';
+}

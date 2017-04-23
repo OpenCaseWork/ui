@@ -1,34 +1,60 @@
 <md-toolbar class="card-1">
-  <div class="flex-toolbar" fxLayout="row">
+  <div class="flex-toolbar" fxLayout="row" fxFlexAlign="center">
     <button md-button [mdMenuTriggerFor]="appMenuConstituents"     
-      fxShow.gt-sm="true" fxShow.lt-sm="false"
+      fxShow.gt-sm fxHide.lt-sm
       (mouseenter)="openMenu()"
       (mouseleave)="closeMenu()"
       #constituentMenuButton="mdMenuTrigger"><md-icon class="menu-icon">people</md-icon>Constituents</button>
-    <button md-icon-button fxShow.gt-sm="false" [mdMenuTriggerFor]="appMenuConstituents" class="menu-icon"><md-icon>people</md-icon></button>
     <md-menu #appMenuConstituents="mdMenu" [overlapTrigger]="false">
       <button md-menu-item (click)="searchConstituent()"><md-icon>search</md-icon>Search</button>
       <button md-menu-item (click)="newConstituent()"><md-icon>add</md-icon>New</button>
     </md-menu>
 
-    <button md-button [mdMenuTriggerFor]="appMenuHOW"><md-icon class="menu-icon">home</md-icon>HOW</button>
+    <!--HOW menu-->
+    <button md-button [mdMenuTriggerFor]="appMenuHOW"
+      fxShow.gt-sm fxHide.lt-sm>
+      <md-icon class="menu-icon">home</md-icon>HOW
+    </button>
     <md-menu #appMenuHOW="mdMenu" [overlapTrigger]="false">
       <button md-menu-item (click)="howBilling()"><md-icon>attach_money</md-icon>Input Billing</button>
       <button md-menu-item (click)="howReports()"><md-icon>list</md-icon>Reports</button>
     </md-menu>
 
-    <button md-button [mdMenuTriggerFor]="appMenuHOW"><md-icon class="menu-icon">list</md-icon>Reports</button>
-    <md-menu #appMenuHOW="mdMenu" [overlapTrigger]="false">
+    <!-- Reports menu -->
+    <button md-button [mdMenuTriggerFor]="appMenuReports"
+      fxShow.gt-sm fxHide.lt-sm>
+      <md-icon class="menu-icon">list</md-icon>Reports
+    </button>
+    <md-menu #appMenuReports="mdMenu" [overlapTrigger]="false">
       <button md-menu-item (click)="howBilling()"><md-icon>attach_money</md-icon>Input Billing</button>
       <button md-menu-item (click)="howReports()"><md-icon>list</md-icon>Reports</button>
     </md-menu>
 
-
-    <button md-button [mdMenuTriggerFor]="appMenuSocial"><md-icon class="menu-icon">business</md-icon>Social Services</button>
+    <!-- Social Services menu -->
+    <button md-button fxShow.gt-sm fxHide.lt-sm [mdMenuTriggerFor]="appMenuSocial"><md-icon class="menu-icon">business</md-icon>Social Services</button>    
     <md-menu #appMenuSocial="mdMenu" [overlapTrigger]="false">
       <button md-menu-item (click)="dailyTimeEntry()"><md-icon>event</md-icon>Daily Time Entry</button>
       <button md-menu-item (click)="newNAPISIntake()"><md-icon>add</md-icon>New NAPIS Intake</button>
       <button md-menu-item (click)="newNAPISIntake()"><md-icon>add</md-icon>Social Services</button>
     </md-menu>  
+
+    <button md-button fxShow.gt-sm fxHide.lt-sm (click)="admininstration()"><md-icon class="menu-icon">settings</md-icon>Admin</button>   
+  </div>
+  <div  class="stretch">
+      <div fxFlex="20">
+        <button md-icon-button fxHide.gt-sm [mdMenuTriggerFor]="appMenuConstituents" class="menu-icon"><md-icon>people</md-icon></button>
+      </div>
+      <div fxFlex="20">
+        <button md-icon-button fxHide.gt-sm [mdMenuTriggerFor]="appMenuHOW" class="menu-icon"><md-icon>home</md-icon></button>
+      </div>
+      <div fxFlex="20">
+        <button fxFlex md-icon-button fxHide.gt-sm [mdMenuTriggerFor]="appMenuReports" class="menu-icon"><md-icon>list</md-icon></button>
+      </div>
+      <div fxFlex="20">
+        <button fxFlex md-icon-button fxHide.gt-sm [mdMenuTriggerFor]="appMenuSocial" class="menu-icon"><md-icon>business</md-icon></button>
+      </div>
+      <div fxFlex="20">
+        <button fxFlex md-icon-button fxHide.gt-sm (click)="admininstration()" class="menu-icon"><md-icon>settings</md-icon></button>   
+      </div>
   </div>
 </md-toolbar>

@@ -5,7 +5,12 @@ import { HomeComponent } from './home/home.component';
 import { ConstituentComponent } from '../constituent/constituent.component';
 import { AuthGuardService } from '../core/auth/auth-guard.service';
 import { RouteUrlDashboard } from '../app-routing.urls';
-import { RouteUrlHome, RouteUrlConstituent } from './dashboard-routing.urls';
+import { AdminComponent } from '../admin/admin.component';
+import { NotFoundComponent } from '../shared/not-found.component';
+import { RouteUrlHome,
+         RouteUrlConstituent,
+         RouteUrlAdmin,
+         RouteUrlDashboardNotFound } from './dashboard-routing.urls';
 
 const dashboardRoutes: Routes = [
   {
@@ -14,6 +19,9 @@ const dashboardRoutes: Routes = [
       { path: '', redirectTo: RouteUrlHome(), pathMatch: 'full' },
       { path: RouteUrlHome(), component: HomeComponent },
       { path: RouteUrlConstituent(), component: ConstituentComponent },
+      { path: RouteUrlAdmin(), component: AdminComponent },
+      { path: RouteUrlDashboardNotFound(), component: NotFoundComponent },
+      { path: '**', redirectTo: RouteUrlDashboardNotFound() }
     ]
   }
 ];
