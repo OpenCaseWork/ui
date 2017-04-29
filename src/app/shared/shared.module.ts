@@ -14,6 +14,8 @@ import { DataTableHeader } from './material/data-table-demo/data-table-header';
 import { MdDataTableModule } from './material/data-table/index';
 import { PaginationControl } from './material/data-table-demo/pagination-control';
 import { PeopleDatabase } from './material/data-table-demo/people-database';
+import { BaseDataService } from './data-table/base-data.service';
+import { SearchTableComponent } from './constituent-search/search-table.component';
 
 @NgModule({
   imports: [
@@ -30,6 +32,7 @@ import { PeopleDatabase } from './material/data-table-demo/people-database';
     DataTableDemo,
     DataTableHeader,
     PaginationControl,
+    SearchTableComponent,
   ],
   exports: [
     ConstituentSearchComponent,
@@ -40,6 +43,7 @@ import { PeopleDatabase } from './material/data-table-demo/people-database';
     ConstituentSearchService,
     MessageBoxService,
     PeopleDatabase,
+    BaseDataService,
   ],
   entryComponents: [
     ConstituentSearchComponent,

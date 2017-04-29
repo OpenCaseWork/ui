@@ -130,7 +130,7 @@ export class MdHeaderCellDef {
 
 @Directive({selector: '[mdCellOutlet]'})
 export class MdCellOutlet {
-  cells: MdCellDef[];
+  cells: MdCellDef[] = [];
   context: any;
 
   static mostRecentCellOutlet: MdCellOutlet = null;

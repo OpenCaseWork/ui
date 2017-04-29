@@ -3,6 +3,10 @@
   flex: 1 1 auto;
 }
 
+.mat-dialog-container{
+    max-width:90vw !important;
+}
+
 .md-sidenav-container {
    position: fixed !important;
    height: 100%;
