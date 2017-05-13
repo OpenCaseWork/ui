@@ -83,10 +83,12 @@ export class MdRowDef {
   template: '<ng-container mdCellOutlet></ng-container>',
   host: {
     'class': 'mat-row',
-    'role': 'row',
+    'role': 'row'
   },
 })
-export class MdRow { }
+export class MdRow { 
+  id = 'mdrowid';
+}
 
 @Directive({
   selector: 'md-cell',
@@ -277,10 +279,12 @@ export class MdTable {
 
     // Create view for the header and set the header cells outlet
     let headerRow = this.getHeaderRowDef();
+    console.log('header row:' + headerRow);
     let headerCells = this.getHeaderCellTemplatesForRow(headerRow);
     const context = {headerCells};
-    headerRowView.createEmbeddedView(headerRow.template, context);
+    let rows = headerRowView.createEmbeddedView(headerRow.template, context);
     this.setLatestHeadersCellsOutlet(headerCells);
+    rows.detectChanges();
   }
 
   addRow(data: any, currentIndex: number) {

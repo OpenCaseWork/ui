@@ -5,7 +5,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { CustomMaterialModule } from './custom-material.module';
 
 import { ConstituentSearchComponent } from './constituent-search/constituent-search.component';
-import { ConstituentSearchService } from './constituent-search/constituent-search.service';
+import { ConstituentSearchDialogService } from './constituent-search/constituent-search-dialog.service';
 import { MessageBoxComponent } from './message-box/message-box.component';
 import { MessageBoxService } from './message-box/message-box.service';
 import { NotFoundComponent } from './not-found.component';
@@ -16,6 +16,9 @@ import { PaginationControl } from './material/data-table-demo/pagination-control
 import { PeopleDatabase } from './material/data-table-demo/people-database';
 import { BaseDataService } from './data-table/base-data.service';
 import { SearchTableComponent } from './constituent-search/search-table.component';
+import { ConstituentSearchService } from './constituent-search/constituent-search.service';
+import { HttpService } from '../core/http/http.service';
+import { HttpHeaderService } from '../core/http/http-header.service';
 
 @NgModule({
   imports: [
@@ -32,7 +35,7 @@ import { SearchTableComponent } from './constituent-search/search-table.componen
     DataTableDemo,
     DataTableHeader,
     PaginationControl,
-    SearchTableComponent,
+    SearchTableComponent
   ],
   exports: [
     ConstituentSearchComponent,
@@ -40,10 +43,13 @@ import { SearchTableComponent } from './constituent-search/search-table.componen
     NotFoundComponent
   ],
   providers: [
-    ConstituentSearchService,
+    ConstituentSearchDialogService,
     MessageBoxService,
     PeopleDatabase,
     BaseDataService,
+    ConstituentSearchService,
+    HttpService,
+    HttpHeaderService
   ],
   entryComponents: [
     ConstituentSearchComponent,

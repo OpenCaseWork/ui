@@ -1,22 +1,30 @@
-import { Observable } from 'rxjs/Rx';
-import { ConstituentSearchComponent } from './constituent-search.component';
-import { MdDialogRef, MdDialog, MdDialogConfig } from '@angular/material';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { LogService } from '../../core/logging/log.service';
+import { HttpService } from '../../core/http/http.service';
+import { ConstituentSearchResponse } from './constituent-search.models';
+import { ConstituentSearchRequest } from './constituent-search.models';
 
 @Injectable()
 export class ConstituentSearchService {
 
-  constructor(private dialog: MdDialog) { }
+  constructor(
+    private HttpService: HttpService,
+    private logService: LogService) {
+    console.log('ConstituentSearchService cstr');
+  }
 
-  // note: can pass in arguments here, like title: string
-  public search(): Observable<boolean> {
+  searchConstituents(request: ConstituentSearchRequest): Observable<ConstituentSearchResponse> {
+    let returnData: ConstituentSearchResponse;
+    this.logService.log('ConstituentSearchService.searchConstituents');
 
-    let dialogRef: MdDialogRef<ConstituentSearchComponent>;
-    dialogRef = this.dialog.open(ConstituentSearchComponent);
-
-    // if you needed to set variable on the component
-    // dialogRef.componentInstance.title = title;
-
-    return dialogRef.afterClosed();
+    return Observable.create((observer) => {
+    this.HttpService.post('constituents/', JSON.stringify(request))
+      .subscribe(
+        response => { observer.next(response.json()); },
+        error => { this.logService.log(error); },
+        () => { observer.complete(); console.log('ConstituentSearchService.searchConstituents onComplete'); }
+      );
+    });
   }
 }

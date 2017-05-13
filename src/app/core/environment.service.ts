@@ -10,6 +10,7 @@ export class EnvironmentService {
   hmr: boolean;
   apiBaseUrl: string;
   idServer: string;
+  apiUrl: string;
 
   constructor() {
     this.isProduction = environment.production;
@@ -18,6 +19,7 @@ export class EnvironmentService {
     this.hmr = environment.hmr;
     this.apiBaseUrl = environment.apiBaseUrl;
     this.idServer = environment.idServer;
+    this.apiUrl = this.apiBaseUrl + 'api/';
   }
 
 }

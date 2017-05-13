@@ -4,7 +4,7 @@ import { Component,
          AfterViewInit }  from '@angular/core';
 import { Router, ActivatedRoute }             from '@angular/router';
 import { RouteUrlConstituent, RouteUrlAdmin } from '../dashboard-routing.urls';
-import { ConstituentSearchService } from '../../shared/constituent-search/constituent-search.service';
+import { ConstituentSearchDialogService } from '../../shared/constituent-search/constituent-search-dialog.service';
 import { MdMenuTrigger, MdMenu } from '@angular/material';
 
 @Component({
@@ -24,7 +24,7 @@ export class DashboardMenuComponent implements OnInit, AfterViewInit {
 
   constructor( private router: Router,
                private route: ActivatedRoute,
-               private searchService: ConstituentSearchService) { }
+               private searchService: ConstituentSearchDialogService) { }
 
   ngOnInit() {
     console.log('hello `dashboard-menu` component');
