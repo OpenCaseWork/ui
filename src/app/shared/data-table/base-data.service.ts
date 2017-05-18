@@ -11,13 +11,16 @@ export class BaseDataService<T> {
   constructor() {
   }
 
-  fillData(createRecord: Function) {
+  // Was used to autopopulate
+  /*fillData(createRecord: Function) {
     for (let i = 0; i < 100; i++) {
       this.addRecord(createRecord());
     }
-  }
+  }*/
 
+  /** clear the base array list, and then populate with records passed in */
   populateData(records: T[]) {
+    this.clearData();
     for (let i = 0; i < records.length; i++) {
       this.addRecord(records[i]);
     }

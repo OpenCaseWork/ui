@@ -19,6 +19,7 @@ const dashboardRoutes: Routes = [
       { path: '', redirectTo: RouteUrlHome(), pathMatch: 'full' },
       { path: RouteUrlHome(), component: HomeComponent },
       { path: RouteUrlConstituent(), component: ConstituentComponent },
+      { path: RouteUrlConstituent() + '/:id', component: ConstituentComponent },
       { path: RouteUrlAdmin(), component: AdminComponent },
       { path: RouteUrlDashboardNotFound(), component: NotFoundComponent },
       { path: '**', redirectTo: RouteUrlDashboardNotFound() }

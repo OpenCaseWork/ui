@@ -29,8 +29,8 @@ export class HttpService {
   }
 
   public get(url: string, options?: RequestOptionsArgs): Observable<Response> {
-    //return this.request(RequestMethod.Get, this.buildUrl(url), null, options);
-    return this._http.get(this.buildUrl(url));
+    return this.request(RequestMethod.Get, this.buildUrl(url), null, options);
+    // return this._http.get(this.buildUrl(url));
   }
 
   public post(url: string, body: string, options?: RequestOptionsArgs): Observable<Response> {

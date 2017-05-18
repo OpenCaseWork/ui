@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-constituent',
@@ -6,11 +7,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./constituent.component.css']
 })
 export class ConstituentComponent implements OnInit {
-
-  constructor() { }
+  private id: number;
+  public constructor(private route: ActivatedRoute) {
+    this.route.queryParams
+      // TODO: look up constituent if id is present
+      // .switchMap((params: Params) => this.service.getHero(+params['id']))
+      // .subscribe((hero: Hero) => this.hero = hero);
+      .subscribe(params => {
+      this.id = params['id'];
+      console.log('id:' + this.id);
+    });
+  }
 
   ngOnInit() {
-    console.log('loading constituent');
+    if (this.id > 0) {
+      // Load constituent for display
+    }
   }
 
 }

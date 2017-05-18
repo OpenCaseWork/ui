@@ -46,7 +46,7 @@ export class ConstituentSearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    //this.logService.log('ViewAccountsComponent.ngOnInit user', this.user);
+    // this.logService.log('ConstituentSearchComponent.ngOnInit');
   }
 
   search() {
@@ -70,8 +70,10 @@ export class ConstituentSearchComponent implements OnInit, OnDestroy {
         searchRecord = this.tableComponent.selection.selected[0];
       }
     }
+    console.log('selected');
     if (searchRecord) {
-      this.dialogRef.close();
+      console.log('close with searchrecord');
+      this.dialogRef.close(searchRecord);
     }
   }
 

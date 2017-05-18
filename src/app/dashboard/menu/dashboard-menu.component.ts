@@ -5,6 +5,7 @@ import { Component,
 import { Router, ActivatedRoute }             from '@angular/router';
 import { RouteUrlConstituent, RouteUrlAdmin } from '../dashboard-routing.urls';
 import { ConstituentSearchDialogService } from '../../shared/constituent-search/constituent-search-dialog.service';
+import { ConstituentSearchRecord } from '../../shared/constituent-search/constituent-search.models';
 import { MdMenuTrigger, MdMenu } from '@angular/material';
 
 @Component({
@@ -16,9 +17,8 @@ export class DashboardMenuComponent implements OnInit, AfterViewInit {
   @ViewChild('constituentMenuButton') constituentMenuTrigger: MdMenuTrigger;
   @ViewChild('appMenuConstituents') constituentMenu: MdMenu;
   open = false;
-  title = 'app works!';
   invert = false;
-  result: any;
+  searchResult: ConstituentSearchRecord;
   selected = '';
   trigger: MdMenuTrigger;
 
@@ -34,7 +34,17 @@ export class DashboardMenuComponent implements OnInit, AfterViewInit {
   }
 
   searchConstituent() {
-    this.searchService.search().subscribe(res => this.result = res);
+    this.searchService.search().subscribe(
+      res => { this.searchResult = res; },
+      error => { console.log('error:' + error); },
+      () => {
+        console.log('search returned');
+        if (this.searchResult) {
+          // navigate to constituent form, passing constituent id
+           this.router.navigate([RouteUrlConstituent(), this.searchResult.id ], { relativeTo: this.route });
+        }
+      }
+    );
   }
 
   openMenu() {
