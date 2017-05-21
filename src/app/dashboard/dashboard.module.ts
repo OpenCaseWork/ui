@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
@@ -13,17 +13,19 @@ import { DashboardMenuComponent } from './menu/dashboard-menu.component';
 import { AccountsService } from './shared/accounts.service';
 import { NotFoundComponent } from '../shared/not-found.component';
 import { ConstituentModule } from '../constituent/constituent.module';
+import { ConstituentService } from '../constituent/constituent.service';
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
     DashboardRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
     CustomMaterialModule,
     SharedModule,
     FlexLayoutModule,
     AdminModule,
-    ConstituentModule
+    ConstituentModule,
   ],
   declarations: [
     DashboardComponent,
@@ -31,7 +33,8 @@ import { ConstituentModule } from '../constituent/constituent.module';
     DashboardMenuComponent
   ],
   providers: [
-    AccountsService
+    AccountsService,
+    ConstituentService
   ]
 })
 export class DashboardModule { }

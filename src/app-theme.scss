@@ -34,3 +34,7 @@ $theme: mat-light-theme($primary, $accent, $warn);
 .demo-sidenav-content {
   padding: 15px;
 }
+
+:host /deep/ .mat-select-trigger {
+    font-size: inherit;
+}

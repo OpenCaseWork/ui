@@ -1,56 +1,52 @@
-
-  <md-card>
-    <form class="example-form">
-      <div fxLayout="column" fxLayoutWrap >
-        <div fxLayoutGap="50px">
-          <md-input-container class="">
-            <input mdInput placeholder="Last name" value="{{constituent?.lastName}}">
-          </md-input-container>
-          <md-input-container class="">
-            <input mdInput placeholder="First name" value="{{constituent?.firstName}}">
-          </md-input-container>
-          <md-input-container class="">
-            <input mdInput placeholder="Middle name" value="{{constituent?.middleName}}">
-          </md-input-container>
-          <md-input-container class="">
-            <input mdInput placeholder="Nickname" value="{{constituent?.nickName}}">
-          </md-input-container>
-        </div> 
+<md-card>
+  <form class="example-form">
+    <div class="ocw-mt-25neg ocw-bc-lg ocw-ml-24neg ocw-mb-15 ocw-pl-10 ocw-fw-500 ocw-mr-25neg ocw-pt-10 ocw-pb-10">Constituent Information</div>
+    <div fxLayout="column" fxLayoutWrap>
+      <div fxLayoutGap="50px">
+        <md-input-container class="">
+          <input mdInput placeholder="Last Name" value="{{constituent?.lastName}}">
+        </md-input-container>
+        <md-input-container class="">
+          <input mdInput placeholder="First Name" value="{{constituent?.firstName}}">
+        </md-input-container>
+        <md-input-container class="">
+          <input mdInput placeholder="Middle Name" value="{{constituent?.middleName}}">
+        </md-input-container>
+        <md-input-container class="">
+          <input mdInput placeholder="Nickname" value="{{constituent?.nickName}}">
+        </md-input-container>
+        <md-input-container class="">
+          <input mdInput placeholder="Maiden Name" value="{{constituent?.maidenName}}">
+        </md-input-container>
       </div>
-      <!--div class="container" fxLayoutWrap fxLayoutGap="50px">
-        <md-input-container class="">
-          <input mdInput placeholder="Title" value="{{constituent?.middleName}}">
-        </md-input-container>
-        <md-input-container class="">
-          <input mdInput placeholder="Suffix" value="{{constituent?.nickName}}">
-        </md-input-container>
-      </div-->      
-    </form>
-  </md-card>
-  <div class="spacer"></div>
-  <md-card>
-    <form class="example-form">
-      <div class="container" fxLayoutWrap fxLayoutGap="50px">
-        <md-input-container class="">
-          <input mdInput placeholder="Title" value="{{constituent?.middleName}}">
-        </md-input-container>
-        <md-input-container class="">
-          <input mdInput placeholder="Suffix" value="{{constituent?.nickName}}">
-        </md-input-container>
-      </div>      
-    </form>
-  </md-card>
-  <div class="spacer">Address</div>
-  <md-card>
-    <form class="example-form">
-      <div class="container" fxLayoutWrap fxLayoutGap="50px">
-        <md-input-container class="">
-          <input mdInput placeholder="Address 1" value="{{constituent?.address1}}">
-        </md-input-container>
-        <md-input-container class="">
-          <input mdInput placeholder="Address 2" value="{{constituent?.address2}}">
-        </md-input-container>
-      </div>      
-    </form>
-  </md-card>
-
+    </div>
+    <div class="ocw-mt-10"></div>
+    <div class="container small-font" fxLayoutWrap fxLayoutGap="50px">
+      <div *ngIf="constituent" fxLayoutGap="85px">
+        <md-select class="small-font" placeholder="Title" [(ngModel)]="constituent.titleId" name="titleId">
+          <md-option class="small-font ocw-mw-159" *ngFor="let title of domains?.titles" [value]="title.titleId">{{ title.titleText }}</md-option>
+        </md-select>
+        <md-select class="small-font" placeholder="Suffix" [(ngModel)]="constituent.suffixId" name="suffixId">
+          <md-option *ngFor="let suffix of domains?.suffixes" [value]="suffix.suffixId">{{ suffix.suffixText }}</md-option>
+        </md-select>
+      </div>
+    </div>
+    <div class="spacer ocw-bc-lg ocw-ml-24neg ocw-pl-10 ocw-fw-500 ocw-mr-25neg ocw-pt-10 ocw-pb-10">Address</div>
+    <div class="container" *ngIf="constituent" fxLayoutWrap fxLayoutGap="50px">
+      <md-input-container class="">
+        <input mdInput placeholder="Address 1" value="{{constituent?.address1}}">
+      </md-input-container>
+      <md-input-container class="">
+        <input mdInput placeholder="Address 2" value="{{constituent?.address2}}">
+      </md-input-container>
+      <md-input-container>
+        <input type="text" placeholder="City" mdInput [formControl]="myControl" [mdAutocomplete]="auto">
+      </md-input-container>
+      <md-autocomplete #auto="mdAutocomplete" [displayWith]="displayFn">
+        <md-option *ngFor="let option of filteredOptions | async" [value]="option">
+          {{ option.cityName }}
+        </md-option>
+      </md-autocomplete>
+    </div>
+  </form>
+</md-card>

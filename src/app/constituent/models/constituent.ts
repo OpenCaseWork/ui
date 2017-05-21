@@ -1,11 +1,10 @@
 export class Constituent {
   public constituentId: number;
-  public titleID: number;
   public firstName: string;
   public lastName: string;
   public middleName: string;
-  public suffixID: number;
   public nickName: string;
+  public maidenName: string;
   public address1: string;
   public address2: string;
   public cityID: number;
@@ -13,12 +12,13 @@ export class Constituent {
   public stateCd: string;
   public postalCodeID: number;
   public postalCode: string;
+  public titleID: number;
+  public suffixID: number;
   public federalID: string;
   public birthDate: Date;
   public genderId: number;
   public minorityId: number;
-  public incomeLevelId: number;
-  public maidenName: string;
+  public incomeLevelId: number;  
   public demographics: ConstituentDemographics;
 }
 

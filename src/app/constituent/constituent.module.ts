@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomMaterialModule } from '../shared/custom-material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -14,6 +14,7 @@ import { ConstituentService } from './constituent.service';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     CustomMaterialModule,
     FlexLayoutModule
   ],
