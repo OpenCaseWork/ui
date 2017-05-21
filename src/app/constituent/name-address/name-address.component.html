@@ -2,21 +2,21 @@
   <form class="example-form">
     <div class="ocw-mt-25neg ocw-bc-lg ocw-ml-24neg ocw-mb-15 ocw-pl-10 ocw-fw-500 ocw-mr-25neg ocw-pt-10 ocw-pb-10">Constituent Information</div>
     <div fxLayout="column" fxLayoutWrap>
-      <div fxLayoutGap="50px">
+      <div fxLayoutGap="50px" *ngIf="constituent">
         <md-input-container class="">
-          <input mdInput placeholder="Last Name" value="{{constituent?.lastName}}">
+          <input mdInput placeholder="Last Name" [(ngModel)]="constituent.lastName" name="lastName">
         </md-input-container>
         <md-input-container class="">
-          <input mdInput placeholder="First Name" value="{{constituent?.firstName}}">
+          <input mdInput placeholder="First Name" [(ngModel)]="constituent.firstName" name="firstName">
         </md-input-container>
         <md-input-container class="">
-          <input mdInput placeholder="Middle Name" value="{{constituent?.middleName}}">
+          <input mdInput placeholder="Middle Name" [(ngModel)]="constituent.middleName" name="middleName">
         </md-input-container>
         <md-input-container class="">
-          <input mdInput placeholder="Nickname" value="{{constituent?.nickName}}">
+          <input mdInput placeholder="Nickname" [(ngModel)]="constituent.nickName" name="nickName">
         </md-input-container>
         <md-input-container class="">
-          <input mdInput placeholder="Maiden Name" value="{{constituent?.maidenName}}">
+          <input mdInput placeholder="Maiden Name" [(ngModel)]="constituent.maidenName" name="maidenName">
         </md-input-container>
       </div>
     </div>
@@ -34,13 +34,13 @@
     <div class="spacer ocw-bc-lg ocw-ml-24neg ocw-pl-10 ocw-fw-500 ocw-mr-25neg ocw-pt-10 ocw-pb-10">Address</div>
     <div class="container" *ngIf="constituent" fxLayoutWrap fxLayoutGap="50px">
       <md-input-container class="">
-        <input mdInput placeholder="Address 1" value="{{constituent?.address1}}">
+        <input mdInput placeholder="Address 1" [(ngModel)]="constituent.address1" name="address1">
       </md-input-container>
       <md-input-container class="">
-        <input mdInput placeholder="Address 2" value="{{constituent?.address2}}">
+        <input mdInput placeholder="Address 2" [(ngModel)]="constituent.address2" name="address2">
       </md-input-container>
       <md-input-container>
-        <input type="text" placeholder="City" mdInput [formControl]="myControl" [mdAutocomplete]="auto">
+        <input type="text" placeholder="City" mdInput [formControl]="myControl" [mdAutocomplete]="auto" [(ngModel)]="constituent.cityName">
       </md-input-container>
       <md-autocomplete #auto="mdAutocomplete" [displayWith]="displayFn">
         <md-option *ngFor="let option of filteredOptions | async" [value]="option">

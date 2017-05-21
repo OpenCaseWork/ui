@@ -36,18 +36,18 @@ export class ConstituentComponent implements OnInit {
   }
 
   loadDomains() {
-      try {
-        this.service.domain$().subscribe(
-          response => {
-            this.domains = response;
-            this.logService.log('ConstituentComponent loadDomains: ' + JSON.stringify(this.domains));
-          },
-          err => {
-            this.logService.log(err);
-          });
-      } catch (error) {
-        this.logService.log(error);
-      }
+    try {
+      this.service.domain$().subscribe(
+        response => {
+          this.domains = response;
+          this.logService.log('ConstituentComponent loadDomains: ' + JSON.stringify(this.domains));
+        },
+        err => {
+          this.logService.log(err);
+        });
+    } catch (error) {
+      this.logService.log(error);
+    }
   }
 
   loadConstituent() {
@@ -64,6 +64,19 @@ export class ConstituentComponent implements OnInit {
       }
     } else {
       this.constituent = new Constituent();
+    }
+  }
+
+  saveConstituent() {
+    try {
+      this.service.saveConstituent$(this.constituent)
+        .subscribe(
+        response => { this.constituent = response; console.log('returned id: ' + this.constituent.constituentId); },
+        err => {
+          this.logService.log(err);
+        });
+    } catch (error) {
+      this.logService.log(error);
     }
   }
 

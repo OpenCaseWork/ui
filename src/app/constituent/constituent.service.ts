@@ -9,11 +9,30 @@ import { ConstituentDomains } from './models/constituent-domains';
 @Injectable()
 export class ConstituentService {
   public domains: ConstituentDomains;
+  //public constituent$: Observable<Constituent>;
 
   constructor(
     private HttpService: HttpService,
     private logService: LogService
     ) {
+  }
+
+ saveConstituent$(constituent: Constituent): Observable<Constituent> {
+    let body = JSON.stringify(constituent);
+    this.logService.log('ConstituentService.saveConstituent:' + body);
+
+    return Observable.create((observer) => {
+      this.HttpService.post('constituents/', body)
+        .subscribe(
+        response => {
+          observer.next(response.json());
+        },
+        error => {
+          this.logService.log(error);
+        },
+        () => { observer.complete(); console.log('ConstituentService.saveConstituent onComplete'); }
+      );
+    });
   }
 
   constituent$(Id: number): Observable<Constituent> {
