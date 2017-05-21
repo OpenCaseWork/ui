@@ -6,6 +6,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { ConstituentComponent } from './constituent.component';
 import { NameAddressComponent } from './name-address/name-address.component';
+import { HttpService } from '../core/http/http.service';
+import { LogService } from '../core/logging/log.service';
+import { ConstituentService } from './constituent.service';
 
 @NgModule({
   imports: [
@@ -23,6 +26,9 @@ import { NameAddressComponent } from './name-address/name-address.component';
     NameAddressComponent,
   ],
   providers: [
+    HttpService,
+    LogService,
+    ConstituentService
   ],
   entryComponents: [
   ]

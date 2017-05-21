@@ -40,21 +40,21 @@
 
     <button md-button fxShow.gt-sm fxHide.lt-sm (click)="admininstration()"><md-icon class="menu-icon">settings</md-icon>Admin</button>   
   </div>
-  <div  class="stretch">
+  <div class="stretch">
       <div fxFlex="20">
-        <button md-icon-button fxHide.gt-sm [mdMenuTriggerFor]="appMenuConstituents" class="menu-icon"><md-icon>people</md-icon></button>
+        <button md-icon-button fxHide fxShow.xs="true" [mdMenuTriggerFor]="appMenuConstituents" class="menu-icon"><md-icon>people</md-icon></button>
       </div>
       <div fxFlex="20">
-        <button md-icon-button fxHide.gt-sm [mdMenuTriggerFor]="appMenuHOW" class="menu-icon"><md-icon>home</md-icon></button>
+        <button md-icon-button  fxHide fxShow.xs="true" [mdMenuTriggerFor]="appMenuHOW" class="menu-icon"><md-icon>home</md-icon></button>
       </div>
       <div fxFlex="20">
-        <button fxFlex md-icon-button fxHide.gt-sm [mdMenuTriggerFor]="appMenuReports" class="menu-icon"><md-icon>list</md-icon></button>
+        <button fxFlex md-icon-button   fxHide fxShow.xs="true" [mdMenuTriggerFor]="appMenuReports" class="menu-icon"><md-icon>list</md-icon></button>
       </div>
       <div fxFlex="20">
-        <button fxFlex md-icon-button fxHide.gt-sm [mdMenuTriggerFor]="appMenuSocial" class="menu-icon"><md-icon>business</md-icon></button>
+        <button fxFlex md-icon-button   fxHide fxShow.xs="true" [mdMenuTriggerFor]="appMenuSocial" class="menu-icon"><md-icon>business</md-icon></button>
       </div>
       <div fxFlex="20">
-        <button fxFlex md-icon-button fxHide.gt-sm (click)="admininstration()" class="menu-icon"><md-icon>settings</md-icon></button>   
+        <button fxFlex md-icon-button   fxHide fxShow.xs="true" (click)="admininstration()" class="menu-icon"><md-icon>settings</md-icon></button>   
       </div>
   </div>
 </md-toolbar>

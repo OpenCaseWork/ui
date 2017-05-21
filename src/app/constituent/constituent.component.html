@@ -1,14 +1,14 @@
 <md-tab-group>
   <md-tab label="Name/Address">
     <md-card>
-      <app-name-address></app-name-address>
+      <app-name-address [constituent]="constituent"></app-name-address>
     </md-card>
   </md-tab>
   <md-tab label="Demographics">
-    <md-card>
+    <!--md-card>
       <h1>Some tab content</h1>
       <p>...</p>
-    </md-card>
+    </md-card-->
   </md-tab>
   <md-tab label="Status">
     <md-card>
@@ -35,3 +35,6 @@
     </md-card>
   </md-tab>
 </md-tab-group>
+<md-card>
+  <button type="button" color="primary" md-raised-button (click)="select()">Save</button>
+</md-card>
