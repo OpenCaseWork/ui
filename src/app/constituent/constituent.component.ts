@@ -29,24 +29,23 @@ export class ConstituentComponent implements OnInit {
   }
 
   ngOnInit() {
+    //this.loadDomains();
     this.loadConstituent();
     this.domain$ = this.service.domain$();
-    console.log('domains loaded' + this.service.domains);
-    // this.loadDomains();
+    //this.service.domain$();
+    //console.log('domains loaded' + this.service.domains);
   }
 
   loadDomains() {
     try {
-      this.service.domain$().subscribe(
-        response => {
-          this.domains = response;
-          this.logService.log('ConstituentComponent loadDomains: ' + JSON.stringify(this.domains));
-        },
+      this.service.domain$()
+        .subscribe(
+        response => { this.domains = response; this.logService.log('ConstituentComponent loadDomains: ' + JSON.stringify(this.domains)); },
         err => {
           this.logService.log(err);
         });
     } catch (error) {
-      this.logService.log(error);
+      this.logService.log('load domains error' + error);
     }
   }
 

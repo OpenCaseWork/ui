@@ -55,6 +55,7 @@ export class ConstituentService {
   domain$(): Observable<ConstituentDomains> {
     this.logService.log('ConstituentService.getDomains');
     if (this.domains) {
+      this.logService.log('domains already loaded');
       return Observable.of(this.domains);
     }
     return Observable.create((observer) => {
