@@ -1,8 +1,8 @@
-import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
+﻿import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/material';
 import { BaseDataService } from '../data-table/base-data.service';
 import { GenericDataSource } from '../data-table/generic-data-source';
-import { ConstituentSearchRecord } from './constituent-search.models';
+import { ConstituentSearchRecord } from '../../models/constituents/search/constituents-search.models';
 
 @Component({
   moduleId: module.id,

@@ -1,5 +1,14 @@
 export class BaseResponse {
+  constructor() {
+
+  }
   public responseInfo: ResponseStatus;
+}
+
+export class ResponseError {
+  public errorCode: string;
+  public fieldName: string;
+  public message: string;
 }
 
 export class ResponseStatus {
@@ -9,8 +18,3 @@ export class ResponseStatus {
   public errors: ResponseError[];
 }
 
-export class ResponseError {
-  public errorCode: string;
-  public fieldName: string;
-  public message: string;
-}

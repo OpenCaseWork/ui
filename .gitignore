@@ -24,6 +24,21 @@
 !.vscode/launch.json
 !.vscode/extensions.json
 
+# Visual Studio User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio 2015 cache/options directory
+.vs/
+# Uncomment if you have tasks that create the project's static files in wwwroot
+#wwwroot/
+
+
+# User-specific files (MonoDevelop/Xamarin Studio)
+*.userprefs
+
 # misc
 /.sass-cache
 /connect.lock

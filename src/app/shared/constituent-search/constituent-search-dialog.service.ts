@@ -1,6 +1,6 @@
-import { Observable } from 'rxjs/Rx';
+﻿import { Observable } from 'rxjs/Rx';
 import { ConstituentSearchComponent } from './constituent-search.component';
-import { ConstituentSearchRecord } from './constituent-search.models';
+import { ConstituentSearchRecord } from '../../models/constituents/search/constituents-search.models';
 import { MdDialogRef, MdDialog, MdDialogConfig } from '@angular/material';
 import { Injectable } from '@angular/core';
 

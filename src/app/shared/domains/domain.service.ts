@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SelectItem } from './models/select-item';
+import { SelectItem } from '../../models/domains/domains.models';
 
 @Injectable()
 export class DomainService {

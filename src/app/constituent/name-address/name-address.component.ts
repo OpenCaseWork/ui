@@ -1,9 +1,8 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+﻿import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs/observable';
-import { Constituent } from '../models/constituent';
-import { ConstituentDomains, City, Suffix, Title } from '../models/constituent-domains';
-import { SelectItem } from '../../shared/domains/models/select-item';
+import { Constituent } from '../../models/constituents/constituents.models';
+import { ConstituentDomains, City, Suffix, Title } from '../../models/constituents/domains/constituents-domains.models';
 import { LogService } from '../../core/logging/log.service';
 
 @Component({
@@ -15,11 +14,11 @@ export class NameAddressComponent implements OnInit, OnChanges {
   @Input() constituent: Constituent;
   @Input() domains: ConstituentDomains;
 
-  filteredOptions: Observable<City[]>;
+  filteredCities: Observable<City[]>;
   filteredSuffixes: Observable<Suffix[]>;
   filteredTitles: Observable<Title[]>;
 
-  myControl = new FormControl();
+  cityControl = new FormControl();
   suffixControl = new FormControl();
   titleControl = new FormControl();
 
@@ -30,24 +29,14 @@ export class NameAddressComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     if (this.domains && this.domains.cities) {
-      this.filteredOptions = this.filteredItem$<City>(this.domains.cities, this.myControl, 'cityName');
+      this.filteredCities = this.filteredItem$<City>(this.domains.cities, this.cityControl, 'cityName');
       this.filteredTitles = this.filteredItem$<Title>(this.domains.titles, this.titleControl, 'titleText');
       this.filteredSuffixes = this.filteredItem$<Suffix>(this.domains.suffixes, this.suffixControl, 'suffixText');
       this.logService.log('domains loaded');
     } else {
       this.logService.log('empty domains!');
     }
-    // if (this.domains && this.domains.cities) {
-    //  this.filteredOptions = this.myControl.valueChanges
-    //    .startWith(null)
-    //    .map(city => city && typeof city === 'object' ? city.cityName : city)
-    //    .map(cityName => cityName ? this.filter(cityName) : this.domains.cities.slice());
-    // }
   }
-
-  // filter(name: string): City[] {
-  //  return this.domains.cities.filter(option => new RegExp(`^${name}`, 'gi').test(option.cityName));
-  // }
 
   filteredItem$<T>(list: T[], control: FormControl, propertyName: string ): Observable<T[]> {
     let filteredItems: Observable<T[]>;
@@ -63,10 +52,6 @@ export class NameAddressComponent implements OnInit, OnChanges {
   filterGeneric<T>(list: T[], value: string, propertyName: string): T[] {
     return list.filter(option => new RegExp(`^${value}`, 'gi').test(option[propertyName]));
   }
-
-  // displayGeneric<T>(item: T, propertyName: string) {
-  //  return item ? item[propertyName] : '';
-  // }
 
   displayCity(city: City): string {
     return city ? city.cityName : '';

@@ -53,10 +53,10 @@
         <input mdInput placeholder="Address 2" [(ngModel)]="constituent.address2" name="address2">
       </md-input-container>
       <md-input-container>
-        <input type="text" placeholder="City" mdInput [formControl]="myControl" [mdAutocomplete]="autoCity" [(ngModel)]="constituent.cityName">
+        <input type="text" placeholder="City" mdInput [formControl]="cityControl" [mdAutocomplete]="autoCity" [(ngModel)]="constituent.cityName">
       </md-input-container>
-      <md-autocomplete #autoCity="mdAutocomplete" [displayWith]="displayCity">
-        <md-option *ngFor="let option of filteredOptions | async" [value]="option">
+      <md-autocomplete #autoCity="mdAutocomplete" >
+        <md-option *ngFor="let option of filteredCities | async" [value]="option.cityName">
           {{ option.cityName }}
         </md-option>
       </md-autocomplete>

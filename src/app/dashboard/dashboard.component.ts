@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+﻿import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute }  from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { SessionService } from '../core/session/session.service';
 import { IdleService } from '../core/session/idle.service';
 import { DashboardMenuComponent } from './menu/dashboard-menu.component';
 import { ConstituentService } from '../constituent/constituent.service';
-import { ConstituentDomains } from '../constituent/models/constituent-domains';
+import { ConstituentDomains } from '../models/constituents/domains/constituents-domains.models';
 
 @Component({
   selector: 'app-dashboard',

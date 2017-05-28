@@ -1,10 +1,9 @@
-import { Injectable } from '@angular/core';
+﻿import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { LogService } from '../core/logging/log.service';
 import { HttpService } from '../core/http/http.service';
-import { Constituent,
-          ConstituentDemographics } from './models/constituent';
-import { ConstituentDomains } from './models/constituent-domains';
+import { Constituent } from '../models/constituents/constituents.models';
+import { ConstituentDomains } from '../models/constituents/domains/constituents-domains.models';
 
 @Injectable()
 export class ConstituentService {

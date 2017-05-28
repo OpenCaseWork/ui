@@ -5,8 +5,8 @@ import { Component,
 import { Router, ActivatedRoute }             from '@angular/router';
 import { RouteUrlConstituent, RouteUrlAdmin } from '../dashboard-routing.urls';
 import { ConstituentSearchDialogService } from '../../shared/constituent-search/constituent-search-dialog.service';
-import { ConstituentSearchRecord } from '../../shared/constituent-search/constituent-search.models';
 import { MdMenuTrigger, MdMenu } from '@angular/material';
+import { ConstituentSearchRecord } from '../../models/constituents/search/constituents-search.models';
 
 @Component({
   selector: 'app-dashboard-menu',

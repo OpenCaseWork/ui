@@ -1,10 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+﻿import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { ConstituentService } from './constituent.service';
 import { LogService } from '../core/logging/log.service';
-import { Constituent } from './models/constituent';
-import { ConstituentDomains } from './models/constituent-domains';
+import { Constituent } from '../models/constituents/constituents.models';
+import { ConstituentDomains } from '../models/constituents/domains/constituents-domains.models';
 
 @Component({
   selector: 'app-constituent',

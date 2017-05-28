@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+﻿import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { LogService } from '../../core/logging/log.service';
 import { HttpService } from '../../core/http/http.service';
-import { ConstituentSearchResponse } from './constituent-search.models';
-import { ConstituentSearchRequest } from './constituent-search.models';
+import { ConstituentSearchResponse,
+        ConstituentSearchRequest } from '../../models/constituents/search/constituents-search.models';
 
 @Injectable()
 export class ConstituentSearchService {

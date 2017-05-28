@@ -4,14 +4,13 @@ import { Component,
         OnDestroy,
         ViewChild } from '@angular/core';
 import { DataTableDemo } from '../material/data-table-demo/data-table-demo';
-import { ConstituentSearchRecord,
-        ConstituentSearchRequest,
-        ConstituentSearchResponse } from './constituent-search.models';
+
 import { BaseDataService } from '../data-table/base-data.service';
 import { ConstituentSearchService } from './constituent-search.service';
 import { SearchTableComponent } from './search-table.component';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
+import { ConstituentSearchRecord, ConstituentSearchRequest } from '../../models/constituents/search/constituents-search.models';
 
 function createRecord(): ConstituentSearchRecord {
    let record = new ConstituentSearchRecord();
