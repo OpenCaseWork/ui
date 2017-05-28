@@ -17,6 +17,7 @@
     <button md-button color="primary" (click)="search();">Search</button>
   </md-card-actions>
 </md-card>
+<md-spinner class="overlay" *ngIf="isSearching()" ></md-spinner>
 <app-constituent-search-table></app-constituent-search-table>
 <div><br></div>
 <div>

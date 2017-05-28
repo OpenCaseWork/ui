@@ -1,65 +1,59 @@
-import { MdDialogRef } from '@angular/material';
-import { Component,
-        OnInit,
-        OnDestroy,
-        ViewChild } from '@angular/core';
-import { DataTableDemo } from '../material/data-table-demo/data-table-demo';
+import { MdDialogRef, MdSnackBar, MdSnackBarConfig, MdSpinner } from '@angular/material';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/takeUntil';
+//import { DataTableDemo } from '../material/data-table-demo/data-table-demo';
 
 import { BaseDataService } from '../data-table/base-data.service';
 import { ConstituentSearchService } from './constituent-search.service';
 import { SearchTableComponent } from './search-table.component';
-import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/operator/takeUntil';
 import { ConstituentSearchRecord, ConstituentSearchRequest } from '../../models/constituents/search/constituents-search.models';
-
-function createRecord(): ConstituentSearchRecord {
-   let record = new ConstituentSearchRecord();
-   record.address = '89 Constituent Rd';
-   record.id = 1;
-   record.name = 'Joe';
-   record.phone = '888-111-1111';
-   record.city = 'Lake Zurich';
-   record.state = 'IL';
-   return record;
-}
+import { LogService } from '../../core/logging/log.service';
 
 @Component({
-    selector: 'app-constituent-search',
-    templateUrl: './constituent-search.component.html',
-    styleUrls: ['./constituent-search.component.css'],
+  selector: 'app-constituent-search',
+  templateUrl: './constituent-search.component.html',
+  styleUrls: ['./constituent-search.component.css'],
 })
 export class ConstituentSearchComponent implements OnInit, OnDestroy {
   @ViewChild(SearchTableComponent)
   private tableComponent: SearchTableComponent;
   public title: string; // 'Constituent Search';
   public message: string;
-  public lastname: string;
-  public firstname: string;
   public searchRequest: ConstituentSearchRequest;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   private records: ConstituentSearchRecord[];
+  private searching: boolean;
 
   constructor(public dialogRef: MdDialogRef<ConstituentSearchComponent>,
-              private database: BaseDataService<ConstituentSearchRecord>,
-              private service: ConstituentSearchService) {
+    private database: BaseDataService<ConstituentSearchRecord>,
+    private service: ConstituentSearchService,
+    public snackBar: MdSnackBar,
+    private logService: LogService) {
   }
 
   ngOnInit() {
     // this.logService.log('ConstituentSearchComponent.ngOnInit');
   }
 
+  isSearching(): boolean {
+    return this.searching;
+  }
+
   search() {
-    try {
-      this.service.searchConstituents(this.searchRequest)
-        .subscribe(
-          response => this.database.populateData(response.records),
-            err => {
-              // Log errors if any
-              console.log(err);
-            });
-    } catch (error) {
-      console.log(error);
-    }
+    this.searching = true;
+    this.service.searchConstituents(this.searchRequest)
+      .finally(() => {
+        this.searching = false;
+      })
+      .subscribe(
+        response => this.database.populateData(response.records),
+        err => this.showError());
+  }
+
+  showError() {
+    let config = new MdSnackBarConfig();
+    this.snackBar.open('Error searching for Constituent', 'OK', config);
   }
 
   select() {
@@ -71,7 +65,7 @@ export class ConstituentSearchComponent implements OnInit, OnDestroy {
     }
     console.log('selected');
     if (searchRecord) {
-      console.log('close with searchrecord');
+      this.logService.log('close with searchrecord');
       this.dialogRef.close(searchRecord);
     }
   }
@@ -82,8 +76,7 @@ export class ConstituentSearchComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // this.subscription.unsubscribe();
-    console.log('ViewAccountsComponent ngOnDestroy');
+    this.logService.log('ViewAccountsComponent ngOnDestroy');
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
   }

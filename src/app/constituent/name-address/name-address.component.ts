@@ -1,9 +1,12 @@
 ﻿import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs/observable';
 import { Constituent } from '../../models/constituents/constituents.models';
-import { ConstituentDomains, City, Suffix, Title } from '../../models/constituents/domains/constituents-domains.models';
+import { ConstituentDomains, City, Suffix,
+        Title, PostalCode, Township, State } from '../../models/constituents/domains/constituents-domains.models';
 import { LogService } from '../../core/logging/log.service';
+import { AutoCompleteService } from '../../shared/control-services/auto-complete.service';
+import { ValidatorService } from '../../shared/control-services/validator.service';
 
 @Component({
   selector: 'app-name-address',
@@ -14,54 +17,52 @@ export class NameAddressComponent implements OnInit, OnChanges {
   @Input() constituent: Constituent;
   @Input() domains: ConstituentDomains;
 
+  nameAddressForm = new FormGroup ({
+    lastName: new FormControl()
+  });
+
+  public contacts: Array<String>;
+
   filteredCities: Observable<City[]>;
   filteredSuffixes: Observable<Suffix[]>;
   filteredTitles: Observable<Title[]>;
+  filteredPostalCodes: Observable<PostalCode[]>;
+  filteredTownships: Observable<Township[]>;
+  filteredStates: Observable<State[]>;
 
   cityControl = new FormControl();
   suffixControl = new FormControl();
   titleControl = new FormControl();
+  postalControl = new FormControl();
+  townshipControl = new FormControl();
+  statesControl = new FormControl();
 
-  constructor(private logService: LogService) { }
+  public emailFormControl: FormControl;
+
+  constructor(private logService: LogService,
+              private autoCompleteService: AutoCompleteService,
+              private validatorService: ValidatorService) {
+    this.emailFormControl = this.validatorService.emailFormControl;
+  }
 
   ngOnInit() {
+    this.contacts = new Array<String>();
+    this.contacts.push('', '', '', '');
   }
 
   ngOnChanges() {
     if (this.domains && this.domains.cities) {
-      this.filteredCities = this.filteredItem$<City>(this.domains.cities, this.cityControl, 'cityName');
-      this.filteredTitles = this.filteredItem$<Title>(this.domains.titles, this.titleControl, 'titleText');
-      this.filteredSuffixes = this.filteredItem$<Suffix>(this.domains.suffixes, this.suffixControl, 'suffixText');
+      this.filteredCities = this.autoCompleteService.filteredItem$<City>(this.domains.cities, this.cityControl, 'cityName');
+      this.filteredTitles = this.autoCompleteService.filteredItem$<Title>(this.domains.titles, this.titleControl, 'titleText');
+      this.filteredSuffixes = this.autoCompleteService.filteredItem$<Suffix>(this.domains.suffixes, this.suffixControl, 'suffixText');
+      this.filteredPostalCodes = this.autoCompleteService.filteredItem$<PostalCode>(this.domains.postalCodes, this.postalControl, 'code');
+      this.filteredTownships =
+        this.autoCompleteService.filteredItem$<Township>(this.domains.townships, this.townshipControl, 'townshipName');
+        this.filteredStates = this.autoCompleteService.filteredItem$<State>(this.domains.states, this.statesControl, 'stateCd');
       this.logService.log('domains loaded');
     } else {
       this.logService.log('empty domains!');
     }
   }
 
-  filteredItem$<T>(list: T[], control: FormControl, propertyName: string ): Observable<T[]> {
-    let filteredItems: Observable<T[]>;
-     if (list) {
-       filteredItems = control.valueChanges
-        .startWith(null)
-        .map(item => item && typeof item === 'object' ? item[propertyName] : item)
-        .map(value => value ? this.filterGeneric<T>(list, value, propertyName) : list.slice());
-    }
-    return filteredItems;
-  }
-
-  filterGeneric<T>(list: T[], value: string, propertyName: string): T[] {
-    return list.filter(option => new RegExp(`^${value}`, 'gi').test(option[propertyName]));
-  }
-
-  displayCity(city: City): string {
-    return city ? city.cityName : '';
-  }
-
-  displaySuffix(suffix: Suffix): string {
-    return suffix ? suffix.suffixText : '';
-  }
-
-  displayTitle(title: Title): string {
-    return title ? title.titleText : '';
-  }
 }

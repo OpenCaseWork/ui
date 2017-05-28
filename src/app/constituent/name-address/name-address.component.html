@@ -1,5 +1,5 @@
 <md-card>
-  <form class="example-form">
+  <form class="example-form"> <!-- [formGroup]="nameAddressForm" novalidate> -->
     <div class="ocw-mt-25neg ocw-bc-lg ocw-ml-24neg ocw-mb-15 ocw-pl-10 ocw-fw-500 ocw-mr-25neg ocw-pt-10 ocw-pb-10">Constituent Information</div>
     <div fxLayout="column" fxLayoutWrap>
       <div fxLayoutGap="50px" *ngIf="constituent">
@@ -26,34 +26,54 @@
     <div class="ocw-mt-10"></div>
     <div fxLayout="column" fxLayoutWrap>
       <div fxLayoutGap="25px" *ngIf="constituent">
+
+      <!--Title-->
       <md-input-container>
         <input type="text" placeholder="Title" mdInput [formControl]="titleControl" [mdAutocomplete]="autoTitle">
       </md-input-container>
-      <md-autocomplete #autoTitle="mdAutocomplete" [displayWith]="displayTitle">
-        <md-option *ngFor="let option of filteredTitles | async" [value]="option">
+      <md-autocomplete #autoTitle="mdAutocomplete">
+        <md-option *ngFor="let option of filteredTitles | async" [value]="option.titleText">
           {{ option.titleText }}
         </md-option>
       </md-autocomplete>
+
+      <!--suffix-->
       <md-input-container>
-        <input type="text" placeholder="Suffix" mdInput [formControl]="suffixControl" [mdAutocomplete]="autoSuffix">
+        <input type="text" placeholder="Suffix" mdInput [formControl]="suffixControl" [mdAutocomplete]="autoSuffix" >
       </md-input-container>
-      <md-autocomplete #autoSuffix="mdAutocomplete" [displayWith]="displaySuffix">
-        <md-option *ngFor="let option of filteredSuffixes | async" [value]="option">
+      <md-autocomplete #autoSuffix="mdAutocomplete" >
+        <md-option *ngFor="let option of filteredSuffixes | async" [value]="option.suffixText">
           {{ option.suffixText }}
         </md-option>
       </md-autocomplete>
       </div>
     </div>
+
+    <!-- Address-->
     <div class="spacer ocw-bc-lg ocw-ml-24neg ocw-pl-10 ocw-fw-500 ocw-mr-25neg ocw-pt-10 ocw-pb-10">Address</div>
-    <div class="container" *ngIf="constituent" fxLayoutWrap fxLayoutGap="50px">
-      <md-input-container class="">
-        <input mdInput placeholder="Address 1" [(ngModel)]="constituent.address1" name="address1">
+    <div class="container" *ngIf="constituent" fxLayoutWrap > <!--fxLayoutGap="50px"-->
+      <md-input-container class="ocw-mr-50">
+        <input mdInput placeholder="Address 1" [(ngModel)]="constituent.address1" name="address1" maxlength="50">
+        <md-hint align="end">
+          <span aria-live="polite">{{constituent.address1?.length}} / 50</span>
+        </md-hint>
       </md-input-container>
-      <md-input-container class="">
+      <md-input-container class="ocw-mr-50">
         <input mdInput placeholder="Address 2" [(ngModel)]="constituent.address2" name="address2">
       </md-input-container>
-      <md-input-container>
-        <input type="text" placeholder="City" mdInput [formControl]="cityControl" [mdAutocomplete]="autoCity" [(ngModel)]="constituent.cityName">
+      <!-- Postal Code -->
+      <md-input-container class="ocw-mr-50">
+        <input type="text" placeholder="Postal Code" mdInput [formControl]="postalControl" [mdAutocomplete]="autoPostal" >
+      </md-input-container>
+      <md-autocomplete #autoPostal="mdAutocomplete" >
+        <md-option *ngFor="let option of filteredPostalCodes | async" [value]="option.code">
+          {{ option.code }}
+        </md-option>
+      </md-autocomplete>
+
+      <!-- City -->
+      <md-input-container class="ocw-mr-50">
+        <input type="text" placeholder="City" mdInput [formControl]="cityControl" [mdAutocomplete]="autoCity" >
       </md-input-container>
       <md-autocomplete #autoCity="mdAutocomplete" >
         <md-option *ngFor="let option of filteredCities | async" [value]="option.cityName">
@@ -61,6 +81,53 @@
         </md-option>
       </md-autocomplete>
 
+      <!-- State -->
+      <md-input-container class="ocw-mr-50">
+        <input type="text" placeholder="State" mdInput [formControl]="statesControl" [mdAutocomplete]="autoStates" >
+      </md-input-container>
+      <md-autocomplete #autoStates="mdAutocomplete" >
+        <md-option *ngFor="let option of filteredStates | async" [value]="option.stateCd">
+          {{ option.stateCd }}
+        </md-option>
+      </md-autocomplete>
+
+      <!-- Township -->
+      <md-input-container class="ocw-mr-50">
+        <input type="text" placeholder="Township" mdInput [formControl]="townshipControl" [mdAutocomplete]="autoTownship" >
+      </md-input-container>
+      <md-autocomplete #autoTownship="mdAutocomplete" >
+        <md-option *ngFor="let option of filteredTownships | async" [value]="option.townshipName">
+          {{ option.townshipName }}
+        </md-option>
+      </md-autocomplete>
+    </div>
+    <div class="spacer ocw-bc-lg ocw-ml-24neg ocw-pl-10 ocw-fw-500 ocw-mr-25neg ocw-pt-10 ocw-pb-10">Contact Info</div>
+      <div class="container flex-end" *ngIf="constituent" fxLayoutWrap >
+        <div fxLayoutGap="50px" *ngIf="constituent">
+          <md-input-container class="">
+            <input mdInput type="tel" placeholder="Home Phone" [(ngModel)]="contacts[0]" name="homePhone">
+          </md-input-container>
+          <md-input-container class="">
+            <input mdInput type="tel" placeholder="Cell Phone" [(ngModel)]="contacts[1]" name="cellPhone">
+          </md-input-container>
+          <md-input-container class="">
+            <input mdInput type="tel" placeholder="Business Phone" [(ngModel)]="contacts[2]" name="businessPhone">
+          </md-input-container>
+          <md-input-container class="">
+            <input mdInput type="email" placeholder="Email Address" [(ngModel)]="contacts[3]" name="email">
+          </md-input-container>       
+          <md-input-container>
+            <input mdInput placeholder="email" [formControl]="emailFormControl">
+            <md-error *ngIf="emailFormControl.hasError('pattern')">
+              Please enter a valid email address
+            </md-error>
+          </md-input-container>
+        </div>
+        <div class="container" fxLayoutWrap>   
+        <button md-mini-fab color="primary">
+          <md-icon class="md-24">add</md-icon>
+        </button>
+      </div>
     </div>
   </form>
 </md-card>

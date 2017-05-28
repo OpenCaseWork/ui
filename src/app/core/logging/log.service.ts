@@ -54,6 +54,12 @@ export class LogService {
     }
   }
 
+  errorNotify (userMessage: string, message?: any, ...args: any[]) {
+   if (this.isErrorEnabled) {
+      console.error.apply( console, arguments);
+    }
+  }
+
   debug(message?: any, ...args: any[]) {
     if (this.isDebugEnabled) {
       ( <any> console )[ CONSOLE_DEBUG_METHOD ].apply( console, arguments );

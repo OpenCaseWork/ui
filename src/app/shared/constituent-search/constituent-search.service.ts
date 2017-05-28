@@ -22,7 +22,10 @@ export class ConstituentSearchService {
     this.HttpService.post('constituents/', JSON.stringify(request))
       .subscribe(
         response => { observer.next(response.json()); },
-        error => { this.logService.log(error); },
+        error => {
+          this.logService.errorNotify('Error searching constituent', error);
+          observer.error(error);
+        },
         () => { observer.complete(); console.log('ConstituentSearchService.searchConstituents onComplete'); }
       );
     });

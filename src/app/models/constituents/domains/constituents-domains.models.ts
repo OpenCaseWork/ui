@@ -29,18 +29,16 @@ export class ContactType {
   /*[Column("is_phone")]*/
   public isPhone: boolean;
 }
-
 /*[Table("zip_code")]*/
 export class PostalCode {
   /*[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 [Column("zip_code_id")]*/
   public id: number;
   /*[Column("zip_code")]*/
-  public townshipCode: number;
+  public code: string;
   /*[Column("state")]*/
   public state: string;
 }
-
 /*[Table("state")]*/
 export class State {
   /*[Column("state_id")]*/

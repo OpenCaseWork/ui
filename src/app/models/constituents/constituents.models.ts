@@ -4,7 +4,8 @@ export class Constituent extends AuditFields {
   /*[Column("constituent_id")]*/
   public constituentId: number;
   /*[Column("title_id")]*/
-  public titleID: number;
+  public titleId: number;
+  public title: string;
   /*[Column("first_name")]*/
   public firstName: string;
   /*[Column("last_name")]*/
@@ -12,24 +13,25 @@ export class Constituent extends AuditFields {
   /*[Column("middle_name")]*/
   public middleName: string;
   /*[Column("suffix_id")]*/
-  public suffixID: number;
+  public suffixId: number;
+  public suffix: string;
   public nickName: string;
   /*[Column("addr1")]*/
   public address1: string;
   /*[Column("addr2")]*/
   public address2: string;
   /*[Column("city_id")]*/
-  public cityID: number;
+  public cityId: number;
   /*[Column("township_id")]*/
-  public townshipID: number;
+  public townshipId: number;
   /*[Column("state_cd")]*/
   public stateCd: string;
   /*[Column("zip_code_id")]*/
-  public postalCodeID: number;
+  public postalCodeId: number;
   /*[Column("zip_code")]*/
   public postalCode: string;
   /*[Column("federal_id")]*/
-  public federalID: string;
+  public federalId: string;
   /*[Column("birth_date")]*/
   public birthDate: Date;
   /*[Column("gender")]*/

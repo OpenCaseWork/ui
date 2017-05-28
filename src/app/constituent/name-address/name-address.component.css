@@ -1,3 +1,7 @@
+.flex-end {
+    display: flex; 
+    justify-content: space-between;
+}
 
 .mat-select {
     padding-top: 5px;   
@@ -54,6 +58,11 @@
 .ocw-ml-24neg {
   margin-left: -24px;
 }
+
+.ocw-mr-50 {
+  margin-right: 50px;
+}
+
 
 .ocw-mr-25neg {
   margin-right: -24px;
