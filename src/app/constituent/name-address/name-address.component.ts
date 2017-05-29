@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit, Input, OnChanges, AfterViewInit, ViewChild, ViewChildren } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Observable } from 'rxjs/observable';
 import { Constituent } from '../../models/constituents/constituents.models';
 import { ConstituentDomains, City, Suffix,
@@ -18,6 +18,8 @@ export class NameAddressComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() domains: ConstituentDomains;
   @ViewChild('lastName') vc;
   nameAddressForm: FormGroup;
+  federalId: AbstractControl;
+  email: AbstractControl;
   public contacts: Array<String>;
 
   filteredCities: Observable<City[]>;
@@ -42,11 +44,13 @@ export class NameAddressComponent implements OnInit, OnChanges, AfterViewInit {
               private formBuilder: FormBuilder) {
     this.emailFormControl = this.validatorService.emailFormControl;
     this.createForm();
+    this.federalId = this.nameAddressForm.controls['federalId'];
   }
 
   ngAfterViewInit() {
       if (this.vc) {
-       this.vc.nativeElement.focus();
+        this.logService.log('set focus to last name');
+        this.vc.nativeElement.focus();
       }
     }
 
@@ -85,31 +89,19 @@ export class NameAddressComponent implements OnInit, OnChanges, AfterViewInit {
       federalId: ['', Validators.pattern(this.validatorService.ssnRegex())], // new FormControl(),
       middleName: '', // new FormControl(),
       nickName: '', // new FormControl(),
-      maidenName: '' // new FormControl()
+      maidenName: '',
+      address1: '',
+      address2: ''
     });
   }
 
   isValid(): boolean {
-    this.nameAddressForm.markAsTouched();
-    this.nameAddressForm.markAsDirty();
-    this.logService.log('name address is valid:' + this.nameAddressForm.valid);
+    this.validatorService.triggerFormValidation(this.nameAddressForm);
     return this.nameAddressForm.valid;
   }
 
-  /*onSubmit() {
-    this.constituent = this.prepareSaveHero();
-    // this.heroService.updateHero(this.hero).subscribe(/* error handling );
-    // this.ngOnChanges();
-    } */
-
   updateConstituentFromForm(constituentToUpdate: Constituent): Constituent {
     const formModel = this.nameAddressForm.value;
-
-    // deep copy of form model lairs
-    // const secretLairsDeepCopy: Address[] = formModel.secretLairs.map(
-    //  (address: Address) => Object.assign({}, address)
-    // );
-
     const saveConstituent: Constituent = Object.assign({}, constituentToUpdate, formModel);
     return saveConstituent;
   }

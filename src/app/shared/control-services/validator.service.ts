@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 const EMAIL_REGEX: RegExp = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 const SSN_REGEX: RegExp = /^(?!(000|666|9))\d{3}-(?!00)\d{2}-(?!0000)\d{4}$/;
@@ -18,6 +18,12 @@ export class ValidatorService {
 
   ssnRegex(): RegExp {
     return SSN_REGEX;
+  }
+
+  triggerFormValidation(form: FormGroup) {
+     Object.keys(form.controls).map((controlName) => {
+      form.get(controlName).markAsTouched({onlySelf: true});
+    });
   }
 
 
