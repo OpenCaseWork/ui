@@ -7,8 +7,9 @@ import {
   Title, PostalCode, Township, State
 } from '../../models/constituents/domains/constituents-domains.models';
 import { LogService } from '../../core/logging/log.service';
-import { AutoCompleteService } from '../../shared/control-services/auto-complete.service';
+import { AutoCompleteService, SELECT_DESCRIPTION_FIELD } from '../../shared/control-services/auto-complete.service';
 import { ValidatorService } from '../../shared/control-services/validator.service';
+import { SelectItem } from '../../models/domains/domains.models';
 
 @Component({
   selector: 'app-name-address',
@@ -24,9 +25,9 @@ export class NameAddressComponent implements OnInit, OnChanges, AfterViewInit {
   email: AbstractControl;
   public contacts: Array<String>;
 
-  filteredCities: Observable<City[]>;
-  filteredSuffixes: Observable<Suffix[]>;
-  filteredTitles: Observable<Title[]>;
+  filteredCities: Observable<SelectItem[]>;
+  filteredSuffixes: Observable<SelectItem[]>;
+  filteredTitles: Observable<SelectItem[]>;
   filteredPostalCodes: Observable<PostalCode[]>;
   filteredTownships: Observable<Township[]>;
   filteredStates: Observable<State[]>;
@@ -62,12 +63,12 @@ export class NameAddressComponent implements OnInit, OnChanges, AfterViewInit {
   ngOnChanges() {
     if (this.domains && this.domains.cities) {
       if (!this.filteredCities) {
-        this.filteredCities = this.autoCompleteService.filteredItem$<City>(
-          this.domains.cities, this.cityControl, 'cityName');
-        this.filteredTitles = this.autoCompleteService.filteredItemAbstract$<Title>(
-          this.domains.titles, this.nameAddressForm.controls['title'], 'titleText');
-        this.filteredSuffixes = this.autoCompleteService.filteredItemAbstract$<Suffix>(
-          this.domains.suffixes, this.nameAddressForm.controls['suffix'], 'suffixText');
+        this.filteredCities = this.autoCompleteService.filteredItem$<SelectItem>(
+          this.domains.cities, this.cityControl, SELECT_DESCRIPTION_FIELD);
+        this.filteredTitles = this.autoCompleteService.filteredItemAbstract$<SelectItem>(
+          this.domains.titles, this.nameAddressForm.controls['title'], SELECT_DESCRIPTION_FIELD);
+        this.filteredSuffixes = this.autoCompleteService.filteredItemAbstract$<SelectItem>(
+          this.domains.suffixes, this.nameAddressForm.controls['suffix'], SELECT_DESCRIPTION_FIELD);
         this.filteredPostalCodes = this.autoCompleteService.filteredItem$<PostalCode>(
           this.domains.postalCodes, this.postalControl, 'code');
         this.filteredTownships = this.autoCompleteService.filteredItem$<Township>(
@@ -110,7 +111,7 @@ export class NameAddressComponent implements OnInit, OnChanges, AfterViewInit {
   updateConstituentFromForm(constituentToUpdate: Constituent): Constituent {
     const formModel = this.nameAddressForm.value;
     const saveConstituent: Constituent = Object.assign({}, constituentToUpdate, formModel);
-    saveConstituent.suffixId = this.autoCompleteService.getIdValue(this.domains.suffixes, saveConstituent.suffix, 'suffixText', 'suffixId');
+    saveConstituent.suffixId = this.autoCompleteService.getIdValue(this.domains.suffixes, saveConstituent.suffix);
     return saveConstituent;
   }
 

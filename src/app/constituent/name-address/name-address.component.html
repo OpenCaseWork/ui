@@ -35,8 +35,8 @@
         <input  placeholder="Title" mdInput formControlName="title" [mdAutocomplete]="autoTitle">
       </md-input-container>
       <md-autocomplete #autoTitle="mdAutocomplete">
-        <md-option *ngFor="let option of filteredTitles | async" [value]="option.titleText">
-          {{ option.titleText }}
+        <md-option *ngFor="let option of filteredTitles | async" [value]="option.shortDescription">
+          {{ option.shortDescription }}
         </md-option>
       </md-autocomplete>
 
@@ -45,8 +45,8 @@
         <input type="text" placeholder="Suffix" mdInput formControlName="suffix" [mdAutocomplete]="autoSuffix" >
       </md-input-container>
       <md-autocomplete #autoSuffix="mdAutocomplete" >
-        <md-option *ngFor="let option of filteredSuffixes | async"  [value]="option.suffixText">
-          {{ option.suffixText }}
+        <md-option *ngFor="let option of filteredSuffixes | async"  [value]="option.shortDescription">
+          {{ option.shortDescription }}
         </md-option>
       </md-autocomplete>
       </div>
@@ -79,8 +79,8 @@
         <input type="text" placeholder="City" mdInput [formControl]="cityControl" [mdAutocomplete]="autoCity" >
       </md-input-container>
       <md-autocomplete #autoCity="mdAutocomplete" >
-        <md-option *ngFor="let option of filteredCities | async" [value]="option.cityName">
-          {{ option.cityName }}
+        <md-option *ngFor="let option of filteredCities | async" [value]="option.shortDescription">
+          {{ option.shortDescription }}
         </md-option>
       </md-autocomplete>
 

@@ -2,17 +2,29 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { FormControl, AbstractControl } from '@angular/forms';
 
+export const SELECT_DESCRIPTION_FIELD = 'shortDescription';
+
 @Injectable()
 export class AutoCompleteService {
 
   constructor() {
   }
 
-  getIdValue(array: any[], value: string, valueProperty: string, idProperty: string): number {
+  getIdValueCustom(array: any[], value: string, valueProperty: string, idProperty: string): number {
     for (let index = 0; index < array.length; index++) {
       let element = array[index];
       if (element[valueProperty] === value) {
         return element[idProperty];
+      }
+    }
+    return 0;
+  }
+
+  getIdValue(array: any[], value: string): number {
+    for (let index = 0; index < array.length; index++) {
+      let element = array[index];
+      if (element[SELECT_DESCRIPTION_FIELD] === value) {
+        return element['id'];
       }
     }
     return 0;
