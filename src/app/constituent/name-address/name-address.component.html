@@ -4,10 +4,10 @@
     <div fxLayout="column" fxLayoutWrap>
       <div fxLayoutGap="50px" *ngIf="constituent">
         <md-input-container class="">
-          <input mdInput placeholder="Last Name" #lastName formControlName="lastName" required>
+          <input mdInput placeholder="Last Name" #lastName formControlName="lastName" maxlength="50" required>
         </md-input-container>
         <md-input-container class="">
-          <input mdInput placeholder="First Name"  formControlName="firstName" required>
+          <input mdInput placeholder="First Name"  formControlName="firstName" maxlength="50" required>
         </md-input-container>
         <md-input-container class="">
           <input mdInput placeholder="Federal Id" formControlName="federalId">
@@ -16,13 +16,13 @@
           </md-error>
         </md-input-container>
         <md-input-container class="">
-          <input mdInput placeholder="Middle Name"  formControlName="middleName">
+          <input mdInput placeholder="Middle Name"  formControlName="middleName" maxlength="50">
         </md-input-container>
         <md-input-container class="">
-          <input mdInput placeholder="Nickname"  formControlName="nickName">
+          <input mdInput placeholder="Nickname"  formControlName="nickName" maxlength="30">
         </md-input-container>
         <md-input-container class="">
-          <input mdInput placeholder="Maiden Name"  formControlName="maidenName">
+          <input mdInput placeholder="Maiden Name"  formControlName="maidenName" maxlength="30">
         </md-input-container>
       </div>
     </div>
@@ -32,7 +32,7 @@
 
       <!--Title-->
       <md-input-container>
-        <input type="text" placeholder="Title" mdInput [formControl]="titleControl" [mdAutocomplete]="autoTitle">
+        <input  placeholder="Title" mdInput formControlName="title" [mdAutocomplete]="autoTitle">
       </md-input-container>
       <md-autocomplete #autoTitle="mdAutocomplete">
         <md-option *ngFor="let option of filteredTitles | async" [value]="option.titleText">
@@ -42,10 +42,10 @@
 
       <!--suffix-->
       <md-input-container>
-        <input type="text" placeholder="Suffix" mdInput [formControl]="suffixControl" [mdAutocomplete]="autoSuffix" >
+        <input type="text" placeholder="Suffix" mdInput formControlName="suffix" [mdAutocomplete]="autoSuffix" >
       </md-input-container>
       <md-autocomplete #autoSuffix="mdAutocomplete" >
-        <md-option *ngFor="let option of filteredSuffixes | async" [value]="option.suffixText">
+        <md-option *ngFor="let option of filteredSuffixes | async"  [value]="option.suffixText">
           {{ option.suffixText }}
         </md-option>
       </md-autocomplete>
@@ -56,13 +56,13 @@
     <div class="spacer ocw-bc-lg ocw-ml-24neg ocw-pl-10 ocw-fw-500 ocw-mr-25neg ocw-pt-10 ocw-pb-10">Address</div>
     <div class="container" *ngIf="constituent" fxLayoutWrap > <!--fxLayoutGap="50px"-->
       <md-input-container class="ocw-mr-50">
-        <input mdInput placeholder="Address 1"  formControlName="address1" maxlength="50">
-        <md-hint align="end">
+        <input mdInput placeholder="Address 1"  formControlName="address1" maxlength="80">
+        <!--md-hint align="end">
           <span aria-live="polite">{{constituent.address1?.length}} / 50</span>
-        </md-hint>
+        </md-hint-->
       </md-input-container>
       <md-input-container class="ocw-mr-50">
-        <input mdInput placeholder="Address 2"  formControlName="address2">
+        <input mdInput placeholder="Address 2"  formControlName="address2" maxlength="80">
       </md-input-container>
       <!-- Postal Code -->
       <md-input-container class="ocw-mr-50">
