@@ -1,6 +1,6 @@
-import { AuditFields } from '../Audit/audit.models';
+import { AuditedEntity } from '../Audit/audit.models';
 
-export class Constituent extends AuditFields {
+export class Constituent extends AuditedEntity {
   /*[Column("constituent_id")]*/
   public constituentId: number;
   /*[Column("title_id")]*/
@@ -61,7 +61,7 @@ export class Constituent extends AuditFields {
 }
 
 /*[Table("contact")]*/
-export class ConstituentContact extends AuditFields {
+export class ConstituentContact extends AuditedEntity {
   /*[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 [Column("contact_id")]*/
   public id: number;
@@ -80,7 +80,7 @@ export class ConstituentContact extends AuditFields {
 }
 
 /*[Table("constituent_notes")]*/
-export class ConstituentNote extends AuditFields {
+export class ConstituentNote extends AuditedEntity {
   /*[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 [Column("constituent_note_id")]*/
   public id: number;

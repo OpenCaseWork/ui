@@ -1,4 +1,4 @@
-export class AuditFields {
+export class AuditedEntity {
   /*[Column("created_date")]*/
   public createdDate: Date;
   /*[Column("updated_date")]*/

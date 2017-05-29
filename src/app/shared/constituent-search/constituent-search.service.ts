@@ -19,7 +19,7 @@ export class ConstituentSearchService {
     this.logService.log('ConstituentSearchService.searchConstituents');
 
     return Observable.create((observer) => {
-    this.HttpService.post('constituents/', JSON.stringify(request))
+    this.HttpService.post('constituents/search', JSON.stringify(request))
       .subscribe(
         response => { observer.next(response.json()); },
         error => {
