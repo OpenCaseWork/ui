@@ -23,8 +23,11 @@
       "prefix": "app",
       "styles": [
         "styles.css",
-        "app-theme.scss",
-        "styles.scss"
+        "./app/styles/app-theme.scss",
+        "./app/styles/font.css",
+        "./app/styles/margins.css",
+        "./app/styles/material.css",
+        "./app/styles/padding.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",

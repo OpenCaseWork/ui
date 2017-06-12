@@ -1,0 +1,29 @@
+/* margin-bottom */
+.ocw-mb-15 {
+  margin-bottom: 15px;
+}
+
+/* margin-top */
+.ocw-mt-25neg {
+  margin-top: -25px;
+}
+.ocw-mt-10 {
+  margin-top: 10px;
+}
+
+/* margin-left */
+.ocw-ml-25neg {
+  margin-left: -25px;
+}
+
+.ocw-ml-24neg {
+  margin-left: -24px;
+}
+
+/* margin-right */
+.ocw-mr-50 {
+  margin-right: 50px;
+}
+.ocw-mr-25neg {
+  margin-right: -24px;
+}

@@ -7,6 +7,7 @@ import { LogService } from '../core/logging/log.service';
 import { Constituent } from '../models/constituents/constituents.models';
 import { ConstituentDomains } from '../models/constituents/domains/constituents-domains.models';
 import { NameAddressComponent } from './name-address/name-address.component';
+import { DemographicsComponent } from './demographics/demographics.component';
 
 @Component({
   selector: 'app-constituent',
@@ -15,7 +16,9 @@ import { NameAddressComponent } from './name-address/name-address.component';
 })
 export class ConstituentComponent implements OnInit {
   @ViewChild(NameAddressComponent)
+  @ViewChild(DemographicsComponent)
   private nameAddressComponent: NameAddressComponent;
+  private demographicsComponent: DemographicsComponent;
   domains: ConstituentDomains;
   domain$: Observable<ConstituentDomains>;
   constituent: Constituent;

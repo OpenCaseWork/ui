@@ -10,6 +10,7 @@ import { LogService } from '../../core/logging/log.service';
 import { AutoCompleteService, SELECT_DESCRIPTION_FIELD } from '../../shared/control-services/auto-complete.service';
 import { ValidatorService } from '../../shared/control-services/validator.service';
 import { SelectItem } from '../../models/domains/domains.models';
+import { Contact } from '../../models/contacts/contacts.models';
 
 @Component({
   selector: 'app-name-address',
@@ -19,11 +20,11 @@ import { SelectItem } from '../../models/domains/domains.models';
 export class NameAddressComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() constituent: Constituent;
   @Input() domains: ConstituentDomains;
-  @ViewChild('lastName') vc;
+  //@ViewChild('lastName') vc;
   nameAddressForm: FormGroup;
-  federalId: AbstractControl;
-  email: AbstractControl;
-  public contacts: Array<String>;
+  contactsForm: FormGroup;
+  // emailFormControl: FormControl;
+  contacts: Array<String>;
 
   filteredCities: Observable<SelectItem[]>;
   filteredSuffixes: Observable<SelectItem[]>;
@@ -36,23 +37,26 @@ export class NameAddressComponent implements OnInit, OnChanges, AfterViewInit {
   postalControl = new FormControl();
   townshipControl = new FormControl();
   statesControl = new FormControl();
+  federalId: AbstractControl;
+  emailFormControl: AbstractControl;
 
-  public emailFormControl: FormControl;
 
   constructor(private logService: LogService,
     private autoCompleteService: AutoCompleteService,
     private validatorService: ValidatorService,
     private formBuilder: FormBuilder) {
-    this.emailFormControl = this.validatorService.emailFormControl;
+    this.emailFormControl = this.validatorService.createEmailControl();
     this.createForm();
     this.federalId = this.nameAddressForm.controls['federalId'];
+    console.log('NameAddressComponent.constructor');
   }
 
   ngAfterViewInit() {
-    if (this.vc) {
+    console.log('NameAddressComponent.ngAfterViewInit');
+    /*if (this.vc) {
       this.logService.log('set focus to last name');
       this.vc.nativeElement.focus();
-    }
+    }*/
   }
 
   ngOnInit() {
@@ -61,6 +65,7 @@ export class NameAddressComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngOnChanges() {
+    this.nameAddressForm.reset();
     if (this.domains && this.domains.cities) {
       if (!this.filteredCities) {
         this.filteredCities = this.autoCompleteService.filteredItem$<SelectItem>(
@@ -85,7 +90,7 @@ export class NameAddressComponent implements OnInit, OnChanges, AfterViewInit {
     if (this.constituent && this.constituent.lastName) {
       this.nameAddressForm.patchValue(this.constituent, { onlySelf: true });
     }
-    this.logService.log('ngchanges');
+    this.logService.log('NameAddressComponent.ngOnChanges');
   }
 
   createForm() {
@@ -101,6 +106,10 @@ export class NameAddressComponent implements OnInit, OnChanges, AfterViewInit {
       title: '',
       suffix: ''
     });
+  }
+
+  createContactsForm() {
+    this.contactsForm = this.formBuilder.group ({ })
   }
 
   isValid(): boolean {

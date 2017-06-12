@@ -9,6 +9,8 @@ import { NameAddressComponent } from './name-address/name-address.component';
 import { HttpService } from '../core/http/http.service';
 import { LogService } from '../core/logging/log.service';
 import { ConstituentService } from './constituent.service';
+import { AutoFocusDirective } from './name-address/autofocus.directive';
+import { DemographicsComponent } from './demographics/demographics.component';
 
 @NgModule({
   imports: [
@@ -21,10 +23,13 @@ import { ConstituentService } from './constituent.service';
   declarations: [
     ConstituentComponent,
     NameAddressComponent,
+    DemographicsComponent,
+    AutoFocusDirective,
   ],
   exports: [
     ConstituentComponent,
     NameAddressComponent,
+    DemographicsComponent,
   ],
   providers: [
     HttpService,

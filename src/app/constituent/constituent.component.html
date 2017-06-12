@@ -5,10 +5,9 @@
     </md-card>
   </md-tab>
   <md-tab label="Demographics">
-    <!--md-card>
-      <h1>Some tab content</h1>
-      <p>...</p>
-    </md-card-->
+    <md-card>
+      <app-demographics [constituent]="constituent" [domains]="domain$ | async"></app-demographics>
+    </md-card>
   </md-tab>
   <md-tab label="Status">
     <md-card>
