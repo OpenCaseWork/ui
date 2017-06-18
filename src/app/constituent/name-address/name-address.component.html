@@ -2,7 +2,7 @@
   <form class="example-form" [formGroup]="nameAddressForm" novalidate> 
     <div class="ocw-mt-25neg ocw-bc-lg ocw-ml-24neg ocw-mb-15 ocw-pl-10 ocw-fw-500 ocw-mr-25neg ocw-pt-10 ocw-pb-10">Constituent Information</div>
     <div fxLayout="column" fxLayoutWrap>
-      <div fxLayoutGap="50px" *ngIf="constituent">
+      <div fxLayoutGap="50px" >
         <md-input-container class="">
           <input mdInput placeholder="Last Name" #lastName formControlName="lastName" maxlength="50" required >
         </md-input-container>
@@ -28,7 +28,7 @@
     </div>
     <div class="ocw-mt-10"></div>
     <div fxLayout="column" fxLayoutWrap>
-      <div fxLayoutGap="25px" *ngIf="constituent">
+      <div fxLayoutGap="50px">
 
       <!--Title-->
       <md-input-container>
@@ -55,7 +55,7 @@
     <!-- ************************************************-->
     <!-- Address-->
     <div class="spacer ocw-bc-lg ocw-ml-24neg ocw-pl-10 ocw-fw-500 ocw-mr-25neg ocw-pt-10 ocw-pb-10">Address</div>
-    <div class="container" *ngIf="constituent" fxLayoutWrap fxLayoutGap="50px">
+    <div class="container" fxLayoutWrap fxLayoutGap="50px">
       <md-input-container class="">
         <input mdInput placeholder="Address 1"  formControlName="address1" maxlength="80">
         <!--md-hint align="end">
@@ -109,7 +109,7 @@
     <!-- ********************************************************-->
     <!-- contact info -->
     <div class="spacer ocw-bc-lg ocw-ml-24neg ocw-pl-10 ocw-fw-500 ocw-mr-25neg ocw-pt-10 ocw-pb-10">Contact Info</div>
-      <div class="container flex-end" *ngIf="constituent" fxLayoutWrap >
+      <div class="container flex-end" fxLayoutWrap >
         <div fxLayoutGap="50px">
           <md-input-container class="">
             <input mdInput type="tel" placeholder="Home Phone"  name="homePhone">

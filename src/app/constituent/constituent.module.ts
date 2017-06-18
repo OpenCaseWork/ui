@@ -11,6 +11,8 @@ import { LogService } from '../core/logging/log.service';
 import { ConstituentService } from './constituent.service';
 import { AutoFocusDirective } from './name-address/autofocus.directive';
 import { DemographicsComponent } from './demographics/demographics.component';
+import { AppStateService } from '../shared/state/app-state.service';
+import { ConstituentAggregateService } from './constitutent-aggregate.service';
 
 @NgModule({
   imports: [
@@ -34,7 +36,9 @@ import { DemographicsComponent } from './demographics/demographics.component';
   providers: [
     HttpService,
     LogService,
-    ConstituentService
+    ConstituentService,
+    AppStateService,
+    ConstituentAggregateService,
   ],
   entryComponents: [
   ]

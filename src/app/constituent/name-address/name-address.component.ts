@@ -10,7 +10,8 @@ import { LogService } from '../../core/logging/log.service';
 import { AutoCompleteService, SELECT_DESCRIPTION_FIELD } from '../../shared/control-services/auto-complete.service';
 import { ValidatorService } from '../../shared/control-services/validator.service';
 import { SelectItem } from '../../models/domains/domains.models';
-import { Contact } from '../../models/contacts/contacts.models';
+import { ConstituentContact } from '../../models/constituents/constituents.models';
+import { ConstituentAggregate } from '../../models/constituents/constituents-aggregates.models';
 
 @Component({
   selector: 'app-name-address',
@@ -18,7 +19,7 @@ import { Contact } from '../../models/contacts/contacts.models';
   styleUrls: ['./name-address.component.css']
 })
 export class NameAddressComponent implements OnInit, OnChanges, AfterViewInit {
-  @Input() constituent: Constituent;
+  @Input() constituent: ConstituentAggregate;
   @Input() domains: ConstituentDomains;
   //@ViewChild('lastName') vc;
   nameAddressForm: FormGroup;
@@ -87,8 +88,8 @@ export class NameAddressComponent implements OnInit, OnChanges, AfterViewInit {
     }
 
     // populate form, but only if have populated constituent
-    if (this.constituent && this.constituent.lastName) {
-      this.nameAddressForm.patchValue(this.constituent, { onlySelf: true });
+    if (this.constituent && this.constituent.constituent) {
+      this.nameAddressForm.patchValue(this.constituent.constituent, { onlySelf: true });
     }
     this.logService.log('NameAddressComponent.ngOnChanges');
   }

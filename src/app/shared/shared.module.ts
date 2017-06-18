@@ -21,6 +21,7 @@ import { HttpService } from '../core/http/http.service';
 import { HttpHeaderService } from '../core/http/http-header.service';
 import { AutoCompleteService } from './control-services/auto-complete.service';
 import { ValidatorService } from './control-services/validator.service';
+import { AppStateService } from './state/app-state.service';
 
 @NgModule({
   imports: [
@@ -53,7 +54,8 @@ import { ValidatorService } from './control-services/validator.service';
     HttpService,
     HttpHeaderService,
     AutoCompleteService,
-    ValidatorService
+    ValidatorService,
+    AppStateService,
   ],
   entryComponents: [
     ConstituentSearchComponent,

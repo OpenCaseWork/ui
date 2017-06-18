@@ -30,7 +30,14 @@ export class ContactType {
   public sequence: number;
   /*[Column("is_phone")]*/
   public isPhone: boolean;
+  /*[Column("ui_sequence")]*/
+  public uISequence: number;
+  /*[Column("is_default")]*/
+  public isDefault: boolean;
+  /*[Column("is_email")]*/
+  public isEmail: boolean;
 }
+
 /*[Table("zip_code")]*/
 export class PostalCode {
   /*[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -41,6 +48,7 @@ export class PostalCode {
   /*[Column("state")]*/
   public state: string;
 }
+
 /*[Table("state")]*/
 export class State {
   /*[Column("state_id")]*/

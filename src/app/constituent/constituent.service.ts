@@ -3,16 +3,17 @@ import { Observable } from 'rxjs/Observable';
 import { LogService } from '../core/logging/log.service';
 import { HttpService } from '../core/http/http.service';
 import { Constituent } from '../models/constituents/constituents.models';
+import { ConstituentAggregate } from '../models/constituents/constituents-aggregates.models';
 import { ConstituentDomains } from '../models/constituents/domains/constituents-domains.models';
+import { AppStateService } from '../shared/state/app-state.service';
 
 @Injectable()
 export class ConstituentService {
-  public domains: ConstituentDomains;
-  //public constituent$: Observable<Constituent>;
 
   constructor(
     private HttpService: HttpService,
-    private logService: LogService
+    private logService: LogService,
+    private appStateService: AppStateService,
     ) {
   }
 
@@ -52,23 +53,11 @@ export class ConstituentService {
   }
 
   domain$(): Observable<ConstituentDomains> {
-    this.logService.log('ConstituentService.getDomains');
-    if (this.domains) {
+    if (this.appStateService.domains) {
       this.logService.log('domains already loaded');
-      return Observable.of(this.domains);
+      return Observable.of(this.appStateService.domains);
     }
-    return Observable.create((observer) => {
-    this.HttpService.get('constituents/domains')
-      .subscribe(
-        response => {
-          observer.next(response.json());
-          this.domains = response.json();
-        },
-        error => {
-          this.logService.log(error);
-        },
-        () => { observer.complete(); console.log('ConstituentService.getDomains onComplete'); }
-      );
-    });
+    return this.HttpService.get('constituents/domains')
+      .map (response => response.json());
   }
 }

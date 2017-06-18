@@ -10,7 +10,6 @@ import { LogService } from '../../core/logging/log.service';
 import { AutoCompleteService, SELECT_DESCRIPTION_FIELD } from '../../shared/control-services/auto-complete.service';
 import { ValidatorService } from '../../shared/control-services/validator.service';
 import { SelectItem } from '../../models/domains/domains.models';
-import { Contact } from '../../models/contacts/contacts.models';
 
 @Component({
   selector: 'app-demographics',

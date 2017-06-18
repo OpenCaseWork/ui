@@ -1,0 +1,32 @@
+<!-- ********************************************************-->
+<!-- contact info -->
+<!-- ********************************************************-->
+<div class="spacer ocw-bc-lg ocw-ml-24neg ocw-pl-10 ocw-fw-500 ocw-mr-25neg ocw-pt-10 ocw-pb-10">Contact Info</div>
+<div class="container flex-end" *ngIf="constituent" fxLayoutWrap>
+  <div fxLayoutGap="50px">
+  <select [id]="question.key" *ngSwitchCase="'dropdown'" [formControlName]="question.key">
+      <option *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</option>
+    </select>
+
+    <md-input-container *ngFor="let contact of contacts">
+      <input mdInput type="tel" [formControlName]="contact.key" placeholder="Home Phone" name="homePhone">
+    </md-input-container>
+    <md-input-container class="">
+      <input mdInput type="tel" placeholder="Cell Phone" name="cellPhone">
+    </md-input-container>
+    <md-input-container class="">
+      <input mdInput type="tel" placeholder="Business Phone" name="businessPhone">
+    </md-input-container>
+    <md-input-container>
+      <input mdInput placeholder="Email Address" [formControl]="emailFormControl">
+      <md-error *ngIf="emailFormControl.hasError('pattern')">
+        Please enter a valid email address
+      </md-error>
+    </md-input-container>
+  </div>
+  <div class="container" fxLayoutWrap>
+    <button md-mini-fab color="primary" type="button">
+          <md-icon class="md-24">add</md-icon>
+        </button>
+  </div>
+</div>
