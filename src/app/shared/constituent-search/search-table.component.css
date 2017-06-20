@@ -1,0 +1,44 @@
+
+.checkbox {
+  max-width: 24px;
+}
+
+.Id {
+  max-width: 60px;
+}
+
+.LastName {
+  max-width: 200px;
+}
+
+.FirstName {
+  max-width: 125px;
+}
+
+.Address {
+  max-width: 300px;
+}
+
+.Phone {
+  max-width: 100px;
+}
+
+.BirthDate {
+  max-width: 70px;
+}
+
+
+@media (max-width: 480px) {
+  .Address {
+    display: none !important;
+  }
+  .Phone {
+    display: none !important;
+  }
+  .BirthDate {
+    display: none !important;
+  }
+  .ECCPIS {
+    display: none !important;
+  }
+}

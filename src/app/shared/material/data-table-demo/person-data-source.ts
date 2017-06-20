@@ -28,7 +28,7 @@ export class PersonDataSource extends SortableDataSource<any> {
   set sort(sort: MdTableSortData) { this.resetPagination(); this._sort.next(sort); }
   get sort(): MdTableSortData { return this._sort.value; }
 
-  _pagination = new BehaviorSubject<PaginationData>({index: 0, pageLength: 10});
+  _pagination = new BehaviorSubject<PaginationData>({index: 0, pageLength: 5});
   set pagination(pagination: PaginationData) { this._pagination.next(pagination); };
   get pagination(): PaginationData { return this._pagination.value; }
 

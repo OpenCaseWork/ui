@@ -13,16 +13,26 @@ import { ConstituentSearchRecord } from '../../models/constituents/search/consti
 export class SearchTableComponent implements OnInit {
   dataSource: GenericDataSource<ConstituentSearchRecord>;
   selection = new SelectionModel<ConstituentSearchRecord>(false, null, true);
-  propertiesToDisplay = ['checkbox', 'Id', 'Name', 'Address'];
+  propertiesToDisplay = ['checkbox', 'Id', 'LastName', 'FirstName', 'Phone', 'BirthDate', 'City', 'Address', 'ECCPIS'];
+  colToPropMap: { [key: string]: string; } = {
+      'Id': 'id',
+      'LastName': 'lastName',
+      'FirstName': 'firstName',
+      'Phone': 'phone',
+      'BirthDate': 'birthDate',
+      'City': 'city',
+      'Address': 'address',
+      'ECCPIS' : 'eCCPIS'
+    };
 
   constructor(private _peopleDatabase: BaseDataService<ConstituentSearchRecord>,
-              private _changeDetectorRef: ChangeDetectorRef) { 
+              private _changeDetectorRef: ChangeDetectorRef) {
     // _changeDetectorRef.detectChanges()
     // this.selection.selected()
   }
 
   ngOnInit() {
-    this.dataSource = new GenericDataSource<ConstituentSearchRecord>(this._peopleDatabase);
+    this.dataSource = new GenericDataSource<ConstituentSearchRecord>(this._peopleDatabase, this.colToPropMap);
   }
 
 

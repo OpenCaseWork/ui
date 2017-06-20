@@ -20,10 +20,13 @@ export class BaseDataService<T> {
 
   /** clear the base array list, and then populate with records passed in */
   populateData(records: T[]) {
+    console.log('records:' + records.length);
+    this.baseData = [];
     this.clearData();
     for (let i = 0; i < records.length; i++) {
       this.addRecord(records[i]);
     }
+    this.triggerUpdate();
   }
 
   clearData() {

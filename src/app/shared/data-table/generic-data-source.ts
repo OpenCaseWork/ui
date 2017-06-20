@@ -31,11 +31,11 @@ export class GenericDataSource<T> extends SortableDataSource<any> {
   set sort(sort: MdTableSortData) { this.resetPagination(); this._sort.next(sort); }
   get sort(): MdTableSortData { return this._sort.value; }
 
-  _pagination = new BehaviorSubject<PaginationData>({index: 0, pageLength: 10});
+  _pagination = new BehaviorSubject<PaginationData>({index: 0, pageLength: 5});
   set pagination(pagination: PaginationData) { this._pagination.next(pagination); };
   get pagination(): PaginationData { return this._pagination.value; }
 
-  constructor(private _peopleDatabase: BaseDataService<T>) {
+  constructor(private _peopleDatabase: BaseDataService<T>, private _colToPropMap: any ) {
     super();
 
     // When the base data or filter changes, fetch a new set of filtered data.
@@ -86,15 +86,10 @@ export class GenericDataSource<T> extends SortableDataSource<any> {
     const copiedData = data.slice();
     if (!this.sort.column) { return copiedData; }
 
-    const colToPropMap: { [key: string]: string; } = {
-      'userId': 'id',
-      'userName': 'name',
-      'progress': 'progress',
-      'color': 'color'
-    };
+ 
 
     const sortedData = copiedData.sort((a, b) => {
-      let prop = colToPropMap[sort.column];
+      let prop = this._colToPropMap[sort.column];
 
       let valueA = isNaN(+a[prop]) ? a[prop] : +a[prop];
       let valueB = isNaN(+b[prop]) ? b[prop] : +b[prop];

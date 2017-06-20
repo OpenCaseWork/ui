@@ -23,15 +23,41 @@
       <md-cell *mdCellDef="let row">{{row.id}}</md-cell>
     </ng-container>
 
-    <ng-container mdColumnDef="Name">
-      <md-header-cell sortable *mdHeaderCellDef>Name</md-header-cell>
-      <md-cell *mdCellDef="let row">{{row.name}}</md-cell>
+    <ng-container mdColumnDef="LastName">
+      <md-header-cell sortable *mdHeaderCellDef>Last Name</md-header-cell>
+      <md-cell *mdCellDef="let row">{{row.lastName}}</md-cell>
+    </ng-container>
+
+    <ng-container mdColumnDef="FirstName">
+      <md-header-cell sortable *mdHeaderCellDef>First Name</md-header-cell>
+      <md-cell *mdCellDef="let row">{{row.firstName}}</md-cell>
+    </ng-container>
+
+    <ng-container mdColumnDef="Phone">
+      <md-header-cell sortable *mdHeaderCellDef>Phone</md-header-cell>
+      <md-cell *mdCellDef="let row">{{row.phone}}</md-cell>
+    </ng-container>
+
+    <ng-container mdColumnDef="BirthDate">
+      <md-header-cell  fxShow.gt-sm fxHide.lt-sm sortable *mdHeaderCellDef>Birth Date</md-header-cell>
+      <md-cell  fxShow.gt-sm fxHide.lt-sm *mdCellDef="let row">{{row.birthDate}}</md-cell>
+    </ng-container>
+
+    <ng-container mdColumnDef="City">
+      <md-header-cell sortable *mdHeaderCellDef>City</md-header-cell>
+      <md-cell *mdCellDef="let row">{{row.city}}</md-cell>
     </ng-container>
 
     <ng-container mdColumnDef="Address">
-      <md-header-cell sortable *mdHeaderCellDef>Address</md-header-cell>
-      <md-cell *mdCellDef="let row">{{row.address}}</md-cell>
+      <md-header-cell fxShow.gt-sm fxHide.lt-sm sortable *mdHeaderCellDef>Address</md-header-cell>
+      <md-cell fxShow.gt-sm fxHide.lt-sm *mdCellDef="let row">{{row.address}}</md-cell>
     </ng-container>
+
+    <ng-container mdColumnDef="ECCPIS">
+      <md-header-cell sortable *mdHeaderCellDef>ECCPIS</md-header-cell>
+      <md-cell *mdCellDef="let row">{{row.eCCPIS}}</md-cell>
+    </ng-container>
+
 
     <!-- Row templates. The columns used are set at the row template level -->
     <md-row #myrow *mdRowDef="let row; columns: propertiesToDisplay"

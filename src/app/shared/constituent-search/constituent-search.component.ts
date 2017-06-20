@@ -24,6 +24,8 @@ export class ConstituentSearchComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   private records: ConstituentSearchRecord[];
   private searching: boolean;
+  public lastName: string;
+  public firstName: string;
 
   constructor(public dialogRef: MdDialogRef<ConstituentSearchComponent>,
     private database: BaseDataService<ConstituentSearchRecord>,
@@ -42,6 +44,9 @@ export class ConstituentSearchComponent implements OnInit, OnDestroy {
 
   search() {
     this.searching = true;
+    this.searchRequest = new ConstituentSearchRequest();
+    this.searchRequest.firstName = this.firstName;
+    this.searchRequest.lastName = this.lastName;
     this.service.searchConstituents(this.searchRequest)
       .finally(() => {
         this.searching = false;
