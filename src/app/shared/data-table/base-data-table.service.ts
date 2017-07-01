@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/observable/combineLatest';
+import { LogService } from '../../core/logging/log.service';
 
 @Injectable()
-export class BaseDataService<T> {
+export class BaseDataTableService<T> {
   baseData: T[] = [];
   baseDataChange = new BehaviorSubject<void>(null);
 
-  constructor() {
+  constructor(private logService: LogService) {
   }
 
   // Was used to autopopulate
@@ -20,7 +21,7 @@ export class BaseDataService<T> {
 
   /** clear the base array list, and then populate with records passed in */
   populateData(records: T[]) {
-    console.log('records:' + records.length);
+    this.logService.log('records:' + records.length);
     this.baseData = [];
     this.clearData();
     for (let i = 0; i < records.length; i++) {
@@ -55,8 +56,6 @@ export class BaseDataService<T> {
   addRecord(record: T) {
     this.baseData.push(record);
     this.baseDataChange.next(null);
-    console.log(this.baseData.length);
-    console.log('record added');
   }
 
   remove(selected: T[]) {

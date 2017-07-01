@@ -7,7 +7,7 @@ import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import 'rxjs/add/observable/combineLatest';
 import 'rxjs/add/operator/mergeMap';
-import {BaseDataService} from './base-data.service';
+import {BaseDataTableService} from './base-data-table.service';
 
 export interface PaginationData {
   index: number;
@@ -35,7 +35,7 @@ export class GenericDataSource<T> extends SortableDataSource<any> {
   set pagination(pagination: PaginationData) { this._pagination.next(pagination); };
   get pagination(): PaginationData { return this._pagination.value; }
 
-  constructor(private _peopleDatabase: BaseDataService<T>, private _colToPropMap: any ) {
+  constructor(private _peopleDatabase: BaseDataTableService<T>, private _colToPropMap: any ) {
     super();
 
     // When the base data or filter changes, fetch a new set of filtered data.

@@ -1,7 +1,9 @@
 import { BaseResponse } from '../../root.models';
+import { BaseSearchRecord } from '../../../core/state/base-search-record';
+import { BaseSearchRequest } from '../../../core/state/base-search-request';
 
 /*[Table("constituent_search")]*/
-export class ConstituentSearchRecord {
+export class ConstituentSearchRecord extends BaseSearchRecord {
   /*[Column("provider_number")]*/
   public providerNumber: string;
   /*[Column("constituent_id")]*/
@@ -34,7 +36,7 @@ export class ConstituentSearchRecord {
   public businessPhone: string;
 }
 
-export class ConstituentSearchRequest {
+export class ConstituentSearchRequest extends BaseSearchRequest {
   public firstName: string;
   public lastName: string;
   public address: string;

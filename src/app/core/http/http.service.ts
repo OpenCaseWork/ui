@@ -28,6 +28,10 @@ export class HttpService {
     return this.environmentService.apiUrl + url;
   }
 
+  public getFile(url: string, options?: RequestOptionsArgs): Observable<Response> {
+    return this._http.get(url, options);
+  }
+
   public get(url: string, options?: RequestOptionsArgs): Observable<Response> {
     return this.request(RequestMethod.Get, this.buildUrl(url), null, options);
     // return this._http.get(this.buildUrl(url));

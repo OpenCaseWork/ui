@@ -10,6 +10,7 @@ import { LoginModule } from './shared/login/login.module';
 import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { StateModule } from './state/state.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { DashboardModule } from './dashboard/dashboard.module';
     DashboardModule,
     AppRoutingModule,
     LoginModule,
-    CoreModule
+    CoreModule,
+    StateModule
   ],
   providers: [],
   bootstrap: [AppComponent]

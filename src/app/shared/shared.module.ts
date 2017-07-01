@@ -14,7 +14,7 @@ import { DataTableHeader } from './material/data-table-demo/data-table-header';
 import { MdDataTableModule } from './material/data-table/index';
 import { PaginationControl } from './material/data-table-demo/pagination-control';
 import { PeopleDatabase } from './material/data-table-demo/people-database';
-import { BaseDataService } from './data-table/base-data.service';
+import { BaseDataTableService } from './data-table/base-data-table.service';
 import { SearchTableComponent } from './constituent-search/search-table.component';
 import { ConstituentSearchService } from './constituent-search/constituent-search.service';
 import { HttpService } from '../core/http/http.service';
@@ -49,7 +49,7 @@ import { AppStateService } from './state/app-state.service';
     ConstituentSearchDialogService,
     MessageBoxService,
     PeopleDatabase,
-    BaseDataService,
+    BaseDataTableService,
     ConstituentSearchService,
     HttpService,
     HttpHeaderService,

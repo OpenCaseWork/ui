@@ -11,6 +11,7 @@ export class EnvironmentService {
   apiBaseUrl: string;
   idServer: string;
   apiUrl: string;
+  useMockData: boolean;
 
   constructor() {
     this.isProduction = environment.production;
@@ -20,6 +21,7 @@ export class EnvironmentService {
     this.apiBaseUrl = environment.apiBaseUrl;
     this.idServer = environment.idServer;
     this.apiUrl = this.apiBaseUrl + 'api/';
+    this.useMockData = environment.useMock;
   }
 
 }

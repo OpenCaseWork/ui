@@ -1,6 +1,6 @@
 ﻿import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/material';
-import { BaseDataService } from '../data-table/base-data.service';
+import { BaseDataTableService } from '../data-table/base-data-table.service';
 import { GenericDataSource } from '../data-table/generic-data-source';
 import { ConstituentSearchRecord } from '../../models/constituents/search/constituents-search.models';
 
@@ -25,7 +25,7 @@ export class SearchTableComponent implements OnInit {
       'ECCPIS' : 'eCCPIS'
     };
 
-  constructor(private _peopleDatabase: BaseDataService<ConstituentSearchRecord>,
+  constructor(private _peopleDatabase: BaseDataTableService<ConstituentSearchRecord>,
               private _changeDetectorRef: ChangeDetectorRef) {
     // _changeDetectorRef.detectChanges()
     // this.selection.selected()
