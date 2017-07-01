@@ -1,19 +1,21 @@
 import { Component,
          OnInit,
-         ViewChild,
-         AfterViewInit }  from '@angular/core';
+         ViewChild }  from '@angular/core';
+import 'rxjs/add/operator/first';
 import { Router, ActivatedRoute }             from '@angular/router';
 import { RouteUrlConstituent, RouteUrlAdmin } from '../dashboard-routing.urls';
 import { ConstituentSearchDialogService } from '../../shared/constituent-search/constituent-search-dialog.service';
-import { MdMenuTrigger, MdMenu } from '@angular/material';
+import { MdMenuTrigger, MdMenu, MdDialog, MdDialogRef } from '@angular/material';
 import { ConstituentSearchRecord } from '../../models/constituents/search/constituents-search.models';
+import { ConstituentSearchComponent } from '../../shared/constituent-search/constituent-search.component';
+import { NavigationStoreService } from '../../state/store-services/navigation-store.service';
 
 @Component({
   selector: 'app-dashboard-menu',
   templateUrl: './dashboard-menu.component.html',
   styleUrls: ['./dashboard-menu.component.css']
 })
-export class DashboardMenuComponent implements OnInit, AfterViewInit {
+export class DashboardMenuComponent implements OnInit {
   @ViewChild('constituentMenuButton') constituentMenuTrigger: MdMenuTrigger;
   @ViewChild('appMenuConstituents') constituentMenu: MdMenu;
   open = false;
@@ -21,30 +23,35 @@ export class DashboardMenuComponent implements OnInit, AfterViewInit {
   searchResult: ConstituentSearchRecord;
   selected = '';
   trigger: MdMenuTrigger;
+  dialogRef: MdDialogRef<ConstituentSearchComponent> | null;
+  lastCloseResult: ConstituentSearchRecord;
 
   constructor( private router: Router,
                private route: ActivatedRoute,
-               private searchService: ConstituentSearchDialogService) { }
+               private searchService: ConstituentSearchDialogService,
+               private navService: NavigationStoreService,
+               public dialog: MdDialog) { }
 
   ngOnInit() {
     console.log('hello `dashboard-menu` component');
   }
 
-  ngAfterViewInit() {
-  }
-
   searchConstituent() {
-    this.searchService.search().subscribe(
-      res => { this.searchResult = res; },
-      error => { console.log('error:' + error); },
-      () => {
-        console.log('search returned');
+    this.dialogRef = this.dialog.open(ConstituentSearchComponent);
+
+    this.dialogRef.afterClosed()
+      .subscribe(result => {
+        console.log('result');
+        this.searchResult = result;
+        this.dialogRef = null;
         if (this.searchResult) {
           // navigate to constituent form, passing constituent id
-           this.router.navigate([RouteUrlConstituent(), this.searchResult.id ], { relativeTo: this.route });
-        }
-      }
-    );
+          console.log('navigating to consituent');
+          this.router.navigate([RouteUrlConstituent(), this.searchResult.id ], { relativeTo: this.route });
+          // issue with ngrx store router below
+          // this.navService.openConstituent(this.searchResult.id);
+       }
+      });
   }
 
   openMenu() {
@@ -60,7 +67,7 @@ export class DashboardMenuComponent implements OnInit, AfterViewInit {
     // this.constituentMenuTrigger.closeMenu();
   }
 
-  newConstituent() {
+   newConstituent() {
     this.router.navigate([RouteUrlConstituent()], { relativeTo: this.route });
   }
 
@@ -76,6 +83,7 @@ export class DashboardMenuComponent implements OnInit, AfterViewInit {
 
   newNAPISIntake() {
   }
+
   admininstration() {
     this.router.navigate([RouteUrlAdmin()], { relativeTo: this.route });
   }

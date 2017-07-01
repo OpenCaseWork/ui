@@ -4,8 +4,7 @@ import { LogService } from '../../../core/logging/log.service';
 import { HttpService } from '../../../core/http/http.service';
 import { ILoggedClass } from '../../../core/logging/logged-class';
 import { BaseDataService } from './../base-data.service';
-import { ConstituentSearchResponse,
-        ConstituentSearchRequest } from '../../../models/constituents/search/constituents-search.models';
+import { ConstituentDomains } from '../../../models/constituents/domains/constituents-domains.models';
 
 @Injectable()
 export class ConstituentDataService extends BaseDataService {
@@ -24,4 +23,5 @@ export class ConstituentDataService extends BaseDataService {
     return this.httpService.post('constituents/search', JSON.stringify(request))
       .map( res => res.json());
   }*/
+
 }

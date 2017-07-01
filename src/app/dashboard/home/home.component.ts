@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/observable';
 import { ConstituentStoreService } from '../../state/store-services/constituent-store-service';
 import { TransferStoreService } from '../../state/store-services/transfer-store.services';
+import { MdSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,9 @@ export class HomeComponent implements OnInit {
   private loaded$: Observable<boolean>;
   private constituentsLoaded$: Observable<boolean>;
 
-  constructor(private constituentStoreService: ConstituentStoreService, private transferStoreService: TransferStoreService) { }
+  constructor(private constituentStoreService: ConstituentStoreService,
+              private transferStoreService: TransferStoreService,
+              public snackBar: MdSnackBar) { }
 
   ngOnInit() {
     this.loaded$ = this.transferStoreService.Loaded$();
@@ -25,5 +28,6 @@ export class HomeComponent implements OnInit {
   }
 
   select() {
+    this.snackBar.open('test');
   }
 }

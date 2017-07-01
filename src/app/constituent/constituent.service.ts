@@ -17,6 +17,7 @@ export class ConstituentService {
     ) {
   }
 
+ /*
  saveConstituent$(constituent: Constituent): Observable<Constituent> {
     let body = JSON.stringify(constituent);
     this.logService.log('ConstituentService.saveConstituent:' + body);
@@ -33,9 +34,9 @@ export class ConstituentService {
         () => { observer.complete(); console.log('ConstituentService.saveConstituent onComplete'); }
       );
     });
-  }
+  }*/
 
-  constituent$(Id: number): Observable<Constituent> {
+  /* constituent$(Id: number): Observable<Constituent> {
     this.logService.log('ConstituentService.getConstituent');
 
     return Observable.create((observer) => {
@@ -50,7 +51,7 @@ export class ConstituentService {
         () => { observer.complete(); console.log('ConstituentService.getConstituent onComplete'); }
       );
     });
-  }
+  } */
 
   domain$(): Observable<ConstituentDomains> {
     if (this.appStateService.domains) {

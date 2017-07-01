@@ -40,6 +40,7 @@ export const constituentListIsLoaded = createSelector(getConstituentSearchState,
 export const constituentListIsLoading = createSelector(getConstituentSearchState, ConstituentSearchReducer.isLoading);
 export const constituentList = createSelector(getConstituentSearchState, ConstituentSearchReducer.results);
 export const constituentsSelected = createSelector(getConstituentSearchState, ConstituentSearchReducer.selected);
+export const constituentsResponseStatus = createSelector(getConstituentSearchState, ConstituentSearchReducer.responseStatus);
 
 export const transferFromAccountLoading = createSelector(getTransferAccountState, TransferAccounts.fromLoading);
 export const transferFromAccountLoaded = createSelector(getTransferAccountState, TransferAccounts.fromLoaded);

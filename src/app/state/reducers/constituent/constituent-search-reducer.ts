@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import * as SearchActions from '../../actions/constituent/constituent-search-actions';
-import { ConstituentSearchRecord, ConstituentSearchResponse } from '../../../models/constituents/search/constituents-search.models';
+import { ConstituentSearchRecord } from '../../../models/constituents/search/constituents-search.models';
 import { BaseResponse, ResponseStatus } from '../../../models/root.models';
 
 export interface State {
@@ -24,6 +24,7 @@ export const isLoaded = (state: State) => state.loaded;
 export const isLoading = (state: State) => state.loading;
 export const results = (state: State ) => state.results;
 export const selected = (state: State ) => state.selected;
+export const responseStatus = (state: State ) => state.responseStatus;
 
 // Reducer responses to Action and handles state change
 export function reducer(state = initialState, action: SearchActions.Actions): State {
@@ -36,7 +37,7 @@ export function reducer(state = initialState, action: SearchActions.Actions): St
     }
     case SearchActions.SEARCH_SUCCESS: {
       const newState: State =  {
-        results: action.payload.records,
+        results: action.payload.data,
         selected: undefined,
         loading: false,
         loaded: true,

@@ -1,4 +1,5 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
+import { HttpModule } from '@angular/http';
 import { NgIdleModule } from '@ng-idle/core';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { MockAuthService } from './auth/mock.auth.service';
@@ -13,7 +14,8 @@ import { IdleService } from './session/idle.service';
 @NgModule({
   imports: [
     OAuthModule.forRoot(),
-    NgIdleModule.forRoot()
+    NgIdleModule.forRoot(),
+    HttpModule
   ],
   declarations: [
   ],

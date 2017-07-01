@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 import { ResponseStatus } from '../../../models/root.models';
+import { BaseSearchResponse } from '../../../core/state/base-search-response';
 import {
-  ConstituentSearchResponse,
   ConstituentSearchRequest,
   ConstituentSearchRecord
 } from '../../../models/constituents/search/constituents-search.models';
@@ -21,7 +21,7 @@ export class SearchAction implements Action {
 
 export class SearchSuccessAction implements Action {
   readonly type = SEARCH_SUCCESS;
-  constructor(public payload: ConstituentSearchResponse) { }
+  constructor(public payload: BaseSearchResponse<ConstituentSearchRecord>) { }
 }
 
 export class SearchFailAction implements Action {

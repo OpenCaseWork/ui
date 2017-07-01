@@ -44,7 +44,8 @@ export class ConstituentSearchRequest extends BaseSearchRequest {
   public sSN: string;
 }
 
+/*
 export class ConstituentSearchResponse extends BaseResponse {
-  public records: ConstituentSearchRecord[];
-}
+  public data: ConstituentSearchRecord[];
+}*/
 

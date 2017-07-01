@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import { ActionReducer } from '@ngrx/store';
+import { RouterState, routerReducer } from '@ngrx/router-store';
 import { environment } from '../../../environments/environment';
 
 // Combine States and Reducers.
@@ -49,6 +50,7 @@ import * as TransferAccountReducer from './transfer-accounts-reducer';
 export interface GlobalState {
   transferAccounts: TransferAccountReducer.TransferAccountState;
   constituentSearchState: ConstituentSearchReducer.State;
+  router: RouterState;
   // TODO add other States here
 }
 
@@ -56,6 +58,7 @@ export interface GlobalState {
 const reducers = {
   constituentSearchState: ConstituentSearchReducer.reducer,
   transferAccounts: TransferAccountReducer.reducer,
+  router: routerReducer,
   // TODO add other reducers here
 };
 

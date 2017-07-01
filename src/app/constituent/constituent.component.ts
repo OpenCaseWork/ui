@@ -34,25 +34,24 @@ export class ConstituentComponent implements OnInit {
     private logService: LogService,
     private location: Location,
     public snackBar: MdSnackBar) {
-    this.route.params
-      .subscribe(params => {
-        this.id = +params['id'];
-        this.logService.log('id:' + this.id);
-      });
     this.constituentAggregate = new ConstituentAggregate;
   }
 
   ngOnInit() {
+    this.logService.log('init constituent component');
     this.loading = true;
     this.domain$ = this.service.domain$();
+
+    this.route.params
+      .subscribe(params => {
+        this.id = +params['id'];
+        this.logService.log('subscribe id:' + this.id);
+        this.loadConstituent();
+      });
+
     if (this.id > 0) {
-      this.constituent$ = this.aggregateService.constituent$(this.id);
-      this.constituent$.subscribe(
-      (response) => {
-        this.constituentAggregate = response;
-        this.logService.log('constituent loaded')
-      },
-        error => this.handleServerError(error));
+      console.log('check id');
+      this.loadConstituent();
     } else {
       this.constituent$ = Observable.of(new ConstituentAggregate());
     }
@@ -63,6 +62,17 @@ export class ConstituentComponent implements OnInit {
     this.logService.log('handleServerError called' + error);
     let config = new MdSnackBarConfig();
     this.snackBar.open('Data access error', 'OK', config);
+  }
+
+  loadConstituent() {
+    console.log('load constituent');
+     this.constituent$ = this.aggregateService.constituent$(this.id);
+      this.constituent$.subscribe(
+      (response) => {
+        this.constituentAggregate = response;
+        this.logService.log('constituent loaded')
+      },
+        error => this.handleServerError(error));
   }
 
   isLoading(): boolean {

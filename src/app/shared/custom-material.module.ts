@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { MaterialModule,
         MdButtonModule,
+        MdSnackBarModule,
         MdMenuModule,
          }  from '@angular/material';
 // import { MdMenuTrigger } from '@angular/material';
@@ -10,6 +11,7 @@ import { MaterialModule,
     MaterialModule,
     MdButtonModule,
     MdMenuModule,
+    MdSnackBarModule
     //MdInputModule
     // MdMenuTrigger
   ],
@@ -17,6 +19,7 @@ import { MaterialModule,
     MaterialModule,
     MdButtonModule,
     MdMenuModule,
+    MdSnackBarModule,
    // MdInputModule
     // MdMenuTrigger
   ],

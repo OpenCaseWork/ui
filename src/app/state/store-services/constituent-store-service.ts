@@ -13,6 +13,7 @@ import * as ConstituentSearchActions from './../actions/constituent/constituent-
 import { ConstituentSearchRecord, ConstituentSearchRequest } from '../../models/constituents/search/constituents-search.models';
 import { BaseStoreService } from './base-store.service';
 import { Actions } from '../actions/constituent/constituent-search-actions';
+import { ResponseStatus } from '../../models/root.models';
 
 // Wrapper service of the Account State in the Store
 @Injectable()
@@ -39,6 +40,12 @@ export class ConstituentStoreService extends BaseStoreService {
     this.logService.log(this.getClassName() + ':Loading$');
     return this.store.select(GlobalSelectors.constituentListIsLoading);
   }
+
+  ResponseStatus$(): Observable<ResponseStatus> {
+    this.logService.log(this.getClassName() + ':ResponseStatus$');
+    return this.store.select(GlobalSelectors.constituentsResponseStatus);
+  }
+
 
   SelectedConstituent$(): Observable<ConstituentSearchRecord[]> {
     return this.store.select(GlobalSelectors.constituentsSelected);

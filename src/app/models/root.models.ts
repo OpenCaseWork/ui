@@ -6,13 +6,13 @@ export class BaseResponse {
 }
 
 export class ResponseError {
-  public errorCode: string;
+  public errorCode: number;
   public fieldName: string;
   public message: string;
 }
 
 export class ResponseStatus {
-  public errorCode: string;
+  public statusCode: number;
   public message: string;
   public stackTrace: string;
   public errors: ResponseError[];

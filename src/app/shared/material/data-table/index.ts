@@ -17,7 +17,7 @@ import {MdSortable} from './sortable';
 
 export * from './data-source';
 export * from './data-table';
-export * from './data-table-errors';
+// export * from './data-table-errors';
 export * from './sortable';
 
 @NgModule({

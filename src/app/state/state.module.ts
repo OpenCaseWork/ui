@@ -1,10 +1,11 @@
 import { NgModule, Optional, SkipSelf }       from '@angular/core';
-
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { RouterStoreModule } from '@ngrx/router-store';
 import { globalReducer  } from './reducers/global-reducer';
 import { ConstituentEffect  } from './effects/constituent/constituent-effects';
 import { ConstituentStoreService } from './store-services/constituent-store-service';
+import { NavigationStoreService } from './store-services/navigation-store.service';
 import { TransferStoreService } from './store-services/transfer-store.services';
 import { ConstituentDataService } from './data-services/constituent/constituent-data.service';
 
@@ -32,7 +33,7 @@ import { ViewAccountServiceProvider,
      * based application.
      */
     StoreModule.provideStore(globalReducer),
-
+    RouterStoreModule.connectRouter(),
     /**
      * EffectsModule.run() sets up the effects class to be initialized
      * immediately when the application starts.
@@ -47,7 +48,8 @@ import { ViewAccountServiceProvider,
   providers: [
     ConstituentStoreService,
     ConstituentDataService,
-    TransferStoreService
+    TransferStoreService,
+    NavigationStoreService
   ],
   exports: [
   ],

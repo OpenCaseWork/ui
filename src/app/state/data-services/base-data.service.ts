@@ -21,4 +21,14 @@ export class BaseDataService implements ILoggedClass {
     return this.httpService.post(request.resource + '/search', JSON.stringify(request))
       .map( res => res.json());
   }
+
+/*
+    loadDomains(): Observable<BaseDom> {
+    if (this.appStateService.domains) {
+      this.logService.log('domains already loaded');
+      return Observable.of(this.appStateService.domains);
+    }
+    return this.HttpService.get('constituents/domains')
+      .map (response => response.json());
+  }*/
 }

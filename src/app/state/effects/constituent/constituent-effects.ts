@@ -8,6 +8,7 @@ import * as SearchActions from './../../actions/constituent/constituent-search-a
 import * as AggregateActions from './../../actions/constituent/constituent-aggregate-actions';
 import { BaseEffect } from '../base-effect';
 import { ConstituentSearchRecord } from '../../../models/constituents/search/constituents-search.models';
+import { ResponseStatus } from '../../../models/root.models';
 /**
  * Effects offer a way to isolate and easily test side-effects within your application
  */
@@ -22,13 +23,19 @@ export class ConstituentEffect extends BaseEffect {
     .switchMap(action => this.constituentDataService.search<ConstituentSearchRecord>(action.payload)
     .map(res => {
       this.logService.log(this.getClassName() + ':load$ success', res);
-      return (new SearchActions.SearchSuccessAction(res));
+      if (res.responseInfo.statusCode !== 0) {
+        return (new SearchActions.SearchFailAction(res.responseInfo));
+      } else {
+        return (new SearchActions.SearchSuccessAction(res));
+      }
     } )
     .catch(err => {
       // TODO - Somehow exception is not caught here.
       // HttpService does observer.error(err) for error
       this.logService.error(this.getClassName() + ':load$ error ', err);
-      return Observable.of(new SearchActions.SearchFailAction(err));
+      let status = new ResponseStatus();
+      status.statusCode = 500;
+      return Observable.of(new SearchActions.SearchFailAction(status));
     } )
   );
 
