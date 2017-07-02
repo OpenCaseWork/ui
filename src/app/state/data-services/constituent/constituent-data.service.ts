@@ -16,12 +16,4 @@ export class ConstituentDataService extends BaseDataService {
       console.log(this.getClassName() + '.constructor');
   }
 
-  /*searchConstituents(request: ConstituentSearchRequest): Observable<ConstituentSearchResponse> {
-    let returnData: ConstituentSearchResponse;
-    this.logService.log(this.getClassName() + '.searchConstituents');
-
-    return this.httpService.post('constituents/search', JSON.stringify(request))
-      .map( res => res.json());
-  }*/
-
 }

@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, Input, OnChanges, AfterViewInit, ViewChild, ViewChildren } from '@angular/core';
+﻿import { Component, OnInit, Input, OnChanges, AfterViewInit, ViewChild, ViewChildren, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators, AsyncValidator, AbstractControl } from '@angular/forms';
 import { Observable } from 'rxjs/observable';
 import { Constituent } from '../../models/constituents/constituents.models';
@@ -15,6 +15,7 @@ import { ConstituentAggregate } from '../../models/constituents/constituents-agg
 
 @Component({
   selector: 'app-name-address',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './name-address.component.html',
   styleUrls: ['./name-address.component.css']
 })
@@ -90,6 +91,8 @@ export class NameAddressComponent implements OnInit, OnChanges, AfterViewInit {
     // populate form, but only if have populated constituent
     if (this.constituent && this.constituent.constituent) {
       this.nameAddressForm.patchValue(this.constituent.constituent, { onlySelf: true });
+    } else {
+      this.logService.log('empty constituent!');
     }
     this.logService.log('NameAddressComponent.ngOnChanges');
   }

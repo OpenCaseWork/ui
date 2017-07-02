@@ -3,7 +3,6 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { MdSnackBar, MdSpinner, MdSnackBarConfig } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
-import { ConstituentService } from './constituent.service';
 import { LogService } from '../core/logging/log.service';
 import { Constituent } from '../models/constituents/constituents.models';
 import { ConstituentDomains } from '../models/constituents/domains/constituents-domains.models';
@@ -15,6 +14,8 @@ import { RouteUrlConstituent } from '../dashboard/dashboard-routing.urls';
 import { RouteUrlDashboard } from '../app-routing.urls';
 import { ConstituentStoreService } from '../state/store-services/constituent-store-service';
 import { Subject } from 'rxjs/Subject';
+import { EntityRequest } from '../models/root.models';
+import { BaseDomainsRequest } from '../models/base/base.models';
 
 @Component({
   selector: 'app-constituent',
@@ -33,13 +34,10 @@ export class ConstituentComponent implements OnInit, OnDestroy {
   ngUnsubscribe: Subject<void> = new Subject<void>();
 
   public constructor(private route: ActivatedRoute,
-    private service: ConstituentService,
     private aggregateService: ConstituentAggregateService,
     private storeService: ConstituentStoreService,
     private logService: LogService,
-    private location: Location,
-    public snackBar: MdSnackBar) {
-    this.constituentAggregate = new ConstituentAggregate;
+    private location: Location) {
   }
 
   ngOnInit() {
@@ -48,38 +46,39 @@ export class ConstituentComponent implements OnInit, OnDestroy {
     this.domain$ = this.storeService.Domain$()
       .takeUntil(this.ngUnsubscribe);
 
+    this.loadDomains();
+
+    this.constituent$ = this.storeService.ConstituentAggregate$();
+      this.constituent$
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe(res => this.constituentAggregate = res);
+
     this.route.params
       .subscribe(params => {
         this.id = +params['id'];
-        this.loadConstituent();
+        this.loadConstituent2();
       });
 
     if (this.id > 0) {
-      this.loadConstituent();
-    } else {
+      this.loadConstituent2();
+    }
+    /*} else {
       this.constituent$ = Observable.of(new ConstituentAggregate())
         .takeUntil(this.ngUnsubscribe);
-    }
+    }*/
     this.loading = false;
   }
 
-  private handleServerError(error: Response) {
-    this.logService.log('handleServerError called' + error);
-    let config = new MdSnackBarConfig();
-    this.snackBar.open('Data access error', 'OK', config);
+  loadDomains() {
+    this.logService.log('load domains');
+    let request = new BaseDomainsRequest();
+    request.resource = 'constituents';
+    this.storeService.loadDomains(request);
   }
 
-  loadConstituent() {
+  loadConstituent2() {
     console.log('load constituent');
-     this.constituent$ = this.aggregateService.constituent$(this.id);
-      this.constituent$
-      .takeUntil(this.ngUnsubscribe)
-      .subscribe(
-      (response) => {
-        this.constituentAggregate = response;
-        this.logService.log('constituent loaded')
-      },
-        error => this.handleServerError(error));
+    this.storeService.getConstituent(this.id);
   }
 
   isLoading(): boolean {
@@ -110,15 +109,14 @@ export class ConstituentComponent implements OnInit, OnDestroy {
         this.logService.log('constituent loaded')
       },
       error => {
-        this.handleServerError(error);
         this.constituent$ = Observable.of(this.constituentAggregate);
       });
   }
 
   showError() {
     this.logService.log('snackbar');
-    let config = new MdSnackBarConfig();
-    this.snackBar.open('Please fix validation errors', 'OK', config);
+    //let config = new MdSnackBarConfig();
+    //this.snackBar.open('Please fix validation errors', 'OK', config);
   }
 
   ngOnDestroy() {

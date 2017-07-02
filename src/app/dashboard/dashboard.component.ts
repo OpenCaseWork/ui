@@ -4,7 +4,6 @@ import { Observable } from 'rxjs/Observable';
 import { SessionService } from '../core/session/session.service';
 import { IdleService } from '../core/session/idle.service';
 import { DashboardMenuComponent } from './menu/dashboard-menu.component';
-import { ConstituentService } from '../constituent/constituent.service';
 import { ConstituentDomains } from '../models/constituents/domains/constituents-domains.models';
 import { ConstituentStoreService } from '../state/store-services/constituent-store-service';
 import { Subject } from 'rxjs/Subject';
@@ -29,7 +28,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private sessionService: SessionService,
     private idleService: IdleService,
-    private constituentService: ConstituentService,
     private storeService: ConstituentStoreService,
     private errorStore: ErrorStoreService,
     private logService: LogService,
@@ -63,22 +61,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.sessionService.logout();
     this.idleService.stop();
   }
-
-   /*
-  loadDomains() {
-      try {
-        this.constituentService.domain$().subscribe(
-          response => {
-            console.log('ConstituentComponent loadDomains: ' + JSON.stringify(response));
-          },
-          err => {
-            console.log(err);
-          });
-      } catch (error) {
-        console.log(error);
-      }
-  }*/
-
 
   ngOnDestroy() {
     this.logService.log('ngOnDestroy');

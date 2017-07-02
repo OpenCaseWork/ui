@@ -10,10 +10,8 @@ import { CustomMaterialModule } from '../shared/custom-material.module';
 import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard.component';
 import { DashboardMenuComponent } from './menu/dashboard-menu.component';
-import { AccountsService } from './shared/accounts.service';
 import { NotFoundComponent } from '../shared/not-found.component';
 import { ConstituentModule } from '../constituent/constituent.module';
-import { ConstituentService } from '../constituent/constituent.service';
 
 @NgModule({
   imports: [
@@ -33,8 +31,6 @@ import { ConstituentService } from '../constituent/constituent.service';
     DashboardMenuComponent
   ],
   providers: [
-    AccountsService,
-    ConstituentService
   ]
 })
 export class DashboardModule { }

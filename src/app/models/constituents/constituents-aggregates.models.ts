@@ -6,4 +6,10 @@ import { BaseResponse } from '../root.models';
 export class ConstituentAggregate extends BaseResponse {
   public constituent: Constituent;
   public contacts: ConstituentContact[];
+
+  constructor() {
+    super();
+    this.constituent = new Constituent();
+  }
+
 };

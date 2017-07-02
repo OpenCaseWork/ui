@@ -8,10 +8,8 @@ import { ConstituentComponent } from './constituent.component';
 import { NameAddressComponent } from './name-address/name-address.component';
 import { HttpService } from '../core/http/http.service';
 import { LogService } from '../core/logging/log.service';
-import { ConstituentService } from './constituent.service';
 import { AutoFocusDirective } from './name-address/autofocus.directive';
 import { DemographicsComponent } from './demographics/demographics.component';
-import { AppStateService } from '../shared/state/app-state.service';
 import { ConstituentAggregateService } from './constitutent-aggregate.service';
 
 @NgModule({
@@ -36,8 +34,6 @@ import { ConstituentAggregateService } from './constitutent-aggregate.service';
   providers: [
     HttpService,
     LogService,
-    ConstituentService,
-    AppStateService,
     ConstituentAggregateService,
   ],
   entryComponents: [

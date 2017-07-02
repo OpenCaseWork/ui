@@ -41,6 +41,7 @@ import { storeFreeze } from 'ngrx-store-freeze';
  */
 import * as ConstituentSearchReducer from './constituent/constituent-search-reducer';
 import * as ConstituentDomainsReducer from './constituent/constituent-domains-reducer';
+import * as ConstituentAggregateReducer from './constituent/constituent-aggregate-reducer';
 import * as ErrorReducer  from './error-reducer';
 import * as TransferAccountReducer from './transfer-accounts-reducer';
 // TODO add other reducers
@@ -53,6 +54,7 @@ export interface GlobalState {
   transferAccounts: TransferAccountReducer.TransferAccountState;
   constituentSearchState: ConstituentSearchReducer.State;
   constituentDomainsState: ConstituentDomainsReducer.State;
+  constituentAggregateState: ConstituentAggregateReducer.State;
   errorState: ErrorReducer.State;
   //router: RouterState;
   // TODO add other States here
@@ -63,6 +65,7 @@ const reducers = {
   constituentSearchState: ConstituentSearchReducer.reducer,
   transferAccounts: TransferAccountReducer.reducer,
   constituentDomainsState: ConstituentDomainsReducer.reducer,
+  constituentAggregateState: ConstituentAggregateReducer.reducer,
   errorState: ErrorReducer.reducer,
   //router: routerReducer,
   // TODO add other reducers here

@@ -19,3 +19,7 @@ export class ResponseStatus {
   public errors: ResponseError[];
 }
 
+export class EntityRequest {
+  public resource: string;
+  public id: number;
+}
