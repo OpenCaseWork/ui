@@ -1,4 +1,5 @@
 import { SelectItem } from '../../Domains/domains.models';
+import { BaseDomainsResponse } from '../../base/base.models';
 
 export class ConstituentDomains {
   public cities: SelectItem[];

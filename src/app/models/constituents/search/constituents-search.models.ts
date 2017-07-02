@@ -1,6 +1,6 @@
 import { BaseResponse } from '../../root.models';
-import { BaseSearchRecord } from '../../../core/state/base-search-record';
-import { BaseSearchRequest } from '../../../core/state/base-search-request';
+import { BaseSearchRequest } from '../../base/base.models';
+import { BaseSearchRecord } from '../../base/base.models';
 
 /*[Table("constituent_search")]*/
 export class ConstituentSearchRecord extends BaseSearchRecord {

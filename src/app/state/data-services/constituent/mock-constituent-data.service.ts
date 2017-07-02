@@ -4,8 +4,8 @@ import { LogService } from '../../../core/logging/log.service';
 import { HttpService } from '../../../core/http/http.service';
 import { ILoggedClass } from '../../../core/logging/logged-class';
 import { BaseDataService } from './../base-data.service';
-import { BaseSearchRequest } from '../../../core/state/base-search-request';
-import { BaseSearchResponse } from '../../../core/state/base-search-response';
+import { BaseSearchRequest } from '../../../models/base/base.models';
+import { BaseSearchResponse } from '../../../models/base/base.models';
 
 @Injectable()
 export class MockConstituentDataService {
@@ -16,7 +16,7 @@ export class MockConstituentDataService {
   }
 
   search<T>(request: BaseSearchRequest): Observable<BaseSearchResponse<T>> {
-    return this.httpService.getFile('constituents/search')
+    return this.httpService.getFile('constituent-search.json')
       .map( res => res.json());
   }
 }

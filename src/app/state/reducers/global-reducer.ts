@@ -40,6 +40,8 @@ import { storeFreeze } from 'ngrx-store-freeze';
  * notation packages up all of the exports into a single object.
  */
 import * as ConstituentSearchReducer from './constituent/constituent-search-reducer';
+import * as ConstituentDomainsReducer from './constituent/constituent-domains-reducer';
+import * as ErrorReducer  from './error-reducer';
 import * as TransferAccountReducer from './transfer-accounts-reducer';
 // TODO add other reducers
 
@@ -50,7 +52,9 @@ import * as TransferAccountReducer from './transfer-accounts-reducer';
 export interface GlobalState {
   transferAccounts: TransferAccountReducer.TransferAccountState;
   constituentSearchState: ConstituentSearchReducer.State;
-  router: RouterState;
+  constituentDomainsState: ConstituentDomainsReducer.State;
+  errorState: ErrorReducer.State;
+  //router: RouterState;
   // TODO add other States here
 }
 
@@ -58,7 +62,9 @@ export interface GlobalState {
 const reducers = {
   constituentSearchState: ConstituentSearchReducer.reducer,
   transferAccounts: TransferAccountReducer.reducer,
-  router: routerReducer,
+  constituentDomainsState: ConstituentDomainsReducer.reducer,
+  errorState: ErrorReducer.reducer,
+  //router: routerReducer,
   // TODO add other reducers here
 };
 

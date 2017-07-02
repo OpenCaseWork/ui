@@ -1,7 +1,5 @@
 import {
   MdDialogRef,
-  MdSnackBar,
-  MdSnackBarConfig,
   MdSpinner
 } from '@angular/material';
 import {
@@ -10,8 +8,7 @@ import {
   OnDestroy,
   ViewChild,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  AfterViewInit
+  ChangeDetectorRef
 } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
@@ -25,23 +22,21 @@ import { ConstituentStoreService } from '../../state/store-services/constituent-
 
 @Component({
   selector: 'app-constituent-search',
-  //changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './constituent-search.component.html',
   styleUrls: ['./constituent-search.component.css'],
 })
-export class ConstituentSearchComponent implements OnInit, OnDestroy, AfterViewInit {
+export class ConstituentSearchComponent implements OnInit, OnDestroy {
   @ViewChild(SearchTableComponent) private tableComponent: SearchTableComponent;
   public searchRequest: ConstituentSearchRequest;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   private searching = false;
   public lastName: string;
   public firstName: string;
-  private config = new MdSnackBarConfig();
 
   constructor(public dialogRef: MdDialogRef<ConstituentSearchComponent>,
     private database: BaseDataTableService<ConstituentSearchRecord>,
     private service: ConstituentSearchService,
-    public snackBar: MdSnackBar,
     private logService: LogService,
     private cd: ChangeDetectorRef,
     private constituentStoreService: ConstituentStoreService) {
@@ -49,7 +44,6 @@ export class ConstituentSearchComponent implements OnInit, OnDestroy, AfterViewI
 
   ngOnInit() {
     this.logService.log('ConstituentSearchComponent.ngOnInit');
-    this.config = new MdSnackBarConfig();
 
     // Subscribe to loading
     this.constituentStoreService.Loading$()
@@ -66,18 +60,6 @@ export class ConstituentSearchComponent implements OnInit, OnDestroy, AfterViewI
           this.logService.log('search complete!');
         }
       });
-
-    this.constituentStoreService.ResponseStatus$()
-      .takeUntil(this.ngUnsubscribe)
-      .subscribe(response => {
-        if (response && response.statusCode !== 0) {
-          this.showError();
-        }
-      });
-  }
-
-  ngAfterViewInit() {
-    this.snackBar.dismiss();
   }
 
   private setSearching(val: boolean) {
@@ -98,10 +80,6 @@ export class ConstituentSearchComponent implements OnInit, OnDestroy, AfterViewI
     this.logService.log('searching!');
     this.constituentStoreService.searchConstituents(this.searchRequest);
   }
-
-  showError() {
-    this.snackBar.open('Error searching for Constituent', 'OK', this.config);
- }
 
   select() {
     let searchRecord: ConstituentSearchRecord;
@@ -126,10 +104,6 @@ export class ConstituentSearchComponent implements OnInit, OnDestroy, AfterViewI
     this.logService.log('ViewAccountsComponent ngOnDestroy');
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete();
-    if (this.snackBar) {
-      this.logService.log('destroy snackbar');
-      this.snackBar = null;
-    }
   }
 
 }

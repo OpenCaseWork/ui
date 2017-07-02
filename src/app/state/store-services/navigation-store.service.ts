@@ -10,7 +10,6 @@ import { Observable } from 'rxjs/Observable';
 // TODO - decide on naming convention
 import * as GlobalReducer from '../reducers/global-reducer';
 import * as GlobalSelectors from '../reducers/global-selectors';
-import * as ConstituentSearchActions from './../actions/constituent/constituent-search-actions';
 import { ConstituentSearchRecord, ConstituentSearchRequest } from '../../models/constituents/search/constituents-search.models';
 import { BaseStoreService } from './base-store.service';
 import { Actions } from '../actions/constituent/constituent-search-actions';
@@ -31,6 +30,6 @@ export class NavigationStoreService extends BaseStoreService {
 
   openConstituent(id: number) {
     // issue: see https://github.com/ngrx/effects/issues/162
-    this.store.dispatch(go([RouteUrlConstituent(), id ], { relativeTo: this.route }));
+    //this.store.dispatch(go([RouteUrlConstituent(), id ], { relativeTo: this.route }));
   }
 }

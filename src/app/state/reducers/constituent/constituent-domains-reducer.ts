@@ -1,11 +1,10 @@
 import { createSelector } from 'reselect';
-import * as SearchActions from '../../actions/constituent/constituent-search-actions';
-import { ConstituentSearchRecord } from '../../../models/constituents/search/constituents-search.models';
+import * as DomainActions from '../../actions/constituent/constituent-domains-actions';
 import { BaseResponse, ResponseStatus } from '../../../models/root.models';
+import { ConstituentDomains } from '../../../models/constituents/domains/constituents-domains.models';
 
 export interface State {
-  results: Array<ConstituentSearchRecord>;
-  selected: Array<ConstituentSearchRecord>;
+  results: ConstituentDomains;
   loading: boolean;
   loaded: boolean;
   responseStatus: ResponseStatus;
@@ -13,57 +12,55 @@ export interface State {
 
 export const initialState: State = {
   results: undefined,
-  selected: undefined,
   loading: false,
   loaded: false,
   responseStatus: undefined
 };
 
-// Define Account State Selector for convenience
+// Define State Selector for convenience
 export const isLoaded = (state: State) => state.loaded;
 export const isLoading = (state: State) => state.loading;
 export const results = (state: State ) => state.results;
-export const selected = (state: State ) => state.selected;
 export const responseStatus = (state: State ) => state.responseStatus;
 
 // Reducer responses to Action and handles state change
-export function reducer(state = initialState, action: SearchActions.Actions): State {
-  console.log('search reducer:' + action.type);
+export function reducer(state = initialState, action: DomainActions.Actions): State {
+  console.log('domains reducer:' + action.type);
   switch (action.type) {
-    case SearchActions.SEARCH: {
+      case DomainActions.LOAD: {
       const newState: State = Object.assign({}, state, {
         loading: true
       });
       return newState;
     }
-    case SearchActions.SEARCH_SUCCESS: {
+    case DomainActions.LOAD_SUCCESS: {
       const newState: State =  {
         results: action.payload.data,
-        selected: undefined,
         loading: false,
         loaded: true,
         responseStatus: action.payload.responseInfo
       };
       return newState;
     }
-    case SearchActions.SEARCH_FAILURE: {
+    case DomainActions.LOAD_FAILURE: {
       const newState: State = {
         results: undefined,
-        selected: undefined,
         loading: false,
         loaded: false,
         responseStatus: action.payload
       };
       return newState;
     }
-    case SearchActions.SELECTED: {
-       const newState = Object.assign({}, state, {
-        selected: action.payload
-      });
+    case DomainActions.UNLOAD: {
+      const newState: State = {
+        results: undefined,
+        loading: false,
+        loaded: false,
+        responseStatus: undefined
+      };
       return newState;
     }
     default: {
-      // console.log('Account reducer default action returning', state);
       return state;
     }
   }

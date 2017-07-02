@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, Input, ViewChild } from '@angular/core';
+﻿import { Component, OnInit, Input, ViewChild, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { MdSnackBar, MdSpinner, MdSnackBarConfig } from '@angular/material';
@@ -13,13 +13,15 @@ import { ConstituentAggregateService } from './constitutent-aggregate.service';
 import { ConstituentAggregate } from '../models/constituents/constituents-aggregates.models';
 import { RouteUrlConstituent } from '../dashboard/dashboard-routing.urls';
 import { RouteUrlDashboard } from '../app-routing.urls';
+import { ConstituentStoreService } from '../state/store-services/constituent-store-service';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'app-constituent',
   templateUrl: './constituent.component.html',
   styleUrls: ['./constituent.component.css']
 })
-export class ConstituentComponent implements OnInit {
+export class ConstituentComponent implements OnInit, OnDestroy {
   @ViewChild(NameAddressComponent) private nameAddressComponent: NameAddressComponent;
   @ViewChild(DemographicsComponent) private demographicsComponent: DemographicsComponent;
   domain$: Observable<ConstituentDomains>;
@@ -27,10 +29,13 @@ export class ConstituentComponent implements OnInit {
   constituentAggregate: ConstituentAggregate;
   private id: number;
   private loading: boolean;
+  private domains: ConstituentDomains;
+  ngUnsubscribe: Subject<void> = new Subject<void>();
 
   public constructor(private route: ActivatedRoute,
     private service: ConstituentService,
     private aggregateService: ConstituentAggregateService,
+    private storeService: ConstituentStoreService,
     private logService: LogService,
     private location: Location,
     public snackBar: MdSnackBar) {
@@ -40,20 +45,20 @@ export class ConstituentComponent implements OnInit {
   ngOnInit() {
     this.logService.log('init constituent component');
     this.loading = true;
-    this.domain$ = this.service.domain$();
+    this.domain$ = this.storeService.Domain$()
+      .takeUntil(this.ngUnsubscribe);
 
     this.route.params
       .subscribe(params => {
         this.id = +params['id'];
-        this.logService.log('subscribe id:' + this.id);
         this.loadConstituent();
       });
 
     if (this.id > 0) {
-      console.log('check id');
       this.loadConstituent();
     } else {
-      this.constituent$ = Observable.of(new ConstituentAggregate());
+      this.constituent$ = Observable.of(new ConstituentAggregate())
+        .takeUntil(this.ngUnsubscribe);
     }
     this.loading = false;
   }
@@ -67,7 +72,9 @@ export class ConstituentComponent implements OnInit {
   loadConstituent() {
     console.log('load constituent');
      this.constituent$ = this.aggregateService.constituent$(this.id);
-      this.constituent$.subscribe(
+      this.constituent$
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe(
       (response) => {
         this.constituentAggregate = response;
         this.logService.log('constituent loaded')
@@ -112,6 +119,12 @@ export class ConstituentComponent implements OnInit {
     this.logService.log('snackbar');
     let config = new MdSnackBarConfig();
     this.snackBar.open('Please fix validation errors', 'OK', config);
+  }
+
+  ngOnDestroy() {
+    this.logService.log('ngOnDestroy');
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
 }

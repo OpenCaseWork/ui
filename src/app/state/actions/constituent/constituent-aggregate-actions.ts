@@ -2,12 +2,12 @@ import { Action } from '@ngrx/store';
 import { ConstituentAggregate } from '../../../models/constituents/constituents-aggregates.models';
 import { ResponseStatus } from '../../../models/root.models';
 
-export const GET          = 'Get';
-export const GET_SUCCESS     = 'GetSuccess';
-export const GET_FAILURE     = 'GetFailure';
-export const SAVE            = 'Save';
-export const SAVE_SUCCESS     = 'SaveSuccess';
-export const SAVE_FAILURE     = 'SaveFailure';
+export const GET          = 'Aggregate Get';
+export const GET_SUCCESS     = 'Aggregate GetSuccess';
+export const GET_FAILURE     = 'Aggregate GetFailure';
+export const SAVE            = 'Aggregate Save';
+export const SAVE_SUCCESS     = 'Aggregate SaveSuccess';
+export const SAVE_FAILURE     = 'Aggregate SaveFailure';
 
 export class GetAction implements Action {
   readonly type = GET;

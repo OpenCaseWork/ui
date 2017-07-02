@@ -12,6 +12,7 @@ export class ResponseError {
 }
 
 export class ResponseStatus {
+  public errorEnumId: number;
   public statusCode: number;
   public message: string;
   public stackTrace: string;

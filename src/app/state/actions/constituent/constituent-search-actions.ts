@@ -1,18 +1,18 @@
 import { Action } from '@ngrx/store';
 import { ResponseStatus } from '../../../models/root.models';
-import { BaseSearchResponse } from '../../../core/state/base-search-response';
+import { BaseSearchResponse } from '../../../models/base/base.models';
 import {
   ConstituentSearchRequest,
   ConstituentSearchRecord
 } from '../../../models/constituents/search/constituents-search.models';
 
-export const SEARCH = 'Search';
-export const LOADING = 'Loading';
-export const LOADED = 'Loaded';
-export const SEARCH_SUCCESS = 'Success';
-export const SEARCH_FAILURE = 'Failure';
-export const SELECTED = 'Selected';
-export const UNLOAD = 'Unload';
+export const SEARCH = 'Constituents Search';
+export const LOADING = 'Constituents Loading';
+export const LOADED = 'Constituents Loaded';
+export const SEARCH_SUCCESS = 'Constituents Success';
+export const SEARCH_FAILURE = 'Constituents Failure';
+export const SELECTED = 'Constituents Selected';
+export const UNLOAD = 'Constituents Unload';
 
 export class SearchAction implements Action {
   readonly type = SEARCH;

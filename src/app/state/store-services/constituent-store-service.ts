@@ -10,10 +10,13 @@ import { Observable } from 'rxjs/Observable';
 import * as GlobalReducer from '../reducers/global-reducer';
 import * as GlobalSelectors from '../reducers/global-selectors';
 import * as ConstituentSearchActions from './../actions/constituent/constituent-search-actions';
+import * as ConstituentDomainsActions from './../actions/constituent/constituent-domains-actions';
 import { ConstituentSearchRecord, ConstituentSearchRequest } from '../../models/constituents/search/constituents-search.models';
 import { BaseStoreService } from './base-store.service';
 import { Actions } from '../actions/constituent/constituent-search-actions';
 import { ResponseStatus } from '../../models/root.models';
+import { BaseDomainsRequest } from '../../models/base/base.models';
+import { ConstituentDomains } from '../../models/constituents/domains/constituents-domains.models';
 
 // Wrapper service of the Account State in the Store
 @Injectable()
@@ -72,6 +75,30 @@ export class ConstituentStoreService extends BaseStoreService {
     //} else {
     //  this.logService.log(this.getClassName() + ':already loaded');
     //}
+  }
+
+  Domain$(): Observable<ConstituentDomains> {
+    this.logService.log(this.getClassName() + ':Domain$');
+    return this.store.select(GlobalSelectors.constituentDomains);
+  }
+
+
+  // Load Account using API if not already loaded into the Store
+  loadDomains(request: BaseDomainsRequest): void {
+    let state: boolean;
+    this.logService.log(this.getClassName() + ':start loadDomains');
+    // Synchronously check if loaded
+    // Emit only the first 1 value emmited by the source Observable
+    this.store.select(GlobalSelectors.constituentDomainsIsLoaded)
+      .take(1).subscribe(s => state = s);
+    this.logService.log(this.getClassName() + ':isDomainsLoaded for ' + request, state);
+    // If Account is not loaded, load Account using API
+    if (!state) {
+      this.logService.log(this.getClassName() + ':dispatch ConstituentDomainsActions.LoadAction');
+      this.store.dispatch(new ConstituentDomainsActions.LoadAction(request));
+    } else {
+      this.logService.log(this.getClassName() + ':domains already loaded');
+    }
   }
 
 }

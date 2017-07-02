@@ -1,0 +1,5 @@
+- add mocks for domains, search, save
+- constituent save into ngrx
+- search to have unload
+- genericize ngrx
+- move constituent etc under "areas"
