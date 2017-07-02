@@ -1,6 +1,11 @@
 import { AuditedEntity } from '../Audit/audit.models';
 
 export class Constituent extends AuditedEntity {
+
+  constructor() {
+    super();
+    this.constituentId = 0;
+  }
   /*[Column("constituent_id")]*/
   public constituentId: number;
   /*[Column("title_id")]*/

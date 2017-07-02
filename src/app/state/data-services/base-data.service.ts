@@ -2,7 +2,7 @@ import { Observable } from 'rxjs/Observable';
 import { LogService } from '../../core/logging/log.service';
 import { HttpService } from '../../core/http/http.service';
 import { ILoggedClass } from '../../core/logging/logged-class';
-import { BaseSearchRequest, BaseEntityResponse } from '../../models/base/base.models';
+import { BaseSearchRequest, BaseEntityResponse, BaseEntityRequest } from '../../models/base/base.models';
 import { BaseSearchResponse } from '../../models/base/base.models';
 import { BaseDomainsResponse } from '../../models/base/base.models';
 import { BaseDomainsRequest } from '../../models/base/base.models';
@@ -18,9 +18,9 @@ export class BaseDataService implements ILoggedClass {
     return (<any>this).constructor.name;
   }
 
-  post<T>(request: EntityRequest): Observable<BaseEntityResponse<T>> {
+  post<T>(request: BaseEntityRequest<T>): Observable<BaseEntityResponse<T>> {
     this.logService.log(this.getClassName() + '.post');
-    return this.httpService.post(request.resource, JSON.stringify(request))
+    return this.httpService.post(request.resource, JSON.stringify(request.data))
       .map( res => res.json());
   }
 

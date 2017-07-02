@@ -16,6 +16,7 @@ import { ConstituentStoreService } from '../state/store-services/constituent-sto
 import { Subject } from 'rxjs/Subject';
 import { EntityRequest } from '../models/root.models';
 import { BaseDomainsRequest } from '../models/base/base.models';
+import { ErrorStoreService } from '../state/store-services/error-store.service';
 
 @Component({
   selector: 'app-constituent',
@@ -36,8 +37,10 @@ export class ConstituentComponent implements OnInit, OnDestroy {
   public constructor(private route: ActivatedRoute,
     private aggregateService: ConstituentAggregateService,
     private storeService: ConstituentStoreService,
+    private errorService: ErrorStoreService,
     private logService: LogService,
     private location: Location) {
+    this.constituentAggregate = new ConstituentAggregate();
   }
 
   ngOnInit() {
@@ -51,21 +54,17 @@ export class ConstituentComponent implements OnInit, OnDestroy {
     this.constituent$ = this.storeService.ConstituentAggregate$();
       this.constituent$
       .takeUntil(this.ngUnsubscribe)
-      .subscribe(res => this.constituentAggregate = res);
+      .subscribe(res => this.setConstituent(res));
 
     this.route.params
       .subscribe(params => {
         this.id = +params['id'];
-        this.loadConstituent2();
+        this.loadConstituent();
       });
 
     if (this.id > 0) {
-      this.loadConstituent2();
+      this.loadConstituent();
     }
-    /*} else {
-      this.constituent$ = Observable.of(new ConstituentAggregate())
-        .takeUntil(this.ngUnsubscribe);
-    }*/
     this.loading = false;
   }
 
@@ -76,7 +75,7 @@ export class ConstituentComponent implements OnInit, OnDestroy {
     this.storeService.loadDomains(request);
   }
 
-  loadConstituent2() {
+  loadConstituent() {
     console.log('load constituent');
     this.storeService.getConstituent(this.id);
   }
@@ -85,38 +84,26 @@ export class ConstituentComponent implements OnInit, OnDestroy {
     return this.loading;
   }
 
+  setConstituent(newConstituent: ConstituentAggregate) {
+    //let isNew = false;
+    if (this.constituentAggregate.constituent.constituentId === 0 && newConstituent.constituent.constituentId !== 0) {
+      //isNew = true;
+     //this.location.replaceState(this.location.path(false) + '/' + String(newConstituent.constituent.constituentId));
+    }
+    this.constituentAggregate = newConstituent;
+  }
+
   saveConstituentAggregate() {
-    let isNew = false;
     if (!this.nameAddressComponent.isValid()) {
-      this.showError();
+      this.errorService.publishError('Please fix validation errors');
       return;
     }
 
-    if (!this.constituentAggregate.constituent) {
-      isNew = true;
-    }
     this.logService.log('before update:' + JSON.stringify(this.constituentAggregate.constituent));
-    this.constituentAggregate.constituent = this.nameAddressComponent.updateConstituentFromForm(this.constituentAggregate.constituent);
-    this.logService.log('after update:' + JSON.stringify(this.constituentAggregate.constituent));
-    this.constituent$ = this.aggregateService.saveConstituent$(this.constituentAggregate);
-    this.constituent$.subscribe(
-      (response) => {
-        this.constituentAggregate = response;
-        if (isNew) {
-          this.logService.log('current path = ' + this.location.path(false));
-          this.location.replaceState(this.location.path(false) + '/' + String(this.constituentAggregate.constituent.constituentId));
-        }
-        this.logService.log('constituent loaded')
-      },
-      error => {
-        this.constituent$ = Observable.of(this.constituentAggregate);
-      });
-  }
-
-  showError() {
-    this.logService.log('snackbar');
-    //let config = new MdSnackBarConfig();
-    //this.snackBar.open('Please fix validation errors', 'OK', config);
+    const clone = Object.assign({}, this.constituentAggregate);
+    clone.constituent = this.nameAddressComponent.updateConstituentFromForm(this.constituentAggregate.constituent);
+    this.logService.log('after update:' + JSON.stringify(clone.constituent));
+    this.storeService.saveConstituent(clone);
   }
 
   ngOnDestroy() {

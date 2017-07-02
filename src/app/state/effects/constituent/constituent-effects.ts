@@ -14,6 +14,7 @@ import { ResponseStatus } from '../../../models/root.models';
 import * as GlobalReducer from '../../reducers/global-reducer';
 import { SearchAction, SearchFailAction } from '../../actions/constituent/constituent-search-actions';
 import { ConstituentAggregate } from '../../../models/constituents/constituents-aggregates.models';
+import { NavigationStoreService } from '../../store-services/navigation-store.service';
 /**
  * Effects offer a way to isolate and easily test side-effects within your application
  */
@@ -94,6 +95,7 @@ export class ConstituentEffect extends BaseEffect {
       })
     );
 
+  @Effect()
   save$: Observable<Action> = this.action$
     // Filter actions by action type
     .ofType(AggregateActions.SAVE)

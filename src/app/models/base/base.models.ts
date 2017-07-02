@@ -22,3 +22,9 @@ export class BaseSearchResponse<T> extends BaseResponse {
 export class BaseEntityResponse<T> extends BaseResponse {
   public data: T;
 }
+
+export class BaseEntityRequest<T> {
+  public data: T;
+  public resource: string;
+}
+

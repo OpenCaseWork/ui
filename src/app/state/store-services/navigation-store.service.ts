@@ -16,6 +16,7 @@ import { Actions } from '../actions/constituent/constituent-search-actions';
 import { ResponseStatus } from '../../models/root.models';
 import { RouteUrlConstituent } from '../../dashboard/dashboard-routing.urls';
 import { ActivatedRoute } from '@angular/router';
+import { RouteUrlDashboard } from '../../app-routing.urls';
 
 // Wrapper service of the Account State in the Store
 @Injectable()
@@ -30,6 +31,6 @@ export class NavigationStoreService extends BaseStoreService {
 
   openConstituent(id: number) {
     // issue: see https://github.com/ngrx/effects/issues/162
-    //this.store.dispatch(go([RouteUrlConstituent(), id ], { relativeTo: this.route }));
+    this.store.dispatch(go([RouteUrlDashboard() + '/' + RouteUrlConstituent(), id ]));
   }
 }

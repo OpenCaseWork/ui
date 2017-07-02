@@ -16,7 +16,7 @@ import { ConstituentSearchRecord, ConstituentSearchRequest } from '../../models/
 import { BaseStoreService } from './base-store.service';
 import { Actions } from '../actions/constituent/constituent-search-actions';
 import { ResponseStatus, EntityRequest } from '../../models/root.models';
-import { BaseDomainsRequest } from '../../models/base/base.models';
+import { BaseDomainsRequest, BaseEntityRequest } from '../../models/base/base.models';
 import { ConstituentDomains } from '../../models/constituents/domains/constituents-domains.models';
 import { ConstituentAggregate } from '../../models/constituents/constituents-aggregates.models';
 import { IdleService } from '../../core/session/idle.service';
@@ -137,6 +137,15 @@ export class ConstituentStoreService extends BaseStoreService {
     } else {
       this.logService.log(this.getClassName() + ':already loaded');
     }
+  }
+
+  // Load Account using API if not already loaded into the Store
+  saveConstituent(constituent: ConstituentAggregate): void {
+    let request = new BaseEntityRequest<ConstituentAggregate>();
+    request.data = constituent;
+    request.resource = 'constituent-aggregates';
+    this.logService.log(this.getClassName() + ':start saveConstituent:' + JSON.stringify(request.data));
+    this.store.dispatch(new ConstituentAggregateActions.SaveAction(request));
   }
 
 }
