@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { ResponseStatus } from '../../../models/root.models';
-import { BaseSearchResponse } from '../../../models/base/base.models';
+import { BaseResponse, BasePostRequest } from '../../../models/base/base.models';
 import {
   ConstituentSearchRequest,
   ConstituentSearchRecord
@@ -16,12 +16,12 @@ export const UNLOAD = 'Constituents Unload';
 
 export class SearchAction implements Action {
   readonly type = SEARCH;
-  constructor(public payload: ConstituentSearchRequest) { }
+  constructor(public payload: BasePostRequest<ConstituentSearchRequest>) { }
 }
 
 export class SearchSuccessAction implements Action {
   readonly type = SEARCH_SUCCESS;
-  constructor(public payload: BaseSearchResponse<ConstituentSearchRecord>) { }
+  constructor(public payload: BaseResponse<Array<ConstituentSearchRecord>>) { }
 }
 
 export class SearchFailAction implements Action {

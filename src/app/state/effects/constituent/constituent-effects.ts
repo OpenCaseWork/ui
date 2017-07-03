@@ -52,7 +52,7 @@ export class ConstituentEffect extends BaseEffect {
   load$: Observable<Action> = this.action$
     // Filter actions by action type
     .ofType(SearchActions.SEARCH)
-    .switchMap(action => this.constituentDataService.search<ConstituentSearchRecord>(action.payload)
+    .switchMap(action => this.constituentDataService.search<Array<ConstituentSearchRecord>>(action.payload)
       .map(res => {
         this.logService.log(this.getClassName() + ':load$ success', res);
         if (res.responseInfo.statusCode !== 0) {

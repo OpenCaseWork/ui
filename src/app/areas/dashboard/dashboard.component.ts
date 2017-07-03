@@ -8,7 +8,6 @@ import { ConstituentDomains } from '../../models/constituents/domains/constituen
 import { ConstituentStoreService } from '../../state/store-services/constituent-store-service';
 import { Subject } from 'rxjs/Subject';
 import { LogService } from '../../core/logging/log.service';
-import { BaseRequest } from '../../models/base/base.models';
 import { ErrorStoreService } from '../../state/store-services/error-store.service';
 import { ResponseStatus } from '../../models/root.models';
 import { MdSnackBar, MdSnackBarConfig } from '@angular/material';

@@ -1,15 +1,20 @@
-import { BaseResponse } from '../root.models';
+import { ResponseStatus } from '../root.models';
 
 export class BaseRequest {
   public resource: string;
+  public id: number;
 }
 
-export class BaseSearchResponse<T> extends BaseResponse {
+/*export class BaseSearchResponse<T> extends BaseResponse {
   public data: T[];
-}
+}*/
 
-export class BasePostResponse<T> extends BaseResponse {
+export class BaseResponse<T> {
+  public responseInfo: ResponseStatus;
   public data: T;
+  constructor() {
+    this.responseInfo = new ResponseStatus();
+  }
 }
 
 export class BasePostRequest<T> {

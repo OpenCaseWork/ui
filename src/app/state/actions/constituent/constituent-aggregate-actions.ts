@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 import { ConstituentAggregate } from '../../../models/constituents/constituents-aggregates.models';
 import { ResponseStatus, EntityRequest } from '../../../models/root.models';
-import { BasePostResponse, BasePostRequest } from '../../../models/base/base.models';
+import { BaseResponse, BasePostRequest } from '../../../models/base/base.models';
 
 export const GET          = 'Aggregate Get';
 export const GET_SUCCESS     = 'Aggregate GetSuccess';
@@ -19,7 +19,7 @@ export class GetAction implements Action {
 
 export class GetSuccessAction implements Action {
   readonly type = GET_SUCCESS;
-  constructor(public payload: BasePostResponse<ConstituentAggregate>) {}
+  constructor(public payload: BaseResponse<ConstituentAggregate>) {}
 }
 
 export class GetFailAction implements Action {
@@ -34,7 +34,7 @@ export class SaveAction implements Action {
 
 export class SaveSuccessAction implements Action {
   readonly type = SAVE_SUCCESS;
-  constructor(public payload: BasePostResponse<ConstituentAggregate>) {}
+  constructor(public payload: BaseResponse<ConstituentAggregate>) {}
 }
 
 export class CreatedAction implements Action {

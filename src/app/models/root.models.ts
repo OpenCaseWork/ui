@@ -1,10 +1,4 @@
 import { responseStatus } from '../state/reducers/constituent/constituent-search-reducer';
-export class BaseResponse {
-  public responseInfo: ResponseStatus;
-  constructor() {
-    this.responseInfo = new ResponseStatus();
-  }
-}
 
 export class ResponseError {
   public errorCode: number;

@@ -76,7 +76,6 @@ export class ConstituentSearchComponent implements OnInit, OnDestroy {
     this.searchRequest = new ConstituentSearchRequest();
     this.searchRequest.firstName = this.firstName;
     this.searchRequest.lastName = this.lastName;
-    this.searchRequest.resource = 'constituents';
     this.logService.log('searching!');
     this.constituentStoreService.searchConstituents(this.searchRequest);
   }

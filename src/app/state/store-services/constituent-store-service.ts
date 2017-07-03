@@ -59,6 +59,9 @@ export class ConstituentStoreService extends BaseStoreService {
 
   // Load Account using API if not already loaded into the Store
   searchConstituents(request: ConstituentSearchRequest): void {
+    let payload = new BasePostRequest<ConstituentSearchRequest>();
+    payload.resource = 'constituents';
+    payload.data = request;
     let state: boolean;
     this.logService.log(this.getClassName() + ':start searchConstituents');
     // Synchronously check if Account is loaded
@@ -69,7 +72,7 @@ export class ConstituentStoreService extends BaseStoreService {
     // If Account is not loaded, load Account using API
     //if (!state) {
       //this.logService.log(this.getClassName() + ':dispatch Account.LoadAction');
-      this.store.dispatch(new ConstituentSearchActions.SearchAction(request));
+      this.store.dispatch(new ConstituentSearchActions.SearchAction(payload));
     //} else {
     //  this.logService.log(this.getClassName() + ':already loaded');
     //}
