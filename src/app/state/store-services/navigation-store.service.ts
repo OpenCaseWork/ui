@@ -33,4 +33,9 @@ export class NavigationStoreService extends BaseStoreService {
     // issue: see https://github.com/ngrx/effects/issues/162
     this.store.dispatch(go([RouteUrlDashboard() + '/' + RouteUrlConstituent(), id ]));
   }
+
+  newConstituent() {
+    // issue: see https://github.com/ngrx/effects/issues/162
+    this.store.dispatch(go([RouteUrlDashboard() + '/' + RouteUrlConstituent()]));
+  }
 }

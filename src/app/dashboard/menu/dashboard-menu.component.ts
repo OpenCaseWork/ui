@@ -9,6 +9,7 @@ import { MdMenuTrigger, MdMenu, MdDialog, MdDialogRef } from '@angular/material'
 import { ConstituentSearchRecord } from '../../models/constituents/search/constituents-search.models';
 import { ConstituentSearchComponent } from '../../shared/constituent-search/constituent-search.component';
 import { NavigationStoreService } from '../../state/store-services/navigation-store.service';
+import { ConstituentStoreService } from '../../state/store-services/constituent-store-service';
 
 @Component({
   selector: 'app-dashboard-menu',
@@ -30,6 +31,7 @@ export class DashboardMenuComponent implements OnInit {
                private route: ActivatedRoute,
                private searchService: ConstituentSearchDialogService,
                private navService: NavigationStoreService,
+               private constituentStoreService: ConstituentStoreService,
                public dialog: MdDialog) { }
 
   ngOnInit() {
@@ -47,9 +49,10 @@ export class DashboardMenuComponent implements OnInit {
         if (this.searchResult) {
           // navigate to constituent form, passing constituent id
           console.log('navigating to consituent');
-          this.router.navigate([RouteUrlConstituent(), this.searchResult.id ], { relativeTo: this.route });
+          //this.router.navigate([RouteUrlConstituent(), this.searchResult.id ], { relativeTo: this.route });
           // issue with ngrx store router below
-          // this.navService.openConstituent(this.searchResult.id);
+          this.constituentStoreService.getConstituent(this.searchResult.id);
+          this.navService.openConstituent(this.searchResult.id);
        }
       });
   }
@@ -68,7 +71,9 @@ export class DashboardMenuComponent implements OnInit {
   }
 
    newConstituent() {
-    this.router.navigate([RouteUrlConstituent()], { relativeTo: this.route });
+     this.constituentStoreService.getConstituent(0);
+     this.navService.newConstituent();
+    //this.router.navigate([RouteUrlConstituent()], { relativeTo: this.route });
   }
 
   howBilling() {

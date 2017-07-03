@@ -34,7 +34,7 @@ import { ViewAccountServiceProvider,
      * based application.
      */
     StoreModule.provideStore(globalReducer),
-    // RouterStoreModule.connectRouter(),
+    RouterStoreModule.connectRouter(),
     /**
      * EffectsModule.run() sets up the effects class to be initialized
      * immediately when the application starts.

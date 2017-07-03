@@ -17,6 +17,7 @@ import { Subject } from 'rxjs/Subject';
 import { EntityRequest } from '../models/root.models';
 import { BaseDomainsRequest } from '../models/base/base.models';
 import { ErrorStoreService } from '../state/store-services/error-store.service';
+import { constituent } from '../state/reducers/global-selectors';
 
 @Component({
   selector: 'app-constituent',
@@ -46,25 +47,26 @@ export class ConstituentComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.logService.log('init constituent component');
     this.loading = true;
+
     this.domain$ = this.storeService.Domain$()
       .takeUntil(this.ngUnsubscribe);
 
     this.loadDomains();
 
-    this.constituent$ = this.storeService.ConstituentAggregate$();
-      this.constituent$
-      .takeUntil(this.ngUnsubscribe)
-      .subscribe(res => this.setConstituent(res));
+    this.constituent$ = this.storeService.ConstituentAggregate$()
+      .takeUntil(this.ngUnsubscribe);
+      //.subscribe(res => this.setConstituent(res));
 
     this.route.params
+      .takeUntil(this.ngUnsubscribe)
       .subscribe(params => {
         this.id = +params['id'];
         this.loadConstituent();
       });
 
-    if (this.id > 0) {
-      this.loadConstituent();
-    }
+    //if (this.id > 0) {
+    //  this.loadConstituent();
+    //}
     this.loading = false;
   }
 
@@ -84,13 +86,24 @@ export class ConstituentComponent implements OnInit, OnDestroy {
     return this.loading;
   }
 
-  setConstituent(newConstituent: ConstituentAggregate) {
-    //let isNew = false;
-    if (this.constituentAggregate.constituent.constituentId === 0 && newConstituent.constituent.constituentId !== 0) {
-      //isNew = true;
-     //this.location.replaceState(this.location.path(false) + '/' + String(newConstituent.constituent.constituentId));
+  //setConstituent(newConstituent: ConstituentAggregate) {
+  //  this.constituentAggregate = newConstituent;
+  //  this.fixUrl(newConstituent.constituent.constituentId);
+  //}
+
+  fixUrl(id: number) {
+    if (id === 0) {
+      return;
     }
-    this.constituentAggregate = newConstituent;
+    let url = this.location.path(false);
+    let endSegment = url.substr(url.lastIndexOf('/') + 1);
+    if (!Number.isNaN(+endSegment)) {
+      this.logService.log('fixing url:' + id);
+      url = url.replace(endSegment, String(id));
+      this.location.replaceState(url);
+    } else {
+      this.location.replaceState(url + '/', String(id));
+    }
   }
 
   saveConstituentAggregate() {
@@ -99,9 +112,11 @@ export class ConstituentComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.logService.log('before update:' + JSON.stringify(this.constituentAggregate.constituent));
-    const clone = Object.assign({}, this.constituentAggregate);
-    clone.constituent = this.nameAddressComponent.updateConstituentFromForm(this.constituentAggregate.constituent);
+    let current: ConstituentAggregate;
+    this.constituent$.takeLast(1).subscribe(constituent => current = constituent);
+    const clone = Object.assign({}, current);
+    this.logService.log('before update:' + JSON.stringify(clone.constituent));
+    clone.constituent = this.nameAddressComponent.updateConstituentFromForm(clone.constituent);
     this.logService.log('after update:' + JSON.stringify(clone.constituent));
     this.storeService.saveConstituent(clone);
   }
