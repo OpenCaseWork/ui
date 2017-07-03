@@ -1,6 +1,4 @@
-import { Component,
-         OnInit,
-         ViewChild }  from '@angular/core';
+import { Component, ViewChild }  from '@angular/core';
 import 'rxjs/add/operator/first';
 import { Router, ActivatedRoute }             from '@angular/router';
 import { RouteUrlConstituent, RouteUrlAdmin } from '../dashboard-routing.urls';
@@ -16,16 +14,13 @@ import { ConstituentStoreService } from '../../state/store-services/constituent-
   templateUrl: './dashboard-menu.component.html',
   styleUrls: ['./dashboard-menu.component.css']
 })
-export class DashboardMenuComponent implements OnInit {
+export class DashboardMenuComponent {
   @ViewChild('constituentMenuButton') constituentMenuTrigger: MdMenuTrigger;
   @ViewChild('appMenuConstituents') constituentMenu: MdMenu;
   open = false;
-  invert = false;
   searchResult: ConstituentSearchRecord;
-  selected = '';
   trigger: MdMenuTrigger;
   dialogRef: MdDialogRef<ConstituentSearchComponent> | null;
-  lastCloseResult: ConstituentSearchRecord;
 
   constructor( private router: Router,
                private route: ActivatedRoute,
@@ -33,10 +28,6 @@ export class DashboardMenuComponent implements OnInit {
                private navService: NavigationStoreService,
                private constituentStoreService: ConstituentStoreService,
                public dialog: MdDialog) { }
-
-  ngOnInit() {
-    console.log('hello `dashboard-menu` component');
-  }
 
   searchConstituent() {
     this.dialogRef = this.dialog.open(ConstituentSearchComponent);
@@ -49,9 +40,7 @@ export class DashboardMenuComponent implements OnInit {
         if (this.searchResult) {
           // navigate to constituent form, passing constituent id
           console.log('navigating to consituent');
-          //this.router.navigate([RouteUrlConstituent(), this.searchResult.id ], { relativeTo: this.route });
-          // issue with ngrx store router below
-          this.constituentStoreService.getConstituent(this.searchResult.id);
+          // this.router.navigate([RouteUrlConstituent(), this.searchResult.id ], { relativeTo: this.route });
           this.navService.openConstituent(this.searchResult.id);
        }
       });
@@ -67,13 +56,10 @@ export class DashboardMenuComponent implements OnInit {
   }
 
   closeMenu() {
-    // this.constituentMenuTrigger.closeMenu();
   }
 
    newConstituent() {
-     this.constituentStoreService.getConstituent(0);
      this.navService.newConstituent();
-    //this.router.navigate([RouteUrlConstituent()], { relativeTo: this.route });
   }
 
   howBilling() {
