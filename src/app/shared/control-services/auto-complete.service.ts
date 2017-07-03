@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { FormControl, AbstractControl } from '@angular/forms';
 
 export const SELECT_DESCRIPTION_FIELD = 'shortDescription';
+export const ID_FIELD = 'id';
 
 @Injectable()
 export class AutoCompleteService {
@@ -18,6 +19,16 @@ export class AutoCompleteService {
       }
     }
     return 0;
+  }
+
+  getStringValue(array: any[], value: number): string {
+    for (let index = 0; index < array.length; index++) {
+      let element = array[index];
+      if (element[ID_FIELD] === value) {
+        return element[SELECT_DESCRIPTION_FIELD];
+      }
+    }
+    return '';
   }
 
   getIdValue(array: any[], value: string): number {

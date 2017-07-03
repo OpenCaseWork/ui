@@ -11,6 +11,9 @@
         "assets",
         "assets/images/mountains.jpg",
         "assets/images/header.jpg",
+        "assets/test-data/constituent-domains.json",
+        "assets/test-data/constituent-search.json",
+        "assets/test-data/constituent-aggregate.json",
         "favicon.ico",
         "styles.css"
       ],

@@ -1,9 +1,5 @@
 import { BaseResponse } from '../root.models';
 
-export class BaseDomainsRequest {
-  public resource: string;
-}
-
 export class BaseDomainsResponse extends BaseResponse {
   public data: any;
 }
@@ -11,7 +7,7 @@ export class BaseDomainsResponse extends BaseResponse {
 export class BaseSearchRecord {
 }
 
-export class BaseSearchRequest {
+export class BaseRequest {
   public resource: string;
 }
 
@@ -19,11 +15,11 @@ export class BaseSearchResponse<T> extends BaseResponse {
   public data: T[];
 }
 
-export class BaseEntityResponse<T> extends BaseResponse {
+export class BasePostResponse<T> extends BaseResponse {
   public data: T;
 }
 
-export class BaseEntityRequest<T> {
+export class BasePostRequest<T> {
   public data: T;
   public resource: string;
 }

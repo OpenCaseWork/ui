@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 import { ConstituentAggregate } from '../../../models/constituents/constituents-aggregates.models';
 import { ResponseStatus, EntityRequest } from '../../../models/root.models';
-import { BaseEntityResponse, BaseEntityRequest } from '../../../models/base/base.models';
+import { BasePostResponse, BasePostRequest } from '../../../models/base/base.models';
 
 export const GET          = 'Aggregate Get';
 export const GET_SUCCESS     = 'Aggregate GetSuccess';
@@ -10,6 +10,7 @@ export const SAVE            = 'Aggregate Save';
 export const SAVE_SUCCESS     = 'Aggregate SaveSuccess';
 export const SAVE_FAILURE     = 'Aggregate SaveFailure';
 export const NEW              = 'Aggregate New';
+export const CREATED          = 'Aggregate Created'
 
 export class GetAction implements Action {
   readonly type = GET;
@@ -18,7 +19,7 @@ export class GetAction implements Action {
 
 export class GetSuccessAction implements Action {
   readonly type = GET_SUCCESS;
-  constructor(public payload: BaseEntityResponse<ConstituentAggregate>) {}
+  constructor(public payload: BasePostResponse<ConstituentAggregate>) {}
 }
 
 export class GetFailAction implements Action {
@@ -28,13 +29,19 @@ export class GetFailAction implements Action {
 
 export class SaveAction implements Action {
   readonly type = SAVE;
-  constructor(public payload: BaseEntityRequest<ConstituentAggregate>) {}
+  constructor(public payload: BasePostRequest<ConstituentAggregate>) {}
 }
 
 export class SaveSuccessAction implements Action {
   readonly type = SAVE_SUCCESS;
-  constructor(public payload: BaseEntityResponse<ConstituentAggregate>) {}
+  constructor(public payload: BasePostResponse<ConstituentAggregate>) {}
 }
+
+export class CreatedAction implements Action {
+  readonly type = CREATED;
+  constructor(public payload: boolean) {}
+}
+
 
 export class SaveFailAction implements Action {
   readonly type = SAVE_FAILURE;
@@ -56,4 +63,5 @@ export type Actions
   | SaveAction
   | SaveSuccessAction
   | SaveFailAction
-  | NewAction;
+  | NewAction
+  | CreatedAction;

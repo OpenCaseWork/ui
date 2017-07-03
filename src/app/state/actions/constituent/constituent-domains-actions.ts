@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 import { ResponseStatus } from '../../../models/root.models';
 import { ConstituentDomains } from '../../../models/constituents/domains/constituents-domains.models';
-import { BaseDomainsRequest, BaseDomainsResponse } from '../../../models/base/base.models';
+import { BaseRequest, BaseDomainsResponse } from '../../../models/base/base.models';
 
 export const LOAD = 'Load Domains';
 export const LOADING = 'Loading Domains';
@@ -12,7 +12,7 @@ export const UNLOAD = 'Unload Domains';
 
 export class LoadAction implements Action {
   readonly type = LOAD;
-  constructor(public payload: BaseDomainsRequest) { }
+  constructor(public payload: BaseRequest) { }
 }
 
 export class LoadSuccessAction implements Action {

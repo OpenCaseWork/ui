@@ -106,6 +106,7 @@ export class ConstituentEffect extends BaseEffect {
           this.store.dispatch(new AggregateActions.SaveFailAction(res.responseInfo));
           return (new ErrorActions.FailAction(res.responseInfo));
         } else {
+          this.navService.openConstituent(res.data.constituent.constituentId);
           return (new AggregateActions.SaveSuccessAction(res));
         }
       })
@@ -123,6 +124,7 @@ export class ConstituentEffect extends BaseEffect {
   constructor(
     private action$: Actions,
     private constituentDataService: ConstituentDataService,
+    private navService: NavigationStoreService,
     private logService: LogService,
     private store: Store<GlobalReducer.GlobalState>) {
     super();

@@ -1,12 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LogService } from './../../core/logging/log.service';
-
-// RxJS powered state management for Angular applications, inspired by Redux
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-// Import entire contents of /reducers/index.ts into the scope,
-// containing all the exported bindings from the module ideitified by "FromStore"
-// TODO - decide on naming convention
 import * as GlobalReducer from '../reducers/global-reducer';
 import * as GlobalSelectors from '../reducers/global-selectors';
 import * as ConstituentSearchActions from './../actions/constituent/constituent-search-actions';
@@ -16,7 +11,7 @@ import { ConstituentSearchRecord, ConstituentSearchRequest } from '../../models/
 import { BaseStoreService } from './base-store.service';
 import { Actions } from '../actions/constituent/constituent-search-actions';
 import { ResponseStatus, EntityRequest } from '../../models/root.models';
-import { BaseDomainsRequest, BaseEntityRequest } from '../../models/base/base.models';
+import { BaseRequest, BasePostRequest } from '../../models/base/base.models';
 import { ConstituentDomains } from '../../models/constituents/domains/constituents-domains.models';
 import { ConstituentAggregate } from '../../models/constituents/constituents-aggregates.models';
 import { IdleService } from '../../core/session/idle.service';
@@ -87,7 +82,9 @@ export class ConstituentStoreService extends BaseStoreService {
 
 
   // Load Account using API if not already loaded into the Store
-  loadDomains(request: BaseDomainsRequest): void {
+  loadDomains(): void {
+    let request = new BaseRequest();
+    request.resource = 'constituents';
     let state: boolean;
     this.logService.log(this.getClassName() + ':start loadDomains');
     // Synchronously check if loaded
@@ -141,7 +138,7 @@ export class ConstituentStoreService extends BaseStoreService {
 
   // Load Account using API if not already loaded into the Store
   saveConstituent(constituent: ConstituentAggregate): void {
-    let request = new BaseEntityRequest<ConstituentAggregate>();
+    let request = new BasePostRequest<ConstituentAggregate>();
     request.data = constituent;
     request.resource = 'constituent-aggregates';
     this.logService.log(this.getClassName() + ':start saveConstituent:' + JSON.stringify(request.data));

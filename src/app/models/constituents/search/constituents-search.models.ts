@@ -1,5 +1,5 @@
 import { BaseResponse } from '../../root.models';
-import { BaseSearchRequest } from '../../base/base.models';
+import { BaseRequest } from '../../base/base.models';
 import { BaseSearchRecord } from '../../base/base.models';
 
 /*[Table("constituent_search")]*/
@@ -36,7 +36,7 @@ export class ConstituentSearchRecord extends BaseSearchRecord {
   public businessPhone: string;
 }
 
-export class ConstituentSearchRequest extends BaseSearchRequest {
+export class ConstituentSearchRequest extends BaseRequest {
   public firstName: string;
   public lastName: string;
   public address: string;

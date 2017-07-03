@@ -8,7 +8,7 @@ import { ConstituentDomains } from '../models/constituents/domains/constituents-
 import { ConstituentStoreService } from '../state/store-services/constituent-store-service';
 import { Subject } from 'rxjs/Subject';
 import { LogService } from '../core/logging/log.service';
-import { BaseDomainsRequest } from '../models/base/base.models';
+import { BaseRequest } from '../models/base/base.models';
 import { ErrorStoreService } from '../state/store-services/error-store.service';
 import { ResponseStatus } from '../models/root.models';
 import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
@@ -22,10 +22,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   constituentDomain$: Observable<ConstituentDomains>;
   error$: Observable<ResponseStatus>;
   ngUnsubscribe: Subject<void> = new Subject<void>();
-  result: any;
 
   constructor(private router: Router,
-    private route: ActivatedRoute,
     private sessionService: SessionService,
     private idleService: IdleService,
     private storeService: ConstituentStoreService,
@@ -45,8 +43,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     // domains
     this.constituentDomain$ = this.storeService.Domain$()
       .takeUntil(this.ngUnsubscribe);
-    let request: BaseDomainsRequest = {resource: 'constituents'};
-    this.storeService.loadDomains(request);
+    this.storeService.loadDomains();
   }
 
   private handleError(error: ResponseStatus) {

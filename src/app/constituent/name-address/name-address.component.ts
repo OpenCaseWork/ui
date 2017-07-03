@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, Input, OnChanges, AfterViewInit, ViewChild, ViewChildren, ChangeDetectionStrategy } from '@angular/core';
+﻿import { Component, OnInit, Input, OnChanges, AfterViewInit, ViewChild, ViewChildren, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators, AsyncValidator, AbstractControl } from '@angular/forms';
 import { Observable } from 'rxjs/observable';
 import { Constituent } from '../../models/constituents/constituents.models';
@@ -15,7 +15,7 @@ import { ConstituentAggregate } from '../../models/constituents/constituents-agg
 
 @Component({
   selector: 'app-name-address',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush, TODO: turn on if change detect issue fixed with autocomplete 
   templateUrl: './name-address.component.html',
   styleUrls: ['./name-address.component.css']
 })
@@ -46,7 +46,8 @@ export class NameAddressComponent implements OnInit, OnChanges, AfterViewInit {
   constructor(private logService: LogService,
     private autoCompleteService: AutoCompleteService,
     private validatorService: ValidatorService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private cd: ChangeDetectorRef) {
     this.emailFormControl = this.validatorService.createEmailControl();
     this.createForm();
     this.federalId = this.nameAddressForm.controls['federalId'];
@@ -90,7 +91,12 @@ export class NameAddressComponent implements OnInit, OnChanges, AfterViewInit {
 
     // populate form, but only if have populated constituent
     if (this.constituent && this.constituent.constituent) {
-      this.nameAddressForm.patchValue(this.constituent.constituent, { onlySelf: true });
+      let patchObject = Object.assign({}, this.constituent.constituent);
+      if (this.domains) {
+        patchObject.suffix =
+          this.autoCompleteService.getStringValue(this.domains.suffixes, this.constituent.constituent.suffixId);
+      }
+      this.nameAddressForm.patchValue(patchObject, { onlySelf: true });
     } else {
       this.logService.log('empty constituent!');
     }
@@ -113,7 +119,7 @@ export class NameAddressComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   createContactsForm() {
-    this.contactsForm = this.formBuilder.group ({ })
+    this.contactsForm = this.formBuilder.group ({ });
   }
 
   isValid(): boolean {
