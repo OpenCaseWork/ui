@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouteUrlLogin } from '../../app-routing.urls';
-import { EnvironmentService } from '../environment.service';
+import { EnvironmentService } from '../environment/environment.service';
 import { AuthService } from '../auth/auth.service';
 
 @Injectable()

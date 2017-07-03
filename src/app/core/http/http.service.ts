@@ -2,7 +2,7 @@ import { Injectable, EventEmitter }                 from '@angular/core';
 import { Http, Headers, RequestOptions,
         RequestOptionsArgs, Response, RequestMethod,
         Request, Connection, ConnectionBackend }    from '@angular/http';
-import { EnvironmentService } from './../environment.service';
+import { EnvironmentService } from './../environment/environment.service';
 import { HttpHeaderService } from './http-header.service';
 import { LogService } from './../logging/log.service';
 import { Observable } from 'rxjs/Observable';

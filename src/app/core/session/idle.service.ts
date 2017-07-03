@@ -4,7 +4,7 @@ import { Idle,
 import { IdleState, IdleStateEnum } from '../models/idle-state.model';
 import { LogService }               from '../logging/log.service';
 import { SessionService }              from './session.service';
-import { EnvironmentService }       from '../environment.service';
+import { EnvironmentService }       from '../environment/environment.service';
 
 /** Service used to monitor user activity, warn user when inactive,
  * and log user out when activity limit reached

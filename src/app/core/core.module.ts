@@ -4,7 +4,7 @@ import { NgIdleModule } from '@ng-idle/core';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { MockAuthService } from './auth/mock.auth.service';
 import { LogService } from './logging/log.service';
-import { EnvironmentService } from './environment.service';
+import { EnvironmentService } from './environment/environment.service';
 import { AuthGuardService } from './auth/auth-guard.service';
 import { AuthService } from './auth/auth.service';
 import { AuthServiceProvider } from './auth/auth.service.provider';

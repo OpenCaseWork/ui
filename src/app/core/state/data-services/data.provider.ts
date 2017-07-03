@@ -1,6 +1,6 @@
 import { HttpService } from '../../http/http.service';
 import { LogService } from '../../logging/log.service';
-import { EnvironmentService } from '../../environment.service';
+import { EnvironmentService } from '../../environment/environment.service';
 import { BaseDataService } from './base-data.service';
 import { MockBaseDataService } from './mock-base-data.service';
 

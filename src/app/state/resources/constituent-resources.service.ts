@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LogService } from '../../core/logging/log.service';
-import { EnvironmentService } from '../../core/environment.service';
+import { EnvironmentService } from '../../core/environment/environment.service';
 
 export class ConstituentResources {
   entity: string;

@@ -1,6 +1,6 @@
 import { Injectable }         from '@angular/core';
 import { Level }              from './level';
-import { EnvironmentService } from '../environment.service';
+import { EnvironmentService } from '../environment/environment.service';
 import { ResponseStatus }     from '../models/request-response.models';
 
 // Some browsers don't implement the debug method

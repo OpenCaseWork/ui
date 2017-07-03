@@ -2,7 +2,7 @@ import { OAuthService }       from 'angular-oauth2-oidc';
 import { Router }             from '@angular/router';
 import { AuthService }        from './auth.service';
 import { MockAuthService }    from './mock.auth.service';
-import { EnvironmentService } from '../environment.service';
+import { EnvironmentService } from '../environment/environment.service';
 import { LogService }         from '../logging/log.service';
 import { RouteUrlLogin }      from '../../app-routing.urls';
 
