@@ -4,7 +4,7 @@ import { LogService } from '../../../core/logging/log.service';
 import { HttpService } from '../../../core/http/http.service';
 import { ILoggedClass } from '../../../core/logging/logged-class';
 import { BaseDataService } from './../base-data.service';
-import { BaseRequest, BasePostRequest, BasePostResponse, BaseRequest, BaseDomainsResponse } from '../../../models/base/base.models';
+import { BaseRequest, BasePostRequest, BasePostResponse, BaseDomainsResponse } from '../../../models/base/base.models';
 import { BaseSearchResponse } from '../../../models/base/base.models';
 import { EntityRequest } from '../../../models/root.models';
 

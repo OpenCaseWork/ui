@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { LoginComponent } from './shared/login/login.component';
+import { LoginComponent } from './areas/login/login.component';
 import { NotFoundComponent } from './shared/not-found.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { ConstituentComponent } from './constituent/constituent.component';
+import { DashboardComponent } from './areas/dashboard/dashboard.component';
+import { ConstituentComponent } from './areas/constituent/constituent.component';
 import { AuthGuardService } from './core/auth/auth-guard.service';
 import { RouteUrlLogin,
          RouteUrlDashboard,

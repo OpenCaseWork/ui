@@ -6,10 +6,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import 'hammerjs';
 
 import { AppComponent } from './app.component';
-import { LoginModule } from './shared/login/login.module';
+import { LoginModule } from './areas/login/login.module';
 import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
-import { DashboardModule } from './dashboard/dashboard.module';
+import { DashboardModule } from './areas/dashboard/dashboard.module';
 import { StateModule } from './state/state.module';
 
 @NgModule({

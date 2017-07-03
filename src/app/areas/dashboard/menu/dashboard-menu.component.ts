@@ -1,13 +1,11 @@
 import { Component, ViewChild }  from '@angular/core';
 import 'rxjs/add/operator/first';
 import { Router, ActivatedRoute }             from '@angular/router';
-import { RouteUrlConstituent, RouteUrlAdmin } from '../dashboard-routing.urls';
-import { ConstituentSearchDialogService } from '../../shared/constituent-search/constituent-search-dialog.service';
 import { MdMenuTrigger, MdMenu, MdDialog, MdDialogRef } from '@angular/material';
-import { ConstituentSearchRecord } from '../../models/constituents/search/constituents-search.models';
-import { ConstituentSearchComponent } from '../../shared/constituent-search/constituent-search.component';
-import { NavigationStoreService } from '../../state/store-services/navigation-store.service';
-import { ConstituentStoreService } from '../../state/store-services/constituent-store-service';
+import { RouteUrlConstituent, RouteUrlAdmin } from '../dashboard-routing.urls';
+import { ConstituentSearchRecord } from '../../../models/constituents/search/constituents-search.models';
+import { ConstituentSearchComponent } from '../../../shared/constituent-search/constituent-search.component';
+import { NavigationStoreService } from '../../../state/store-services/navigation-store.service';
 
 @Component({
   selector: 'app-dashboard-menu',
@@ -24,9 +22,7 @@ export class DashboardMenuComponent {
 
   constructor( private router: Router,
                private route: ActivatedRoute,
-               private searchService: ConstituentSearchDialogService,
                private navService: NavigationStoreService,
-               private constituentStoreService: ConstituentStoreService,
                public dialog: MdDialog) { }
 
   searchConstituent() {

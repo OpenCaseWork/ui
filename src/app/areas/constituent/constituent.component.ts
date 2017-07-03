@@ -3,20 +3,18 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { MdSnackBar, MdSpinner, MdSnackBarConfig } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
-import { LogService } from '../core/logging/log.service';
-import { Constituent } from '../models/constituents/constituents.models';
-import { ConstituentDomains } from '../models/constituents/domains/constituents-domains.models';
+import { LogService } from '../../core/logging/log.service';
+import { Constituent } from '../../models/constituents/constituents.models';
+import { ConstituentDomains } from '../../models/constituents/domains/constituents-domains.models';
 import { NameAddressComponent } from './name-address/name-address.component';
 import { DemographicsComponent } from './demographics/demographics.component';
-import { ConstituentAggregate } from '../models/constituents/constituents-aggregates.models';
-import { RouteUrlConstituent } from '../dashboard/dashboard-routing.urls';
-import { RouteUrlDashboard } from '../app-routing.urls';
-import { ConstituentStoreService } from '../state/store-services/constituent-store-service';
+import { ConstituentAggregate } from '../../models/constituents/constituents-aggregates.models';
+import { ConstituentStoreService } from '../../state/store-services/constituent-store-service';
 import { Subject } from 'rxjs/Subject';
-import { EntityRequest } from '../models/root.models';
-import { BaseRequest } from '../models/base/base.models';
-import { ErrorStoreService } from '../state/store-services/error-store.service';
-import { constituent } from '../state/reducers/global-selectors';
+import { EntityRequest } from '../../models/root.models';
+import { BaseRequest } from '../../models/base/base.models';
+import { ErrorStoreService } from '../../state/store-services/error-store.service';
+import { constituent } from '../../state/reducers/global-selectors';
 
 @Component({
   selector: 'app-constituent',

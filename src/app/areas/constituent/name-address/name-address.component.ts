@@ -1,17 +1,23 @@
-﻿import { Component, OnInit, Input, OnChanges, AfterViewInit, ViewChild, ViewChildren, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators, AsyncValidator, AbstractControl } from '@angular/forms';
+﻿import {
+  Component, OnInit, Input, OnChanges, AfterViewInit,
+  ViewChild, ViewChildren, ChangeDetectionStrategy, ChangeDetectorRef
+} from '@angular/core';
+import {
+  FormControl, FormGroup, FormBuilder,
+  Validators, AbstractControl
+} from '@angular/forms';
 import { Observable } from 'rxjs/observable';
-import { Constituent } from '../../models/constituents/constituents.models';
+import { Constituent } from '../../../models/constituents/constituents.models';
 import {
   ConstituentDomains, City, Suffix,
   Title, PostalCode, Township, State
-} from '../../models/constituents/domains/constituents-domains.models';
-import { LogService } from '../../core/logging/log.service';
-import { AutoCompleteService, SELECT_DESCRIPTION_FIELD } from '../../shared/control-services/auto-complete.service';
-import { ValidatorService } from '../../shared/control-services/validator.service';
-import { SelectItem } from '../../models/domains/domains.models';
-import { ConstituentContact } from '../../models/constituents/constituents.models';
-import { ConstituentAggregate } from '../../models/constituents/constituents-aggregates.models';
+} from '../../../models/constituents/domains/constituents-domains.models';
+import { LogService } from '../../../core/logging/log.service';
+import { AutoCompleteService, SELECT_DESCRIPTION_FIELD } from '../../../shared/control-services/auto-complete.service';
+import { ValidatorService } from '../../../shared/control-services/validator.service';
+import { SelectItem } from '../../../models/domains/domains.models';
+import { ConstituentContact } from '../../../models/constituents/constituents.models';
+import { ConstituentAggregate } from '../../../models/constituents/constituents-aggregates.models';
 
 @Component({
   selector: 'app-name-address',
@@ -43,11 +49,13 @@ export class NameAddressComponent implements OnInit, OnChanges, AfterViewInit {
   emailFormControl: AbstractControl;
 
 
-  constructor(private logService: LogService,
+  constructor(
+    private logService: LogService,
     private autoCompleteService: AutoCompleteService,
     private validatorService: ValidatorService,
     private formBuilder: FormBuilder,
-    private cd: ChangeDetectorRef) {
+    private cd: ChangeDetectorRef
+  ) {
     this.emailFormControl = this.validatorService.createEmailControl();
     this.createForm();
     this.federalId = this.nameAddressForm.controls['federalId'];
@@ -119,7 +127,7 @@ export class NameAddressComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   createContactsForm() {
-    this.contactsForm = this.formBuilder.group ({ });
+    this.contactsForm = this.formBuilder.group({});
   }
 
   isValid(): boolean {

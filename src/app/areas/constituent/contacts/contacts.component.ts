@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, OnChanges, AfterViewInit, ViewChild, ViewChildren } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators, AsyncValidator, AbstractControl } from '@angular/forms';
 import { Observable } from 'rxjs/observable';
-import { ConstituentAggregate } from '../../models/constituents/constituents-aggregates.models';
-import { LogService } from '../../core/logging/log.service';
-import { ValidatorService } from '../../shared/control-services/validator.service';
-import { ConstituentContact } from '../../models/constituents/constituents.models';
-import { ConstituentDomains } from '../../models/constituents/domains/constituents-domains.models';
+import { ConstituentAggregate } from '../../../models/constituents/constituents-aggregates.models';
+import { LogService } from '../../../core/logging/log.service';
+import { ValidatorService } from '../../../shared/control-services/validator.service';
+import { ConstituentContact } from '../../../models/constituents/constituents.models';
+import { ConstituentDomains } from '../../../models/constituents/domains/constituents-domains.models';
 
 const EMAIL_REGEX: RegExp = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 // tslint:disable-next-line:max-line-length

@@ -14,7 +14,7 @@ import { ConstituentSearchRecord, ConstituentSearchRequest } from '../../models/
 import { BaseStoreService } from './base-store.service';
 import { Actions } from '../actions/constituent/constituent-search-actions';
 import { ResponseStatus } from '../../models/root.models';
-import { RouteUrlConstituent } from '../../dashboard/dashboard-routing.urls';
+import { RouteUrlConstituent } from '../../areas/dashboard/dashboard-routing.urls';
 import { ActivatedRoute } from '@angular/router';
 import { RouteUrlDashboard } from '../../app-routing.urls';
 

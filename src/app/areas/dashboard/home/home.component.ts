@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/observable';
-import { ConstituentStoreService } from '../../state/store-services/constituent-store-service';
-import { TransferStoreService } from '../../state/store-services/transfer-store.services';
+import { ConstituentStoreService } from '../../../state/store-services/constituent-store-service';
+import { TransferStoreService } from '../../../state/store-services/transfer-store.services';
 import { MdSnackBar } from '@angular/material';
 
 @Component({

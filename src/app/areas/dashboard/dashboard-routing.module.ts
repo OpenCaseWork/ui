@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
 import { HomeComponent } from './home/home.component';
-import { ConstituentComponent } from '../constituent/constituent.component';
-import { AuthGuardService } from '../core/auth/auth-guard.service';
-import { RouteUrlDashboard } from '../app-routing.urls';
-import { AdminComponent } from '../admin/admin.component';
-import { NotFoundComponent } from '../shared/not-found.component';
+import { ConstituentComponent } from '../../areas/constituent/constituent.component';
+import { AuthGuardService } from '../../core/auth/auth-guard.service';
+import { RouteUrlDashboard } from '../../app-routing.urls';
+import { AdminComponent } from '../../areas/admin/admin.component';
+import { NotFoundComponent } from '../../shared/not-found.component';
 import { RouteUrlHome,
          RouteUrlConstituent,
          RouteUrlAdmin,

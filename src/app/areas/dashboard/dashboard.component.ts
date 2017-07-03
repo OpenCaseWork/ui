@@ -1,16 +1,16 @@
 ﻿import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute }  from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { SessionService } from '../core/session/session.service';
-import { IdleService } from '../core/session/idle.service';
+import { SessionService } from '../../core/session/session.service';
+import { IdleService } from '../../core/session/idle.service';
 import { DashboardMenuComponent } from './menu/dashboard-menu.component';
-import { ConstituentDomains } from '../models/constituents/domains/constituents-domains.models';
-import { ConstituentStoreService } from '../state/store-services/constituent-store-service';
+import { ConstituentDomains } from '../../models/constituents/domains/constituents-domains.models';
+import { ConstituentStoreService } from '../../state/store-services/constituent-store-service';
 import { Subject } from 'rxjs/Subject';
-import { LogService } from '../core/logging/log.service';
-import { BaseRequest } from '../models/base/base.models';
-import { ErrorStoreService } from '../state/store-services/error-store.service';
-import { ResponseStatus } from '../models/root.models';
+import { LogService } from '../../core/logging/log.service';
+import { BaseRequest } from '../../models/base/base.models';
+import { ErrorStoreService } from '../../state/store-services/error-store.service';
+import { ResponseStatus } from '../../models/root.models';
 import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
 
 @Component({
