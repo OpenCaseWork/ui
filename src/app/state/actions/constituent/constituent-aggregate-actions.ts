@@ -1,16 +1,15 @@
-import { Action } from '@ngrx/store';
-import { ConstituentAggregate } from '../../../models/constituents/constituents-aggregates.models';
-import { ResponseStatus, EntityRequest } from '../../../models/root.models';
-import { BaseResponse, BasePostRequest } from '../../../models/base/base.models';
+import { Action }                         from '@ngrx/store';
+import { ConstituentAggregate }           from '../../../models/constituents/constituents-aggregates.models';
+import { ResponseStatus, EntityRequest,
+         BaseResponse, BasePostRequest }  from '../../../core/models/request-response.models';
 
-export const GET          = 'Aggregate Get';
-export const GET_SUCCESS     = 'Aggregate GetSuccess';
-export const GET_FAILURE     = 'Aggregate GetFailure';
-export const SAVE            = 'Aggregate Save';
+export const GET              = 'Aggregate Get';
+export const GET_SUCCESS      = 'Aggregate GetSuccess';
+export const GET_FAILURE      = 'Aggregate GetFailure';
+export const SAVE             = 'Aggregate Save';
 export const SAVE_SUCCESS     = 'Aggregate SaveSuccess';
 export const SAVE_FAILURE     = 'Aggregate SaveFailure';
 export const NEW              = 'Aggregate New';
-export const CREATED          = 'Aggregate Created'
 
 export class GetAction implements Action {
   readonly type = GET;
@@ -37,12 +36,6 @@ export class SaveSuccessAction implements Action {
   constructor(public payload: BaseResponse<ConstituentAggregate>) {}
 }
 
-export class CreatedAction implements Action {
-  readonly type = CREATED;
-  constructor(public payload: boolean) {}
-}
-
-
 export class SaveFailAction implements Action {
   readonly type = SAVE_FAILURE;
   constructor(public payload: ResponseStatus) {}
@@ -63,5 +56,4 @@ export type Actions
   | SaveAction
   | SaveSuccessAction
   | SaveFailAction
-  | NewAction
-  | CreatedAction;
+  | NewAction;

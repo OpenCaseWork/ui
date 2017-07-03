@@ -1,24 +1,20 @@
-import { Injectable } from '@angular/core';
+import { Injectable }                 from '@angular/core';
 import { Actions, Effect, toPayload } from '@ngrx/effects';
-import { Action, Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-import { LogService } from '../../../core/logging/log.service';
-import { BaseDataService } from './../../data-services/base-data.service';
-import * as SearchActions from './../../actions/constituent/constituent-search-actions';
-import * as DomainActions from './../../actions/constituent/constituent-domains-actions';
-import * as AggregateActions from './../../actions/constituent/constituent-aggregate-actions';
-import * as ErrorActions from './../../actions/error/error-actions';
-import { BaseEffect } from '../base-effect';
-import { ConstituentSearchRecord } from '../../../models/constituents/search/constituents-search.models';
-import { ResponseStatus } from '../../../models/root.models';
-import * as GlobalReducer from '../../reducers/global-reducer';
-import { SearchAction, SearchFailAction } from '../../actions/constituent/constituent-search-actions';
-import { ConstituentAggregate } from '../../../models/constituents/constituents-aggregates.models';
-import { NavigationStoreService } from '../../store-services/navigation-store.service';
-import { ConstituentDomains } from '../../../models/constituents/domains/constituents-domains.models';
-/**
- * Effects offer a way to isolate and easily test side-effects within your application
- */
+import { Action, Store }              from '@ngrx/store';
+import { Observable }                 from 'rxjs/Observable';
+import { BaseEffect }                 from '../base-effect';
+import * as SearchActions             from '../../actions/constituent/constituent-search-actions';
+import * as DomainActions             from '../../actions/constituent/constituent-domains-actions';
+import * as AggregateActions          from '../../actions/constituent/constituent-aggregate-actions';
+import * as ErrorActions              from '../../actions/error/error-actions';
+import * as GlobalReducer             from '../../reducers/global-reducer';
+import { NavigationStoreService }     from '../../store-services/navigation-store.service';
+import { ResponseStatus }             from '../../../core/models/request-response.models';
+import { LogService }                 from '../../../core/logging/log.service';
+import { BaseDataService }            from '../../../core/state/data-services/base-data.service';
+import { ConstituentAggregate }       from '../../../models/constituents/constituents-aggregates.models';
+import { ConstituentDomains }         from '../../../models/constituents/domains/constituents-domains.models';
+import { ConstituentSearchRecord }    from '../../../models/constituents/search/constituents-search.models';
 
 @Injectable()
 export class ConstituentEffect extends BaseEffect {

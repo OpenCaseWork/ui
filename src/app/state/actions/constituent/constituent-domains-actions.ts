@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
-import { ResponseStatus } from '../../../models/root.models';
+import { ResponseStatus } from '../../../core/models/request-response.models';
 import { ConstituentDomains } from '../../../models/constituents/domains/constituents-domains.models';
-import { BaseRequest, BaseResponse } from '../../../models/base/base.models';
+import { BaseRequest, BaseResponse } from '../../../core/models/request-response.models';
 
 export const LOAD = 'Load Domains';
 export const LOADING = 'Loading Domains';

@@ -1,7 +1,7 @@
 import { Injectable }         from '@angular/core';
-import { EnvironmentService } from './../environment.service';
 import { Level }              from './level';
-import { ResponseStatus } from '../../models/root.models';
+import { EnvironmentService } from '../environment.service';
+import { ResponseStatus }     from '../models/request-response.models';
 
 // Some browsers don't implement the debug method
 const CONSOLE_DEBUG_METHOD = console['debug'] ? 'debug' : 'log';

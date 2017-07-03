@@ -1,7 +1,7 @@
-import { createSelector } from 'reselect';
-import * as SearchActions from '../../actions/constituent/constituent-search-actions';
-import { ConstituentSearchRecord } from '../../../models/constituents/search/constituents-search.models';
-import { ResponseStatus } from '../../../models/root.models';
+import { createSelector }           from 'reselect';
+import * as SearchActions           from '../../actions/constituent/constituent-search-actions';
+import { ResponseStatus }           from '../../../core/models/request-response.models';
+import { ConstituentSearchRecord }  from '../../../models/constituents/search/constituents-search.models';
 
 export interface State {
   results: Array<ConstituentSearchRecord>;

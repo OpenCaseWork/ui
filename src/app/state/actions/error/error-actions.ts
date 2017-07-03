@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { ResponseStatus } from '../../../models/root.models';
+import { ResponseStatus } from '../../../core/models/request-response.models';
 
 export const FAILURE     = 'GetFailure';
 

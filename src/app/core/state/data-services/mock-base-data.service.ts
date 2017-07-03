@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { LogService } from '../../core/logging/log.service';
-import { HttpService } from '../../core/http/http.service';
+import { LogService } from '../../logging/log.service';
+import { HttpService } from '../../http/http.service';
 import { BaseDataService } from './base-data.service';
-import { BaseRequest, BasePostRequest, BaseResponse } from '../../models/base/base.models';
-import { EntityRequest } from '../../models/root.models';
+import { BaseRequest, BasePostRequest, BaseResponse, EntityRequest } from '../../models/request-response.models';
 
 @Injectable()
 export class MockBaseDataService extends BaseDataService {

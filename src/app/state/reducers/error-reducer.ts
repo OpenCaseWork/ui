@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import * as ErrorActions from '../actions/error/error-actions';
-import { ResponseStatus } from '../../models/root.models';
+import { ResponseStatus } from '../../core/models/request-response.models';
 
 export interface State {
   responseStatus: ResponseStatus;

@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { LogService } from './../../core/logging/log.service';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import * as ErrorActions from '../actions/error/error-actions';
 import * as GlobalReducer from '../reducers/global-reducer';
 import * as GlobalSelectors from '../reducers/global-selectors';
 import { BaseStoreService } from './base-store.service';
-import { ResponseStatus } from '../../models/root.models';
-import * as ErrorActions from '../actions/error/error-actions';
+import { ResponseStatus } from '../../core/models/request-response.models';
+import { LogService } from './../../core/logging/log.service';
+
 
 // Wrapper service of the Account State in the Store
 @Injectable()

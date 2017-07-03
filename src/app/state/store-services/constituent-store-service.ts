@@ -9,14 +9,12 @@ import * as ConstituentDomainsActions from './../actions/constituent/constituent
 import * as ConstituentAggregateActions from './../actions/constituent/constituent-aggregate-actions';
 import { ConstituentSearchRecord, ConstituentSearchRequest } from '../../models/constituents/search/constituents-search.models';
 import { BaseStoreService } from './base-store.service';
-import { Actions } from '../actions/constituent/constituent-search-actions';
-import { ResponseStatus, EntityRequest } from '../../models/root.models';
-import { BaseRequest, BasePostRequest } from '../../models/base/base.models';
+import { BaseRequest, BasePostRequest, ResponseStatus, EntityRequest } from '../../core/models/request-response.models';
 import { ConstituentDomains } from '../../models/constituents/domains/constituents-domains.models';
 import { ConstituentAggregate } from '../../models/constituents/constituents-aggregates.models';
 import { ConstituentResourcesService } from '../resources/constituent-resources.service';
 
-// Wrapper service of the Account State in the Store
+// Wrapper service of the State in the Store
 @Injectable()
 export class ConstituentStoreService extends BaseStoreService {
 
@@ -27,14 +25,13 @@ export class ConstituentStoreService extends BaseStoreService {
       super();
     }
 
-  // Returns Observable to the Deposit Account of the Account State
-  SearchConstituent$(): Observable<ConstituentSearchRecord[]> {
+   SearchConstituent$(): Observable<ConstituentSearchRecord[]> {
     this.logService.log(this.getClassName() + ':SearchConstituent$');
     return this.store.select(GlobalSelectors.constituentList);
   }
 
   SearchLoaded$(): Observable<boolean> {
-    this.logService.log(this.getClassName() + ':ConstituentsLoaded$');
+    this.logService.log(this.getClassName() + ':SearchLoaded$');
     return this.store.select(GlobalSelectors.constituentListIsLoaded);
   }
 
@@ -48,7 +45,6 @@ export class ConstituentStoreService extends BaseStoreService {
     return this.store.select(GlobalSelectors.constituentDomains);
   }
 
-  // Returns Observable to the Deposit Account of the Account State
   ConstituentAggregate$(): Observable<ConstituentAggregate> {
     this.logService.log(this.getClassName() + ':ConstituentAggregate$');
     return this.store.select(GlobalSelectors.constituent);
@@ -59,40 +55,26 @@ export class ConstituentStoreService extends BaseStoreService {
     this.store.dispatch(new ConstituentSearchActions.SelectAction(selected));
   }*/
 
-  // Load Account using API if not already loaded into the Store
   searchConstituents(request: ConstituentSearchRequest): void {
     let payload = new BasePostRequest<ConstituentSearchRequest>();
     payload.resource = this.resourceService.getResources().search;
     payload.data = request;
     let state: boolean;
     this.logService.log(this.getClassName() + ':start searchConstituents');
-    // Synchronously check if Account is loaded
-    // Emit only the first 1 value emmited by the source Observable
-    //this.store.select(GlobalSelectors.constituentListIsLoaded)
-    //  .take(1).subscribe(s => state = s);
-    //this.logService.log(this.getClassName() + ':isLoaded for ' + request, state);
-    // If Account is not loaded, load Account using API
-    //if (!state) {
-      //this.logService.log(this.getClassName() + ':dispatch Account.LoadAction');
-      this.store.dispatch(new ConstituentSearchActions.SearchAction(payload));
-    //} else {
-    //  this.logService.log(this.getClassName() + ':already loaded');
-    //}
+    this.store.dispatch(new ConstituentSearchActions.SearchAction(payload));
   }
 
-  // Load Account using API if not already loaded into the Store
+  // Load using API if not already loaded into the Store
   loadDomains(): void {
     let request = new BaseRequest();
     request.resource = this.resourceService.getResources().domains;
     let state: boolean;
     this.logService.log(this.getClassName() + ':start loadDomains');
-    // Synchronously check if loaded
-    // Emit only the first 1 value emmited by the source Observable
     this.store.select(GlobalSelectors.constituentDomainsIsLoaded)
       .take(1)
       .subscribe(s => state = s);
     this.logService.log(this.getClassName() + ':isDomainsLoaded for ' + request, state);
-    // If Account is not loaded, load Account using API
+    // If is not loaded, load Account using API
     if (!state) {
       this.logService.log(this.getClassName() + ':dispatch ConstituentDomainsActions.LoadAction');
       this.store.dispatch(new ConstituentDomainsActions.LoadAction(request));
@@ -101,7 +83,7 @@ export class ConstituentStoreService extends BaseStoreService {
     }
   }
 
-  // Load Account using API if not already loaded into the Store
+  // Load using API if not already loaded into the Store
   getConstituent(id: number): void {
     let state: ConstituentAggregate;
     if (Number.isNaN(id) || id <= 0) {
@@ -129,7 +111,6 @@ export class ConstituentStoreService extends BaseStoreService {
     }
   }
 
-  // Load Account using API if not already loaded into the Store
   saveConstituent(constituent: ConstituentAggregate): void {
     let request = new BasePostRequest<ConstituentAggregate>();
     request.data = constituent;

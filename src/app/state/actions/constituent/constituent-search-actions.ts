@@ -1,6 +1,5 @@
 import { Action } from '@ngrx/store';
-import { ResponseStatus } from '../../../models/root.models';
-import { BaseResponse, BasePostRequest } from '../../../models/base/base.models';
+import { ResponseStatus, BasePostRequest, BaseResponse } from '../../../core/models/request-response.models';
 import {
   ConstituentSearchRequest,
   ConstituentSearchRecord

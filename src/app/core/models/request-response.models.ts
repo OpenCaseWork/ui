@@ -1,5 +1,3 @@
-import { responseStatus } from '../state/reducers/constituent/constituent-search-reducer';
-
 export class ResponseError {
   public errorCode: number;
   public fieldName: string;
@@ -17,7 +15,26 @@ export class ResponseStatus {
   }
 }
 
+export class BaseRequest {
+  public resource: string;
+  public id: number;
+}
+
+export class BaseResponse<T> {
+  public responseInfo: ResponseStatus;
+  public data: T;
+  constructor() {
+    this.responseInfo = new ResponseStatus();
+  }
+}
+
+export class BasePostRequest<T> {
+  public data: T;
+  public resource: string;
+}
+
 export class EntityRequest {
   public resource: string;
   public id: number;
 }
+

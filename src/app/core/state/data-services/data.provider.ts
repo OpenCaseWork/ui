@@ -1,10 +1,7 @@
-// import { PlatformRef } from '@angular/core';
-// import { Router }              from '@angular/router';
-import { HttpService } from '../../core/http/http.service';
-import { LogService } from '../../core/logging/log.service';
-import { EnvironmentService } from '../../core/environment.service';
+import { HttpService } from '../../http/http.service';
+import { LogService } from '../../logging/log.service';
+import { EnvironmentService } from '../../environment.service';
 import { BaseDataService } from './base-data.service';
-// import { MockViewAccountsDataService } from './mocks/mock-view-accounts-data.service';
 import { MockBaseDataService } from './mock-base-data.service';
 
 /* Constituent SERVICE PROVIDER */

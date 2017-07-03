@@ -8,8 +8,8 @@ import { ConstituentStoreService } from './store-services/constituent-store-serv
 import { ErrorStoreService } from './store-services/error-store.service';
 import { NavigationStoreService } from './store-services/navigation-store.service';
 import { TransferStoreService } from './store-services/transfer-store.services';
-import { BaseDataService } from './data-services/base-data.service';
-import { BaseDataServiceProvider } from './data-services/data.provider';
+import { BaseDataService } from './../core/state/data-services/base-data.service';
+import { BaseDataServiceProvider } from './../core/state/data-services/data.provider';
 import { ConstituentResourcesService } from './resources/constituent-resources.service';
 
 @NgModule({

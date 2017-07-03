@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import * as AggregateActions from '../../actions/constituent/constituent-aggregate-actions';
-import { ResponseStatus } from '../../../models/root.models';
+import { ResponseStatus } from '../../../core/models/request-response.models';
 import { ConstituentAggregate } from '../../../models/constituents/constituents-aggregates.models';
 
 export interface State {

@@ -9,7 +9,7 @@ import { ConstituentStoreService } from '../../state/store-services/constituent-
 import { Subject } from 'rxjs/Subject';
 import { LogService } from '../../core/logging/log.service';
 import { ErrorStoreService } from '../../state/store-services/error-store.service';
-import { ResponseStatus } from '../../models/root.models';
+import { ResponseStatus } from '../../core/models/request-response.models';
 import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
 
 @Component({

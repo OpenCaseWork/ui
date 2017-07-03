@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import * as DomainActions from '../../actions/constituent/constituent-domains-actions';
-import { ResponseStatus } from '../../../models/root.models';
+import { ResponseStatus } from '../../../core/models/request-response.models';
 import { ConstituentDomains } from '../../../models/constituents/domains/constituents-domains.models';
 
 export interface State {
