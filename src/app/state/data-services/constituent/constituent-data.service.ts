@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { LogService } from '../../../core/logging/log.service';
 import { HttpService } from '../../../core/http/http.service';
-import { ILoggedClass } from '../../../core/logging/logged-class';
 import { BaseDataService } from './../base-data.service';
-import { ConstituentDomains } from '../../../models/constituents/domains/constituents-domains.models';
 
 @Injectable()
 export class ConstituentDataService extends BaseDataService {
@@ -13,7 +10,6 @@ export class ConstituentDataService extends BaseDataService {
     protected httpService: HttpService,
     protected logService: LogService) {
       super(httpService, logService);
-      console.log(this.getClassName() + '.constructor');
   }
 
 }

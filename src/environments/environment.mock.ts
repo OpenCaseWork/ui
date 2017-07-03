@@ -8,7 +8,7 @@ export const environment = {
   idleSeconds: 300, // time in seconds before the browser triggers warning for inactivity
   idleCountdownSeconds: 10, // time in seconds that browser gives user to respond to inactivity warning
   hmr: true,
-  apiBaseUrl : '',
-  idServer : '',
+  apiBaseUrl : 'http://localhost:51765/',
+  idServer : 'http://localhost:44343/identity/',
   useMock : true
 };

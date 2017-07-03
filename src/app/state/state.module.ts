@@ -9,19 +9,7 @@ import { ErrorStoreService } from './store-services/error-store.service';
 import { NavigationStoreService } from './store-services/navigation-store.service';
 import { TransferStoreService } from './store-services/transfer-store.services';
 import { ConstituentDataService } from './data-services/constituent/constituent-data.service';
-
-/*
-import { AccountStoreService } from './store-services/account-store.service';
-import { PayeeStoreService } from './store-services/payee-store.service';
-import { BillPayStoreService } from './store-services/bill-pay-store.service';
-import { TransferDataServiceProvider } from './data-services/data.provider';
-import { TransferStoreService } from './store-services/transfer-store.service';
-import { TransferEffect } from './effects/transfer-effect';
-import { ConstituentStoreService } from './store-services/constituent-store-service';
-import { ViewAccountServiceProvider,
-          BillPayDataServiceProvider,
-          PayeeDataServiceProvider } from './data-services/data.provider';
-*/
+import { ConstituentDataServiceProvider } from './data-services/data.provider';
 
 @NgModule({
   imports: [
@@ -48,7 +36,8 @@ import { ViewAccountServiceProvider,
   ],
   providers: [
     ConstituentStoreService,
-    ConstituentDataService,
+    //ConstituentDataService,
+    ConstituentDataServiceProvider,
     TransferStoreService,
     NavigationStoreService,
     ErrorStoreService,

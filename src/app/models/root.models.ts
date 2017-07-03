@@ -1,8 +1,9 @@
+import { responseStatus } from '../state/reducers/constituent/constituent-search-reducer';
 export class BaseResponse {
-  constructor() {
-
-  }
   public responseInfo: ResponseStatus;
+  constructor() {
+    this.responseInfo = new ResponseStatus();
+  }
 }
 
 export class ResponseError {
@@ -17,6 +18,9 @@ export class ResponseStatus {
   public message: string;
   public stackTrace: string;
   public errors: ResponseError[];
+  constructor() {
+    this.statusCode = 0;
+  }
 }
 
 export class EntityRequest {

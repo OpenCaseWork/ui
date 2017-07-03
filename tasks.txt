@@ -1,3 +1,7 @@
-- add mocks for domains, search, get, save
-- search to have unload
 - genericize ngrx
+- constituent save screen
+	-contacts
+- azure AD
+- reporting
+- genericize error store to message store
+- search to have unload

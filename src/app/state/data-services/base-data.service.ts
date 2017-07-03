@@ -4,7 +4,6 @@ import { HttpService } from '../../core/http/http.service';
 import { ILoggedClass } from '../../core/logging/logged-class';
 import { BaseRequest, BasePostResponse, BasePostRequest } from '../../models/base/base.models';
 import { BaseSearchResponse } from '../../models/base/base.models';
-import { BaseDomainsResponse } from '../../models/base/base.models';
 import { BaseResponse, EntityRequest } from '../../models/root.models';
 
 export class BaseDataService implements ILoggedClass {
@@ -35,7 +34,7 @@ export class BaseDataService implements ILoggedClass {
       .map( res => res.json());
   }
 
-  loadDomains(request: BaseRequest): Observable<BaseDomainsResponse> {
+  loadDomains<T>(request: BaseRequest): Observable<BasePostResponse<T>> {
     this.logService.log(this.getClassName() + '.loadDomains');
     return this.httpService.get(request.resource + '/domains')
       .map (response => response.json());

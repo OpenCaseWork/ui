@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { LogService } from '../../../core/logging/log.service';
 import { HttpService } from '../../../core/http/http.service';
-import { ILoggedClass } from '../../../core/logging/logged-class';
 import { BaseDataService } from './../base-data.service';
-import { BaseRequest, BasePostRequest, BasePostResponse, BaseDomainsResponse } from '../../../models/base/base.models';
+import { BaseRequest, BasePostRequest, BasePostResponse } from '../../../models/base/base.models';
 import { BaseSearchResponse } from '../../../models/base/base.models';
 import { EntityRequest } from '../../../models/root.models';
 
@@ -19,13 +18,14 @@ export class MockConstituentDataService extends BaseDataService {
 
   post<T>(request: BasePostRequest<T>): Observable<BasePostResponse<T>> {
     this.logService.log(this.getClassName() + '.post');
-    return this.httpService.post(request.resource, JSON.stringify(request.data))
-      .map( res => res.json());
+    let response = new BasePostResponse<T>();
+    response.data = request.data;
+    return Observable.of(response);
   }
 
   get<T>(request: EntityRequest): Observable<BasePostResponse<T>> {
     this.logService.log(this.getClassName() + '.get');
-    return this.httpService.get(request.resource + '/' + request.id)
+    return this.httpService.getFile('assets/test-data/constituent-aggregate.json')
       .map( res => res.json());
   }
 
@@ -35,9 +35,9 @@ export class MockConstituentDataService extends BaseDataService {
       .map( res => res.json());
   }
 
-  loadDomains(request: BaseRequest): Observable<BaseDomainsResponse> {
+  loadDomains<T>(request: BaseRequest): Observable<BasePostResponse<T>> {
     this.logService.log(this.getClassName() + '.loadDomains');
-    return this.httpService.get(request.resource + '/domains')
+    return this.httpService.getFile('assets/test-data/constituent-domains.json')
       .map (response => response.json());
   }
 }

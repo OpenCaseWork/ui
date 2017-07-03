@@ -15,6 +15,7 @@ import * as GlobalReducer from '../../reducers/global-reducer';
 import { SearchAction, SearchFailAction } from '../../actions/constituent/constituent-search-actions';
 import { ConstituentAggregate } from '../../../models/constituents/constituents-aggregates.models';
 import { NavigationStoreService } from '../../store-services/navigation-store.service';
+import { ConstituentDomains } from '../../../models/constituents/domains/constituents-domains.models';
 /**
  * Effects offer a way to isolate and easily test side-effects within your application
  */
@@ -76,7 +77,7 @@ export class ConstituentEffect extends BaseEffect {
   domain$: Observable<Action> = this.action$
     // Filter actions by action type
     .ofType(DomainActions.LOAD)
-    .switchMap(action => this.constituentDataService.loadDomains(action.payload)
+    .switchMap(action => this.constituentDataService.loadDomains<ConstituentDomains>(action.payload)
       .map(res => {
         this.logService.log(this.getClassName() + ':domain$ success', res);
         if (res.responseInfo.statusCode !== 0) {

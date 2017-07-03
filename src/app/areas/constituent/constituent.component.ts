@@ -11,10 +11,7 @@ import { DemographicsComponent } from './demographics/demographics.component';
 import { ConstituentAggregate } from '../../models/constituents/constituents-aggregates.models';
 import { ConstituentStoreService } from '../../state/store-services/constituent-store-service';
 import { Subject } from 'rxjs/Subject';
-import { EntityRequest } from '../../models/root.models';
-import { BaseRequest } from '../../models/base/base.models';
 import { ErrorStoreService } from '../../state/store-services/error-store.service';
-import { constituent } from '../../state/reducers/global-selectors';
 
 @Component({
   selector: 'app-constituent',
@@ -34,8 +31,8 @@ export class ConstituentComponent implements OnInit, OnDestroy {
 
   public constructor(private route: ActivatedRoute,
     private storeService: ConstituentStoreService,
-    private errorService: ErrorStoreService,
     private logService: LogService,
+    private errorService: ErrorStoreService,
     private location: Location) {
     this.constituentAggregate = new ConstituentAggregate();
   }

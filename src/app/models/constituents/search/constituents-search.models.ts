@@ -1,9 +1,8 @@
 import { BaseResponse } from '../../root.models';
 import { BaseRequest } from '../../base/base.models';
-import { BaseSearchRecord } from '../../base/base.models';
 
 /*[Table("constituent_search")]*/
-export class ConstituentSearchRecord extends BaseSearchRecord {
+export class ConstituentSearchRecord {
   /*[Column("provider_number")]*/
   public providerNumber: string;
   /*[Column("constituent_id")]*/

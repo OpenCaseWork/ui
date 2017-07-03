@@ -26,6 +26,7 @@ export class ErrorStoreService extends BaseStoreService {
   publishError(message: string) {
     let error = new ResponseStatus();
     error.message = message;
+    error.errorEnumId = 1;
     this.store.dispatch(new ErrorActions.FailAction(error));
   }
 }

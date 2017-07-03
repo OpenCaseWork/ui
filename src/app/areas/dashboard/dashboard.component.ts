@@ -50,7 +50,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
     if (error) {
       this.logService.log('handleError called' + error);
       let config = new MdSnackBarConfig();
-      this.snackBar.open(error.message, 'OK', config);
+      if (error.errorEnumId === 0) {
+        config.duration = 1000;
+        this.snackBar.open(error.message, null, config);
+      } else {
+        this.snackBar.open(error.message, 'OK', config);
+      }
     }
   }
 
