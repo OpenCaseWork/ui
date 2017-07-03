@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+/*import { Injectable } from '@angular/core';
 import { LogService } from '../../../core/logging/log.service';
 import { HttpService } from '../../../core/http/http.service';
 import { BaseDataService } from './../base-data.service';
@@ -12,4 +12,4 @@ export class ConstituentDataService extends BaseDataService {
       super(httpService, logService);
   }
 
-}
+}*/

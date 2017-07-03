@@ -3,7 +3,7 @@ import { Actions, Effect, toPayload } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { LogService } from '../../../core/logging/log.service';
-import { ConstituentDataService } from './../../data-services/constituent/constituent-data.service';
+import { BaseDataService } from './../../data-services/base-data.service';
 import * as SearchActions from './../../actions/constituent/constituent-search-actions';
 import * as DomainActions from './../../actions/constituent/constituent-domains-actions';
 import * as AggregateActions from './../../actions/constituent/constituent-aggregate-actions';
@@ -124,7 +124,7 @@ export class ConstituentEffect extends BaseEffect {
 
   constructor(
     private action$: Actions,
-    private constituentDataService: ConstituentDataService,
+    private constituentDataService: BaseDataService,
     private navService: NavigationStoreService,
     private logService: LogService,
     private store: Store<GlobalReducer.GlobalState>) {

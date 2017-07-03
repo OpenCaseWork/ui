@@ -10,5 +10,5 @@ export const environment = {
   hmr: true,
   apiBaseUrl : 'http://localhost:51765/',
   idServer : 'http://localhost:44343/identity/',
-  useMock : true
+  useMock : true,
 };

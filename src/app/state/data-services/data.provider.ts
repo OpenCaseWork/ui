@@ -3,12 +3,12 @@
 import { HttpService } from '../../core/http/http.service';
 import { LogService } from '../../core/logging/log.service';
 import { EnvironmentService } from '../../core/environment.service';
-import { ConstituentDataService } from './constituent/constituent-data.service';
+import { BaseDataService } from './base-data.service';
 // import { MockViewAccountsDataService } from './mocks/mock-view-accounts-data.service';
 import { MockConstituentDataService } from './constituent/mock-constituent-data.service';
 
 /* Constituent SERVICE PROVIDER */
-export function ConstituentDataServiceFactory(
+export function BaseDataServiceFactory(
   httpService: HttpService,
   logService: LogService,
   environmentService: EnvironmentService) {
@@ -16,13 +16,13 @@ export function ConstituentDataServiceFactory(
   if (environmentService.useMockData === true) {
     return new MockConstituentDataService(httpService, logService);
   } else {
-    return new ConstituentDataService(httpService, logService);
+    return new BaseDataService(httpService, logService);
   }
 };
 
-export let ConstituentDataServiceProvider = {
-  provide: ConstituentDataService,
-  useFactory: ConstituentDataServiceFactory,
+export let BaseDataServiceProvider = {
+  provide: BaseDataService,
+  useFactory: BaseDataServiceFactory,
   deps: [HttpService, LogService, EnvironmentService]
 };
 

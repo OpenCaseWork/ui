@@ -15,6 +15,7 @@ import { BaseRequest, BasePostRequest } from '../../models/base/base.models';
 import { ConstituentDomains } from '../../models/constituents/domains/constituents-domains.models';
 import { ConstituentAggregate } from '../../models/constituents/constituents-aggregates.models';
 import { IdleService } from '../../core/session/idle.service';
+import { ConstituentResourcesService } from '../resources/constituent-resources.service';
 
 // Wrapper service of the Account State in the Store
 @Injectable()
@@ -22,7 +23,8 @@ export class ConstituentStoreService extends BaseStoreService {
 
   constructor(
     private logService: LogService,
-    private store: Store<GlobalReducer.GlobalState>) {
+    private store: Store<GlobalReducer.GlobalState>,
+    private resourceService: ConstituentResourcesService) {
       super();
     }
 
@@ -60,7 +62,7 @@ export class ConstituentStoreService extends BaseStoreService {
   // Load Account using API if not already loaded into the Store
   searchConstituents(request: ConstituentSearchRequest): void {
     let payload = new BasePostRequest<ConstituentSearchRequest>();
-    payload.resource = 'constituents';
+    payload.resource = this.resourceService.getResources().search;
     payload.data = request;
     let state: boolean;
     this.logService.log(this.getClassName() + ':start searchConstituents');
@@ -87,7 +89,7 @@ export class ConstituentStoreService extends BaseStoreService {
   // Load Account using API if not already loaded into the Store
   loadDomains(): void {
     let request = new BaseRequest();
-    request.resource = 'constituents';
+    request.resource = this.resourceService.getResources().domains;
     let state: boolean;
     this.logService.log(this.getClassName() + ':start loadDomains');
     // Synchronously check if loaded
@@ -121,7 +123,7 @@ export class ConstituentStoreService extends BaseStoreService {
     }
     let request = new EntityRequest();
     request.id = id;
-    request.resource = 'constituent-aggregates';
+    request.resource = this.resourceService.getResources().entity;
     this.logService.log(this.getClassName() + ':start getConstituent:id:' + request.id);
     // Synchronously check if loaded
     // Emit only the first 1 value emmited by the source Observable
@@ -143,7 +145,7 @@ export class ConstituentStoreService extends BaseStoreService {
   saveConstituent(constituent: ConstituentAggregate): void {
     let request = new BasePostRequest<ConstituentAggregate>();
     request.data = constituent;
-    request.resource = 'constituent-aggregates';
+    request.resource = this.resourceService.getResources().entity;
     this.logService.log(this.getClassName() + ':start saveConstituent:' + JSON.stringify(request.data));
     this.store.dispatch(new ConstituentAggregateActions.SaveAction(request));
   }

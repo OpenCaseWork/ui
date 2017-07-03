@@ -29,13 +29,13 @@ export class BaseDataService implements ILoggedClass {
 
    search<T>(request: BasePostRequest<T>): Observable<BaseResponse<T>> {
     this.logService.log(this.getClassName() + '.search');
-    return this.httpService.post(request.resource + '/search', JSON.stringify(request.data))
+    return this.httpService.post(request.resource, JSON.stringify(request.data))
       .map( res => res.json());
   }
 
   loadDomains<T>(request: BaseRequest): Observable<BaseResponse<T>> {
     this.logService.log(this.getClassName() + '.loadDomains');
-    return this.httpService.get(request.resource + '/domains')
+    return this.httpService.get(request.resource)
       .map (response => response.json());
   }
 }
