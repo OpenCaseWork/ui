@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { LogService } from '../../../core/logging/log.service';
-import { HttpService } from '../../../core/http/http.service';
-import { BaseDataService } from './../base-data.service';
-import { BaseRequest, BasePostRequest, BaseResponse } from '../../../models/base/base.models';
-import { EntityRequest } from '../../../models/root.models';
-import { reducer } from '../../reducers/constituent/constituent-search-reducer';
+import { LogService } from '../../core/logging/log.service';
+import { HttpService } from '../../core/http/http.service';
+import { BaseDataService } from './base-data.service';
+import { BaseRequest, BasePostRequest, BaseResponse } from '../../models/base/base.models';
+import { EntityRequest } from '../../models/root.models';
 
 @Injectable()
-export class MockConstituentDataService extends BaseDataService {
+export class MockBaseDataService extends BaseDataService {
 
   constructor(
     protected httpService: HttpService,

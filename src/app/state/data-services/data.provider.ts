@@ -5,7 +5,7 @@ import { LogService } from '../../core/logging/log.service';
 import { EnvironmentService } from '../../core/environment.service';
 import { BaseDataService } from './base-data.service';
 // import { MockViewAccountsDataService } from './mocks/mock-view-accounts-data.service';
-import { MockConstituentDataService } from './constituent/mock-constituent-data.service';
+import { MockBaseDataService } from './mock-base-data.service';
 
 /* Constituent SERVICE PROVIDER */
 export function BaseDataServiceFactory(
@@ -14,7 +14,7 @@ export function BaseDataServiceFactory(
   environmentService: EnvironmentService) {
   // Return mock when mock option is specified
   if (environmentService.useMockData === true) {
-    return new MockConstituentDataService(httpService, logService);
+    return new MockBaseDataService(httpService, logService);
   } else {
     return new BaseDataService(httpService, logService);
   }

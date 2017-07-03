@@ -14,7 +14,6 @@ import { ResponseStatus, EntityRequest } from '../../models/root.models';
 import { BaseRequest, BasePostRequest } from '../../models/base/base.models';
 import { ConstituentDomains } from '../../models/constituents/domains/constituents-domains.models';
 import { ConstituentAggregate } from '../../models/constituents/constituents-aggregates.models';
-import { IdleService } from '../../core/session/idle.service';
 import { ConstituentResourcesService } from '../resources/constituent-resources.service';
 
 // Wrapper service of the Account State in the Store
@@ -29,35 +28,36 @@ export class ConstituentStoreService extends BaseStoreService {
     }
 
   // Returns Observable to the Deposit Account of the Account State
-  Constituent$(): Observable<ConstituentSearchRecord[]> {
-    this.logService.log(this.getClassName() + ':Constituent$');
+  SearchConstituent$(): Observable<ConstituentSearchRecord[]> {
+    this.logService.log(this.getClassName() + ':SearchConstituent$');
     return this.store.select(GlobalSelectors.constituentList);
   }
 
-  Loaded$(): Observable<boolean> {
-    this.logService.log(this.getClassName() + ':Loaded$');
+  SearchLoaded$(): Observable<boolean> {
+    this.logService.log(this.getClassName() + ':ConstituentsLoaded$');
     return this.store.select(GlobalSelectors.constituentListIsLoaded);
   }
 
-  Loading$(): Observable<boolean> {
-    this.logService.log(this.getClassName() + ':Loading$');
+  SearchLoading$(): Observable<boolean> {
+    this.logService.log(this.getClassName() + ':SearchLoading$');
     return this.store.select(GlobalSelectors.constituentListIsLoading);
   }
 
-  ResponseStatus$(): Observable<ResponseStatus> {
-    this.logService.log(this.getClassName() + ':ResponseStatus$');
-    return this.store.select(GlobalSelectors.constituentsResponseStatus);
+  Domain$(): Observable<ConstituentDomains> {
+    this.logService.log(this.getClassName() + ':Domain$');
+    return this.store.select(GlobalSelectors.constituentDomains);
   }
 
-
-  SelectedConstituent$(): Observable<ConstituentSearchRecord[]> {
-    return this.store.select(GlobalSelectors.constituentsSelected);
+  // Returns Observable to the Deposit Account of the Account State
+  ConstituentAggregate$(): Observable<ConstituentAggregate> {
+    this.logService.log(this.getClassName() + ':ConstituentAggregate$');
+    return this.store.select(GlobalSelectors.constituent);
   }
 
-  selectConstituents(selected: ConstituentSearchRecord[]): void {
+  /*selectConstituents(selected: ConstituentSearchRecord[]): void {
     this.logService.log(this.getClassName() + ':selected:' + selected.length);
     this.store.dispatch(new ConstituentSearchActions.SelectAction(selected));
-  }
+  }*/
 
   // Load Account using API if not already loaded into the Store
   searchConstituents(request: ConstituentSearchRequest): void {
@@ -80,12 +80,6 @@ export class ConstituentStoreService extends BaseStoreService {
     //}
   }
 
-  Domain$(): Observable<ConstituentDomains> {
-    this.logService.log(this.getClassName() + ':Domain$');
-    return this.store.select(GlobalSelectors.constituentDomains);
-  }
-
-
   // Load Account using API if not already loaded into the Store
   loadDomains(): void {
     let request = new BaseRequest();
@@ -105,12 +99,6 @@ export class ConstituentStoreService extends BaseStoreService {
     } else {
       this.logService.log(this.getClassName() + ':domains already loaded');
     }
-  }
-
-  // Returns Observable to the Deposit Account of the Account State
-  ConstituentAggregate$(): Observable<ConstituentAggregate> {
-    this.logService.log(this.getClassName() + ':ConstituentAggregate$');
-    return this.store.select(GlobalSelectors.constituent);
   }
 
   // Load Account using API if not already loaded into the Store

@@ -46,13 +46,13 @@ export class ConstituentSearchComponent implements OnInit, OnDestroy {
     this.logService.log('ConstituentSearchComponent.ngOnInit');
 
     // Subscribe to loading
-    this.constituentStoreService.Loading$()
+    this.constituentStoreService.SearchLoading$()
       .startWith(false)
       .takeUntil(this.ngUnsubscribe)
       .subscribe(res => this.setSearching(res));
 
     // Subscribe to constituents search list
-    this.constituentStoreService.Constituent$()
+    this.constituentStoreService.SearchConstituent$()
       .takeUntil(this.ngUnsubscribe)
       .subscribe(response => {
         if (response) {

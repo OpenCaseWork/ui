@@ -23,7 +23,7 @@ export class TransferStoreService  {
     return (<any>this).constructor.name;
   }
 
-  Loaded$(): Observable<boolean> {
+  ConstituentsLoaded$(): Observable<boolean> {
     this.logService.log(this.getClassName() + ':FromAccount$');
     return this.store.select(GlobalSelectors.transferFromAccountLoaded);
   }
