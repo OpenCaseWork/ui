@@ -11,6 +11,8 @@ import { TransferStoreService } from './store-services/transfer-store.services';
 import { BaseDataService } from './../core/state/data-services/base-data.service';
 import { BaseDataServiceProvider } from './../core/state/data-services/data.provider';
 import { ConstituentResourcesService } from './resources/constituent-resources.service';
+import { DomainStoreService } from './store-services/domain-store.service';
+import { DomainEffects } from './effects/domains/domain-effects';
 
 @NgModule({
   imports: [
@@ -31,6 +33,7 @@ import { ConstituentResourcesService } from './resources/constituent-resources.s
      * See: https://github.com/ngrx/effects/blob/master/docs/api.md#run
      */
     EffectsModule.run(ConstituentEffect),
+    EffectsModule.run(DomainEffects),
     // TODO add other effect classes
   ],
   declarations: [
@@ -38,11 +41,11 @@ import { ConstituentResourcesService } from './resources/constituent-resources.s
   providers: [
     ConstituentStoreService,
     ConstituentResourcesService,
-    //ConstituentDataService,
     BaseDataServiceProvider,
     TransferStoreService,
     NavigationStoreService,
     ErrorStoreService,
+    DomainStoreService,
   ],
   exports: [
   ],

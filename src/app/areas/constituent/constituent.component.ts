@@ -12,6 +12,7 @@ import { ConstituentAggregate } from '../../models/constituents/constituents-agg
 import { ConstituentStoreService } from '../../state/store-services/constituent-store-service';
 import { Subject } from 'rxjs/Subject';
 import { ErrorStoreService } from '../../state/store-services/error-store.service';
+import { DomainStoreService } from '../../state/store-services/domain-store.service';
 
 @Component({
   selector: 'app-constituent',
@@ -31,6 +32,7 @@ export class ConstituentComponent implements OnInit, OnDestroy {
 
   public constructor(private route: ActivatedRoute,
     private storeService: ConstituentStoreService,
+    private domainService: DomainStoreService,
     private logService: LogService,
     private errorService: ErrorStoreService,
     private location: Location) {
@@ -41,9 +43,11 @@ export class ConstituentComponent implements OnInit, OnDestroy {
     this.logService.log('init constituent component');
     this.loading = true;
 
-    this.domain$ = this.storeService.Domain$()
+    // this.domain$ = this.storeService.Domain$()
+    //  .takeUntil(this.ngUnsubscribe);
+    this.domain$ = this.domainService.Domain$(0)
       .takeUntil(this.ngUnsubscribe);
-    this.loadDomains();
+    //this.loadDomains();
 
     this.constituent$ = this.storeService.ConstituentAggregate$()
       .takeUntil(this.ngUnsubscribe);
@@ -61,7 +65,8 @@ export class ConstituentComponent implements OnInit, OnDestroy {
 
   loadDomains() {
     this.logService.log('load domains');
-    this.storeService.loadDomains();
+    // this.storeService.loadDomains();
+    this.domainService.loadDomains(0);
   }
 
   loadConstituent() {

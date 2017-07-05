@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+/*import { Injectable } from '@angular/core';
 import { LogService } from './../../core/logging/log.service';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
@@ -8,8 +8,8 @@ import * as ConstituentSearchActions from './../actions/constituent/constituent-
 import * as ConstituentDomainsActions from './../actions/constituent/constituent-domains-actions';
 import * as ConstituentAggregateActions from './../actions/constituent/constituent-aggregate-actions';
 import { ConstituentSearchRecord, ConstituentSearchRequest } from '../../models/constituents/search/constituents-search.models';
-import { BaseStoreService } from './../../core/state/store-services/base-store.service';
-import { BaseRequest, BasePostRequest, ResponseStatus, EntityRequest } from '../../core/models/request-response.models';
+import { BaseStoreService } from './base-store.service';
+import { BaseRequest, BasePostRequest, ResponseStatus, EntityRequest } from '../models/request-response.models';
 import { ConstituentDomains } from '../../models/constituents/domains/constituents-domains.models';
 import { ConstituentAggregate } from '../../models/constituents/constituents-aggregates.models';
 import { ConstituentResourcesService } from '../resources/constituent-resources.service';
@@ -53,7 +53,7 @@ export class ConstituentStoreService extends BaseStoreService {
   /*selectConstituents(selected: ConstituentSearchRecord[]): void {
     this.logService.log(this.getClassName() + ':selected:' + selected.length);
     this.store.dispatch(new ConstituentSearchActions.SelectAction(selected));
-  }*/
+  }
 
   searchConstituents(request: ConstituentSearchRequest): void {
     let payload = new BasePostRequest<ConstituentSearchRequest>();
@@ -97,10 +97,6 @@ export class ConstituentStoreService extends BaseStoreService {
     this.logService.log(this.getClassName() + ':start getConstituent:id:' + request.id);
     // Synchronously check if loaded
     // Emit only the first 1 value emmited by the source Observable
-    /*this.store.select(GlobalSelectors.constituent)
-      .filter(agg => agg.constituent.constituentId === request.id)
-      .take(1).subscribe(s => state = s);
-    */
     this.logService.log(this.getClassName() + ':isLoaded for ' + request, state);
     // If Account is not loaded, load Account using API
     if (!state) {
@@ -120,3 +116,4 @@ export class ConstituentStoreService extends BaseStoreService {
   }
 
 }
+*/

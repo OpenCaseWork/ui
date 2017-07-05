@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import * as ErrorActions from '../actions/error/error-actions';
 import * as GlobalReducer from '../reducers/global-reducer';
 import * as GlobalSelectors from '../reducers/global-selectors';
-import { BaseStoreService } from './base-store.service';
+import { BaseStoreService } from './../../core/state/store-services/base-store.service';
 import { ResponseStatus } from '../../core/models/request-response.models';
 import { LogService } from './../../core/logging/log.service';
 

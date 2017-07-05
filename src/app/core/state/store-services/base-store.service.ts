@@ -1,4 +1,4 @@
-import { ILoggedClass } from '../../core/logging/logged-class';
+import { ILoggedClass } from '../../logging/logged-class';
 
 export class BaseStoreService implements ILoggedClass {
 

@@ -44,6 +44,11 @@ import * as ConstituentDomainsReducer from './constituent/constituent-domains-re
 import * as ConstituentAggregateReducer from './constituent/constituent-aggregate-reducer';
 import * as ErrorReducer  from './error-reducer';
 import * as TransferAccountReducer from './transfer-accounts-reducer';
+import * as ContactEventReducer from './contact-event/contact-event-domains-reducer';
+import * as DomainsReducer from './domains/domains-reducer';
+//import { DomainsState, FullDomainsState } from '../../models/domains/domains.models';
+import { ContactEventDomains } from '../../models/constituents/domains/contact-event-domains.models';
+import { BaseDomainActions } from '../actions/base-domains-actions';
 // TODO add other reducers
 
 /**
@@ -55,6 +60,8 @@ export interface GlobalState {
   constituentSearchState: ConstituentSearchReducer.State;
   constituentDomainsState: ConstituentDomainsReducer.State;
   constituentAggregateState: ConstituentAggregateReducer.State;
+  //contactEventDomainsState: DomainsState;
+  fullDomainState: DomainsReducer.FullDomainsState;
   errorState: ErrorReducer.State;
   //router: RouterState;
   // TODO add other States here
@@ -66,6 +73,8 @@ const reducers = {
   transferAccounts: TransferAccountReducer.reducer,
   constituentDomainsState: ConstituentDomainsReducer.reducer,
   constituentAggregateState: ConstituentAggregateReducer.reducer,
+  //contactEventDomainsState: ContactEventReducer.createReducer(new BaseDomainActions('contact-event-domains')),
+  fullDomainState: DomainsReducer.reducer,
   errorState: ErrorReducer.reducer,
   //router: routerReducer,
   // TODO add other reducers here

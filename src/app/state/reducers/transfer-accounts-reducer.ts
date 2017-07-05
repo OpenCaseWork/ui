@@ -1,7 +1,7 @@
 import * as TransferAccountsActions from '../actions/transfer-accounts-action';
 
 export interface TransferAccountState {
-  //toAccounts: Array<TransferAccountInfo>;
+  toAccounts: Array<string>;
   toLoading: boolean;
   //fromAccounts: Array<TransferAccountInfo>;
   fromLoading: boolean;
@@ -9,7 +9,7 @@ export interface TransferAccountState {
 };
 
 export const intitialTransferAccountState: TransferAccountState = {
-  //toAccounts: undefined,
+  toAccounts: undefined,
   toLoading: false,
   //fromAccounts: undefined,
   fromLoading: false,
@@ -21,7 +21,7 @@ export const fromLoading = (state: TransferAccountState) => state.fromLoading;
 export const fromLoaded = (state: TransferAccountState) => state.fromLoaded;
 
 export function reducer(state = intitialTransferAccountState, action: TransferAccountsActions.Actions): TransferAccountState {
-  // console.log('transfer-reducer called with state', state);
+   console.log('transfer-reducer called with state', state);
   // console.log('transfer-reducer called with action', action);
   /*switch (action.type) {
     case TransferAccountsActions.FROM_LOAD: {

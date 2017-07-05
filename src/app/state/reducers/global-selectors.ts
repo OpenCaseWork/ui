@@ -28,6 +28,7 @@ export const getConstituentDomainsState = (state: GlobalState) => state.constitu
 export const getConstituentState = (state: GlobalState) => state.constituentAggregateState;
 export const getErrorState = (state: GlobalState) => state.errorState;
 export const getTransferAccountState = (state: GlobalState) => state.transferAccounts;
+export const domainsState = (state: GlobalState) => state.fullDomainState;
 // TODO add other state selectors here
 
 /**
@@ -61,4 +62,19 @@ export const errorResponseStatus = createSelector(getErrorState, ErrorReducer.re
 export const transferFromAccountLoading = createSelector(getTransferAccountState, TransferAccounts.fromLoading);
 export const transferFromAccountLoaded = createSelector(getTransferAccountState, TransferAccounts.fromLoaded);
 
+export const getDomains = (state: GlobalState) => state.fullDomainState.domains[0];
+
  // TODO add other selectors for properties of state
+/*export const selectors = createSelectors();
+
+function createSelectors() {
+    console.log('create selectors');
+     let isLoaded = (state: DomainsState) => state.loaded;
+      let isLoading = (state: DomainsState) => state.loading;
+      let results = (state: DomainsState ) => state.results;
+      let responseStatus = (state: DomainsState ) => state.responseStatus;
+
+      let getDomainsState = (state: GlobalState) => state.fullDomainState.domains1;
+      this.isLoadedSelector = createSelector(getDomainsState, isLoaded);
+      this.resultsSelector = createSelector(getDomainsState, results);
+}*/

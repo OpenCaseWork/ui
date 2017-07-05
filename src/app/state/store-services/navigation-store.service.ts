@@ -9,7 +9,7 @@ import { Observable } from 'rxjs/Observable';
 // containing all the exported bindings from the module ideitified by "FromStore"
 // TODO - decide on naming convention
 import * as GlobalReducer from '../reducers/global-reducer';
-import { BaseStoreService } from './base-store.service';
+import { BaseStoreService } from './../../core/state/store-services/base-store.service';
 import { RouteUrlConstituent } from '../../areas/dashboard/dashboard-routing.urls';
 import { ActivatedRoute } from '@angular/router';
 import { RouteUrlDashboard } from '../../app-routing.urls';

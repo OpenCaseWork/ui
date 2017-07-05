@@ -11,6 +11,7 @@ import { LogService } from '../../core/logging/log.service';
 import { ErrorStoreService } from '../../state/store-services/error-store.service';
 import { ResponseStatus } from '../../core/models/request-response.models';
 import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
+import { DomainStoreService } from '../../state/store-services/domain-store.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -27,6 +28,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private idleService: IdleService,
     private storeService: ConstituentStoreService,
     private errorStore: ErrorStoreService,
+    private domainsStore: DomainStoreService,
     private logService: LogService,
     public snackBar: MdSnackBar) { }
 
@@ -42,7 +44,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     // domains
     this.constituentDomain$ = this.storeService.Domain$()
       .takeUntil(this.ngUnsubscribe);
-    this.storeService.loadDomains();
+    //this.storeService.loadDomains();
+    this.domainsStore.loadDomains(0);
   }
 
   private handleError(error: ResponseStatus) {
