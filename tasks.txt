@@ -1,7 +1,10 @@
 - genericize ngrx
+- add more domains
+- add more entities
+- genericize error store to message store
 - constituent save screen
 	-contacts
-- azure AD
 - reporting
-- genericize error store to message store
+- timestamps and optimistic on all saves
+- azure AD
 - search to have unload

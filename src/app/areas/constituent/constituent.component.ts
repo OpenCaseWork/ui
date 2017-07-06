@@ -13,6 +13,7 @@ import { ConstituentStoreService } from '../../state/store-services/constituent-
 import { Subject } from 'rxjs/Subject';
 import { ErrorStoreService } from '../../state/store-services/error-store.service';
 import { DomainStoreService } from '../../state/store-services/domain-store.service';
+import { DomainEnum } from '../../state/resources/resource.service';
 
 @Component({
   selector: 'app-constituent',
@@ -32,7 +33,7 @@ export class ConstituentComponent implements OnInit, OnDestroy {
 
   public constructor(private route: ActivatedRoute,
     private storeService: ConstituentStoreService,
-    private domainService: DomainStoreService,
+    private domainStore: DomainStoreService,
     private logService: LogService,
     private errorService: ErrorStoreService,
     private location: Location) {
@@ -45,9 +46,9 @@ export class ConstituentComponent implements OnInit, OnDestroy {
 
     // this.domain$ = this.storeService.Domain$()
     //  .takeUntil(this.ngUnsubscribe);
-    this.domain$ = this.domainService.Domain$(0)
+    this.domain$ = this.domainStore.Domain$(DomainEnum.Constituent)
       .takeUntil(this.ngUnsubscribe);
-    //this.loadDomains();
+    this.loadDomains();
 
     this.constituent$ = this.storeService.ConstituentAggregate$()
       .takeUntil(this.ngUnsubscribe);
@@ -66,7 +67,8 @@ export class ConstituentComponent implements OnInit, OnDestroy {
   loadDomains() {
     this.logService.log('load domains');
     // this.storeService.loadDomains();
-    this.domainService.loadDomains(0);
+    this.domainStore.loadDomains(DomainEnum.Constituent);
+    this.domainStore.loadDomains(DomainEnum.ContactEvent);
   }
 
   loadConstituent() {

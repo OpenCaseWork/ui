@@ -2,15 +2,10 @@ import { createSelector } from 'reselect';
 import { BaseDomainActions, DomainActions } from '../../actions/base-domains-actions';
 import * as Actions from '../../actions/base-domains-actions';
 import { ResponseStatus, BaseResponse } from '../../../core/models/request-response.models';
-import { BaseDomains }
-  // DomainsState, initialDomainsState, FullDomainsState } 
-   from '../../../models/domains/domains.models';
+import { BaseDomains } from '../../../models/domains/domains.models';
 import { ResponseInfo } from '../../actions/transfer-accounts-action';
-
-enum domainEnum {
-  contactEvent = 1
-}
-
+import { EnumExtension } from '../../../core/extensions/enum-extension';
+import { DomainEnum } from '../../resources/resource.service';
 
 export interface FullDomainsState {
   domains: Array<DomainsState>;
@@ -33,9 +28,14 @@ export const initialDomainsState: DomainsState = {
 
 
 function fillDomains(): Array<DomainsState> {
+  let counter = 0;
   let array = new Array<DomainsState>();
-  let domainState = initialDomainsState;
-  array[0] = domainState;
+  const values = EnumExtension.getValues(DomainEnum);
+  values.forEach(element => {
+    let domainState = initialDomainsState;
+    array[counter] = domainState;
+    counter++;
+  });
   return array;
 }
 
@@ -54,7 +54,7 @@ export const initialState: FullDomainsState = {
 
 export function reducer(currentState = initialState, action: DomainActions): FullDomainsState {
   console.log('domains collection reducer:' + action.type);
-  console.log('domain state' + JSON.stringify(initialState));
+  // console.log('domain state' + JSON.stringify(initialState));
   switch (action.type) {
     case Actions.LOAD: {
       console.log('domains collection reducer load');
@@ -71,13 +71,13 @@ export function reducer(currentState = initialState, action: DomainActions): Ful
         loaded: true,
         responseStatus: (action.payload as BaseResponse<BaseDomains>).responseInfo
       };
-      console.log('domainstate object' + JSON.stringify(domainState));
+      // console.log('domainstate object' + JSON.stringify(domainState));
       let newState = generateNewState(currentState, domainState, action.index);
-      console.log('currentState' + JSON.stringify(currentState));
+      // console.log('currentState' + JSON.stringify(currentState));
       return newState;
     }
     case Actions.LOAD_FAILURE: {
-      //const newState: FullDomainsState = Object.assign({}, currentState);
+      // const newState: FullDomainsState = Object.assign({}, currentState);
       const domainState: DomainsState = {
         results: undefined,
         loading: false,
@@ -99,7 +99,7 @@ export function reducer(currentState = initialState, action: DomainActions): Ful
       return newState;
     }
     default: {
-      console.log('domain state' + JSON.stringify(currentState));
+      // console.log('domain state' + JSON.stringify(currentState));
       return currentState;
     }
   }
@@ -109,10 +109,10 @@ function generateNewState(currentState: FullDomainsState, newItem: DomainsState,
   let domain = currentState.domains[key];
   let newState: FullDomainsState = {domains: new Array<DomainsState>() };
   if (domain) {
-    console.log('update array, key = ' + key);
-     newState.domains = updateObjectInArray(currentState.domains, newItem, key);
+    // console.log('update array, key = ' + key);
+    newState.domains = updateObjectInArray(currentState.domains, newItem, key);
   } else {
-    console.log('insert array');
+    // console.log('insert array');
     newState.domains = insertItem(currentState.domains, newItem, key);
   }
   return newState;
@@ -137,6 +137,6 @@ function updateObjectInArray(array: Array<DomainsState>, updatedItem: DomainsSta
             ...updatedItem
         };
     });
-    console.log('updated array' + JSON.stringify(newArray));
+    // console.log('updated array' + JSON.stringify(newArray));
     return newArray;
 }

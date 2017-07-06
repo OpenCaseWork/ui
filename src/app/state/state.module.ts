@@ -10,7 +10,7 @@ import { NavigationStoreService } from './store-services/navigation-store.servic
 import { TransferStoreService } from './store-services/transfer-store.services';
 import { BaseDataService } from './../core/state/data-services/base-data.service';
 import { BaseDataServiceProvider } from './../core/state/data-services/data.provider';
-import { ConstituentResourcesService } from './resources/constituent-resources.service';
+import { ResourceService } from './resources/resource.service';
 import { DomainStoreService } from './store-services/domain-store.service';
 import { DomainEffects } from './effects/domains/domain-effects';
 
@@ -40,7 +40,7 @@ import { DomainEffects } from './effects/domains/domain-effects';
   ],
   providers: [
     ConstituentStoreService,
-    ConstituentResourcesService,
+    ResourceService,
     BaseDataServiceProvider,
     TransferStoreService,
     NavigationStoreService,

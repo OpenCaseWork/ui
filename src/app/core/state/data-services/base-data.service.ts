@@ -37,6 +37,7 @@ export class BaseDataService implements ILoggedClass {
   loadDomains<T>(request: BaseRequest): Observable<BaseResponse<T>> {
     this.logService.log(this.getClassName() + '.loadDomains');
     return this.httpService.get(request.resource)
+      .delay(1000)
       .map(response => response.json());
   }
 }

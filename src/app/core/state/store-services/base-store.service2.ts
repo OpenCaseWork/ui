@@ -12,7 +12,7 @@ import { BaseStoreService } from './base-store.service';
 import { BaseRequest, BasePostRequest, ResponseStatus, EntityRequest } from '../models/request-response.models';
 import { ConstituentDomains } from '../../models/constituents/domains/constituents-domains.models';
 import { ConstituentAggregate } from '../../models/constituents/constituents-aggregates.models';
-import { ConstituentResourcesService } from '../resources/constituent-resources.service';
+import { ResourceService } from '../resources/constituent-resources.service';
 
 // Wrapper service of the State in the Store
 @Injectable()
@@ -21,7 +21,7 @@ export class ConstituentStoreService extends BaseStoreService {
   constructor(
     private logService: LogService,
     private store: Store<GlobalReducer.GlobalState>,
-    private resourceService: ConstituentResourcesService) {
+    private resourceService: ResourceService) {
       super();
     }
 

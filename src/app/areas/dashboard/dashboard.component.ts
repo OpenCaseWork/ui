@@ -12,6 +12,8 @@ import { ErrorStoreService } from '../../state/store-services/error-store.servic
 import { ResponseStatus } from '../../core/models/request-response.models';
 import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
 import { DomainStoreService } from '../../state/store-services/domain-store.service';
+import { DomainEnum } from '../../state/resources/resource.service';
+import { ContactEventDomains } from '../../models/contact-events/domains/contact-event-domains.models';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,13 +22,14 @@ import { DomainStoreService } from '../../state/store-services/domain-store.serv
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   constituentDomain$: Observable<ConstituentDomains>;
+  contactEventDomain$: Observable<ContactEventDomains>;
   error$: Observable<ResponseStatus>;
   ngUnsubscribe: Subject<void> = new Subject<void>();
 
   constructor(private router: Router,
     private sessionService: SessionService,
     private idleService: IdleService,
-    private storeService: ConstituentStoreService,
+    // private storeService: ConstituentStoreService,
     private errorStore: ErrorStoreService,
     private domainsStore: DomainStoreService,
     private logService: LogService,
@@ -42,10 +45,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .subscribe(res => this.handleError(res));
 
     // domains
-    this.constituentDomain$ = this.storeService.Domain$()
+    this.constituentDomain$ = this.domainsStore.Domain$(DomainEnum.Constituent)
       .takeUntil(this.ngUnsubscribe);
+
+    this.contactEventDomain$ = this.domainsStore.Domain$(DomainEnum.ContactEvent)
+      .takeUntil(this.ngUnsubscribe);
+
     //this.storeService.loadDomains();
-    this.domainsStore.loadDomains(0);
+    this.domainsStore.loadDomains(DomainEnum.Constituent);
   }
 
   private handleError(error: ResponseStatus) {

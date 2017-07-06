@@ -21,7 +21,7 @@ export class DomainEffects extends BaseEffect {
   domain$: Observable<Action> = this.action$
     // Filter actions by action type
     .ofType(DomainActions.LOAD)
-    .switchMap(action => this.dataService.loadDomains<BaseDomains>(action.payload)
+    .mergeMap(action => this.dataService.loadDomains<BaseDomains>(action.payload)
       .map(res => {
         this.logService.log(this.getClassName() + ':domain$ success', res);
         if (res.responseInfo.statusCode !== 0) {
