@@ -18,6 +18,7 @@ export class ResponseStatus {
 export class BaseRequest {
   public resource: string;
   public id: number;
+  public successMessage: string;
 }
 
 export class BaseResponse<T> {
@@ -31,6 +32,7 @@ export class BaseResponse<T> {
 export class BasePostRequest<T> {
   public data: T;
   public resource: string;
+  public successMessage: string;
 }
 
 export class EntityRequest {

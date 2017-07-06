@@ -2,12 +2,12 @@ import { Injectable }                 from '@angular/core';
 import { Actions, Effect, toPayload } from '@ngrx/effects';
 import { Action, Store }              from '@ngrx/store';
 import { Observable }                 from 'rxjs/Observable';
-import { BaseEffect }                 from '../base-effect';
+
 import * as SearchActions             from '../../actions/constituent/constituent-search-actions';
-import * as DomainActions             from '../../actions/constituent/constituent-domains-actions';
 import * as AggregateActions          from '../../actions/constituent/constituent-aggregate-actions';
-import * as ErrorActions              from '../../actions/error/error-actions';
+import * as StatusActions              from '../../actions/status-actions';
 import * as GlobalReducer             from '../../reducers/global-reducer';
+import { BaseEffect }                 from '../base-effect';
 import { NavigationStoreService }     from '../../store-services/navigation-store.service';
 import { ResponseStatus }             from '../../../core/models/request-response.models';
 import { LogService }                 from '../../../core/logging/log.service';
@@ -28,7 +28,7 @@ export class ConstituentEffect extends BaseEffect {
         this.logService.log(this.getClassName() + ':get$ success', res);
         if (res.responseInfo.statusCode !== 0) {
           this.store.dispatch(new AggregateActions.GetFailAction(res.responseInfo));
-          return (new ErrorActions.FailAction(res.responseInfo));
+          return (new StatusActions.FailAction(res.responseInfo));
         } else {
           return (new AggregateActions.GetSuccessAction(res));
         }
@@ -40,7 +40,7 @@ export class ConstituentEffect extends BaseEffect {
         status.errorEnumId = 1;
         status.message = 'Error getting for constituent';
         this.store.dispatch(new AggregateActions.GetFailAction(status));
-        return Observable.of(new ErrorActions.FailAction(status));
+        return Observable.of(new StatusActions.FailAction(status));
       })
     );
 
@@ -53,7 +53,7 @@ export class ConstituentEffect extends BaseEffect {
         this.logService.log(this.getClassName() + ':load$ success', res);
         if (res.responseInfo.statusCode !== 0) {
           this.store.dispatch(new SearchActions.SearchFailAction(res.responseInfo));
-          return (new ErrorActions.FailAction(res.responseInfo));
+          return (new StatusActions.FailAction(res.responseInfo));
         } else {
           return (new SearchActions.SearchSuccessAction(res));
         }
@@ -65,30 +65,7 @@ export class ConstituentEffect extends BaseEffect {
         status.errorEnumId = 1;
         status.message = 'Error searching for constituents';
         this.store.dispatch(new SearchActions.SearchFailAction(status));
-        return Observable.of(new ErrorActions.FailAction(status));
-      })
-    );
-
-  @Effect()
-  domain$: Observable<Action> = this.action$
-    // Filter actions by action type
-    .ofType(DomainActions.LOAD)
-    .switchMap(action => this.constituentDataService.loadDomains<ConstituentDomains>(action.payload)
-      .map(res => {
-        this.logService.log(this.getClassName() + ':domain$ success', res);
-        if (res.responseInfo.statusCode !== 0) {
-          return (new DomainActions.LoadFailAction(res.responseInfo));
-        } else {
-          return (new DomainActions.LoadSuccessAction(res));
-        }
-      })
-      .catch(err => {
-        this.logService.error(this.getClassName() + ':domain$ error ', err);
-        let status = new ResponseStatus();
-        status.statusCode = 500;
-        status.errorEnumId = 1;
-        status.message = 'Load Domains failed';
-        return Observable.of(new ErrorActions.FailAction(status));
+        return Observable.of(new StatusActions.FailAction(status));
       })
     );
 
@@ -101,10 +78,17 @@ export class ConstituentEffect extends BaseEffect {
         this.logService.log(this.getClassName() + ':post$ success', res);
         if (res.responseInfo.statusCode !== 0) {
           this.store.dispatch(new AggregateActions.SaveFailAction(res.responseInfo));
-          return (new ErrorActions.FailAction(res.responseInfo));
+          return (new StatusActions.FailAction(res.responseInfo));
         } else {
           this.navService.openConstituent(res.data.constituent.constituentId);
-          return (new AggregateActions.SaveSuccessAction(res));
+          this.store.dispatch(new AggregateActions.SaveSuccessAction(res));
+          if (res.responseInfo.message) {
+            return (new StatusActions.SuccessAction(res.responseInfo));
+          } else {
+            let status = new ResponseStatus();
+            status.message = action.payload.successMessage;
+            return (new StatusActions.SuccessAction(status));
+          }
         }
       })
       .catch(err => {
@@ -114,7 +98,7 @@ export class ConstituentEffect extends BaseEffect {
         status.errorEnumId = 1;
         status.message = 'Save failed';
         this.store.dispatch(new AggregateActions.SaveFailAction(status));
-        return Observable.of(new ErrorActions.FailAction(status));
+        return Observable.of(new StatusActions.FailAction(status));
       })
     );
 

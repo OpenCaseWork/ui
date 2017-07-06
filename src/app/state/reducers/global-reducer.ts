@@ -42,7 +42,7 @@ import { storeFreeze } from 'ngrx-store-freeze';
 import * as ConstituentSearchReducer from './constituent/constituent-search-reducer';
 //import * as ConstituentDomainsReducer from './constituent/constituent-domains-reducer';
 import * as ConstituentAggregateReducer from './constituent/constituent-aggregate-reducer';
-import * as ErrorReducer  from './error-reducer';
+import * as StatusReducer  from './status-reducer';
 //import * as TransferAccountReducer from './transfer-accounts-reducer';
 //import * as ContactEventReducer from './contact-event/contact-event-domains-reducer';
 import * as DomainsReducer from './domains/domains-reducer';
@@ -62,7 +62,7 @@ export interface GlobalState {
   constituentAggregateState: ConstituentAggregateReducer.State;
   //contactEventDomainsState: DomainsState;
   fullDomainState: DomainsReducer.FullDomainsState;
-  errorState: ErrorReducer.State;
+  statusState: StatusReducer.State;
   //router: RouterState;
   // TODO add other States here
 }
@@ -75,7 +75,7 @@ const reducers = {
   constituentAggregateState: ConstituentAggregateReducer.reducer,
   //contactEventDomainsState: ContactEventReducer.createReducer(new BaseDomainActions('contact-event-domains')),
   fullDomainState: DomainsReducer.reducer,
-  errorState: ErrorReducer.reducer,
+  statusState: StatusReducer.reducer,
   //router: routerReducer,
   // TODO add other reducers here
 };

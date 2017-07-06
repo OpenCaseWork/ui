@@ -18,9 +18,4 @@ export class TransferStoreService  {
     return (<any>this).constructor.name;
   }
 
-  ConstituentsLoaded$(): Observable<boolean> {
-    this.logService.log(this.getClassName() + ':FromAccount$');
-    return this.store.select(GlobalSelectors.transferFromAccountLoaded);
-  }
-
 }

@@ -2,16 +2,15 @@ import { Injectable }                 from '@angular/core';
 import { Actions, Effect, toPayload } from '@ngrx/effects';
 import { Action, Store }              from '@ngrx/store';
 import { Observable }                 from 'rxjs/Observable';
-import { BaseEffect }                 from '../base-effect';
+
 import * as DomainActions             from '../../actions/base-domains-actions';
-import * as AggregateActions          from '../../actions/constituent/constituent-aggregate-actions';
-import * as ErrorActions              from '../../actions/error/error-actions';
+import * as StatusActions              from '../../actions/status-actions';
 import * as GlobalReducer             from '../../reducers/global-reducer';
-import { NavigationStoreService }     from '../../store-services/navigation-store.service';
+import { BaseEffect }                 from '../base-effect';
 import { ResponseStatus }             from '../../../core/models/request-response.models';
 import { LogService }                 from '../../../core/logging/log.service';
 import { BaseDataService }            from '../../../core/state/data-services/base-data.service';
-import { BaseDomains } from '../../../models/domains/domains.models';
+import { BaseDomains }                from '../../../models/domains/domains.models';
 
 
 @Injectable()
@@ -36,7 +35,7 @@ export class DomainEffects extends BaseEffect {
         status.statusCode = 500;
         status.errorEnumId = 1;
         status.message = 'Load Domains failed';
-        return Observable.of(new ErrorActions.FailAction(status));
+        return Observable.of(new StatusActions.FailAction(status));
       })
     );
 

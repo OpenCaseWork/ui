@@ -2,7 +2,9 @@
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { MdSnackBar, MdSpinner, MdSnackBarConfig } from '@angular/material';
+import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
+
 import { LogService } from '../../core/logging/log.service';
 import { Constituent } from '../../models/constituents/constituents.models';
 import { ConstituentDomains } from '../../models/constituents/domains/constituents-domains.models';
@@ -10,8 +12,7 @@ import { NameAddressComponent } from './name-address/name-address.component';
 import { DemographicsComponent } from './demographics/demographics.component';
 import { ConstituentAggregate } from '../../models/constituents/constituents-aggregates.models';
 import { ConstituentStoreService } from '../../state/store-services/constituent-store-service';
-import { Subject } from 'rxjs/Subject';
-import { ErrorStoreService } from '../../state/store-services/error-store.service';
+import { StatusStoreService } from '../../state/store-services/status-store.service';
 import { DomainStoreService } from '../../state/store-services/domain-store.service';
 import { DomainEnum } from '../../state/resources/resource.service';
 
@@ -23,32 +24,27 @@ import { DomainEnum } from '../../state/resources/resource.service';
 export class ConstituentComponent implements OnInit, OnDestroy {
   @ViewChild(NameAddressComponent) private nameAddressComponent: NameAddressComponent;
   @ViewChild(DemographicsComponent) private demographicsComponent: DemographicsComponent;
+  ngUnsubscribe: Subject<void> = new Subject<void>();
   domain$: Observable<ConstituentDomains>;
   constituent$: Observable<ConstituentAggregate>;
   constituentAggregate: ConstituentAggregate;
   private id: number;
-  private loading: boolean;
-  private domains: ConstituentDomains;
-  ngUnsubscribe: Subject<void> = new Subject<void>();
 
   public constructor(private route: ActivatedRoute,
     private storeService: ConstituentStoreService,
     private domainStore: DomainStoreService,
     private logService: LogService,
-    private errorService: ErrorStoreService,
+    private statusService: StatusStoreService,
     private location: Location) {
     this.constituentAggregate = new ConstituentAggregate();
   }
 
   ngOnInit() {
     this.logService.log('init constituent component');
-    this.loading = true;
 
-    // this.domain$ = this.storeService.Domain$()
-    //  .takeUntil(this.ngUnsubscribe);
     this.domain$ = this.domainStore.Domain$(DomainEnum.Constituent)
       .takeUntil(this.ngUnsubscribe);
-    this.loadDomains();
+    this.domainStore.loadDomains(DomainEnum.Constituent);
 
     this.constituent$ = this.storeService.ConstituentAggregate$()
       .takeUntil(this.ngUnsubscribe);
@@ -58,26 +54,13 @@ export class ConstituentComponent implements OnInit, OnDestroy {
       .takeUntil(this.ngUnsubscribe)
       .subscribe(params => {
         this.id = +params['id'];
-        this.loadConstituent();
+        this.storeService.getConstituent(this.id);
       });
-
-    this.loading = false;
   }
 
-  loadDomains() {
-    this.logService.log('load domains');
-    // this.storeService.loadDomains();
-    this.domainStore.loadDomains(DomainEnum.Constituent);
-    this.domainStore.loadDomains(DomainEnum.ContactEvent);
-  }
-
-  loadConstituent() {
-    console.log('load constituent');
-    this.storeService.getConstituent(this.id);
-  }
-
+  // TODO: remove, seems unnecessary now using async and store?
   isLoading(): boolean {
-    return this.loading;
+    return false;
   }
 
   setConstituent(newConstituent: ConstituentAggregate) {
@@ -86,7 +69,7 @@ export class ConstituentComponent implements OnInit, OnDestroy {
 
   saveConstituentAggregate() {
     if (!this.nameAddressComponent.isValid()) {
-      this.errorService.publishError('Please fix validation errors');
+      this.statusService.publishError('Please fix validation errors');
       return;
     }
 

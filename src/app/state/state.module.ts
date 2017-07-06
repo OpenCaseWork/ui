@@ -5,7 +5,7 @@ import { RouterStoreModule } from '@ngrx/router-store';
 import { globalReducer  } from './reducers/global-reducer';
 import { ConstituentEffect  } from './effects/constituent/constituent-effects';
 import { ConstituentStoreService } from './store-services/constituent-store-service';
-import { ErrorStoreService } from './store-services/error-store.service';
+import { StatusStoreService } from './store-services/status-store.service';
 import { NavigationStoreService } from './store-services/navigation-store.service';
 import { TransferStoreService } from './store-services/transfer-store.services';
 import { BaseDataService } from './../core/state/data-services/base-data.service';
@@ -44,7 +44,7 @@ import { DomainEffects } from './effects/domains/domain-effects';
     BaseDataServiceProvider,
     TransferStoreService,
     NavigationStoreService,
-    ErrorStoreService,
+    StatusStoreService,
     DomainStoreService,
   ],
   exports: [
