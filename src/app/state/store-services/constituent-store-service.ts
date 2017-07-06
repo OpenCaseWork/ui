@@ -12,6 +12,8 @@ import { BaseStoreService } from './../../core/state/store-services/base-store.s
 import { BasePostRequest, EntityRequest } from '../../core/models/request-response.models';
 import { ConstituentAggregate } from '../../models/constituents/constituents-aggregates.models';
 import { ResourceService } from '../resources/resource.service';
+import { RouteUrlDashboard } from '../../app-routing.urls';
+import { RouteUrlConstituent } from '../../areas/dashboard/dashboard-routing.urls';
 
 // Wrapper service of the State in the Store
 @Injectable()
@@ -86,6 +88,7 @@ export class ConstituentStoreService extends BaseStoreService {
     request.data = constituent;
     request.resource = this.resourceService.getResources().entity;
     request.successMessage = 'Constituent saved';
+    request.successUrl =  RouteUrlDashboard() + '/' + RouteUrlConstituent();
     this.logService.log(this.getClassName() + ':start saveConstituent:' + JSON.stringify(request.data));
     this.store.dispatch(new ConstituentAggregateActions.SaveAction(request));
   }

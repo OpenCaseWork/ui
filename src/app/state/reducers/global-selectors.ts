@@ -62,7 +62,7 @@ export const currentStatus = createSelector(getStatusState, StatusReducer.respon
 //export const transferFromAccountLoading = createSelector(getTransferAccountState, TransferAccounts.fromLoading);
 //export const transferFromAccountLoaded = createSelector(getTransferAccountState, TransferAccounts.fromLoaded);
 
-export const getDomains = (state: GlobalState) => state.fullDomainState.domains[0];
+//export const getDomains = (state: GlobalState) => state.fullDomainState.domains[0];
 
  // TODO add other selectors for properties of state
 /*export const selectors = createSelectors();

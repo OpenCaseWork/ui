@@ -40,15 +40,11 @@ import { storeFreeze } from 'ngrx-store-freeze';
  * notation packages up all of the exports into a single object.
  */
 import * as ConstituentSearchReducer from './constituent/constituent-search-reducer';
-//import * as ConstituentDomainsReducer from './constituent/constituent-domains-reducer';
 import * as ConstituentAggregateReducer from './constituent/constituent-aggregate-reducer';
 import * as StatusReducer  from './status-reducer';
-//import * as TransferAccountReducer from './transfer-accounts-reducer';
-//import * as ContactEventReducer from './contact-event/contact-event-domains-reducer';
+import * as ResourceReducer from './resource-reducer';
 import * as DomainsReducer from './domains/domains-reducer';
-//import { DomainsState, FullDomainsState } from '../../models/domains/domains.models';
-//import { ContactEventDomains } from '../../models/constituents/domains/contact-event-domains.models';
-//import { BaseDomainActions } from '../actions/base-domains-actions';
+import * as SearchReducer from './search-reducer';
 // TODO add other reducers
 
 /**
@@ -56,27 +52,23 @@ import * as DomainsReducer from './domains/domains-reducer';
  * our top level state interface is just a map of keys to inner state types.
  */
 export interface GlobalState {
-  //transferAccounts: TransferAccountReducer.TransferAccountState;
   constituentSearchState: ConstituentSearchReducer.State;
-  //constituentDomainsState: ConstituentDomainsReducer.State;
   constituentAggregateState: ConstituentAggregateReducer.State;
-  //contactEventDomainsState: DomainsState;
   fullDomainState: DomainsReducer.FullDomainsState;
   statusState: StatusReducer.State;
-  //router: RouterState;
+  resourceState: ResourceReducer.ResourceState;
+  searchState: SearchReducer.SearchState;
   // TODO add other States here
 }
 
 /* Names of reducers must match names of GlobalState above! */
 const reducers = {
   constituentSearchState: ConstituentSearchReducer.reducer,
-  //transferAccounts: TransferAccountReducer.reducer,
-  //constituentDomainsState: ConstituentDomainsReducer.reducer,
   constituentAggregateState: ConstituentAggregateReducer.reducer,
-  //contactEventDomainsState: ContactEventReducer.createReducer(new BaseDomainActions('contact-event-domains')),
   fullDomainState: DomainsReducer.reducer,
   statusState: StatusReducer.reducer,
-  //router: routerReducer,
+  resourceState: ResourceReducer.reducer,
+  searchState: SearchReducer.reducer,
   // TODO add other reducers here
 };
 

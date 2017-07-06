@@ -1,10 +1,13 @@
 - genericize ngrx
 - add more domains
 - add more entities
-- genericize error store to message store
 - constituent save screen
 	-contacts
 - reporting
 - timestamps and optimistic on all saves
 - azure AD
 - search to have unload
+
+-deploy auth to azure
+-db automation of deploy vsts
+-connect auth to sql

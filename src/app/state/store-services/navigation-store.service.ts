@@ -25,6 +25,10 @@ export class NavigationStoreService extends BaseStoreService {
       super();
     }
 
+  openResource(url: string, id: number) {
+    this.store.dispatch(go([url, id ]));
+  }
+
   openConstituent(id: number) {
     // issue: see https://github.com/ngrx/effects/issues/162
     this.store.dispatch(go([RouteUrlDashboard() + '/' + RouteUrlConstituent(), id ]));

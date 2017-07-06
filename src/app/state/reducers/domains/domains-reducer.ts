@@ -88,14 +88,14 @@ export function reducer(currentState = initialState, action: DomainActions): Ful
       return newState;
     }
     case Actions.UNLOAD: {
-      const newState: FullDomainsState = Object.assign({}, currentState);
+      // const newState: FullDomainsState = Object.assign({}, currentState);
       const domainState: DomainsState = {
         results: undefined,
         loading: false,
         loaded: false,
         responseStatus: undefined
       };
-      generateNewState(currentState, domainState, action.index);
+      let newState = generateNewState(currentState, domainState, action.index);
       return newState;
     }
     default: {

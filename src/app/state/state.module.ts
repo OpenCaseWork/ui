@@ -13,6 +13,8 @@ import { BaseDataServiceProvider } from './../core/state/data-services/data.prov
 import { ResourceService } from './resources/resource.service';
 import { DomainStoreService } from './store-services/domain-store.service';
 import { DomainEffects } from './effects/domains/domain-effects';
+import { ResourceEffects } from './effects/resource-effects';
+import { SearchEffects } from './effects/search-effects';
 
 @NgModule({
   imports: [
@@ -34,6 +36,8 @@ import { DomainEffects } from './effects/domains/domain-effects';
      */
     EffectsModule.run(ConstituentEffect),
     EffectsModule.run(DomainEffects),
+    EffectsModule.run(ResourceEffects),
+    EffectsModule.run(SearchEffects),
     // TODO add other effect classes
   ],
   declarations: [

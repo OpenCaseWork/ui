@@ -7,7 +7,7 @@ export enum DomainEnum {
   ContactEvent = 1
 }
 
-export enum EntityEnum {
+export enum ResourceEnum {
   Constituent = 0,
   ContactEvent = 1
 }
@@ -52,9 +52,9 @@ export class ResourceService {
   private addEntities() {
     this.entities = new Array<string>();
     if (this.environmentService.useMockData) {
-      this.entities[EntityEnum.Constituent] = 'assets/test-data/constituent-aggregate.json';
+      this.entities[ResourceEnum.Constituent] = 'assets/test-data/constituent-aggregate.json';
     } else {
-      this.entities[EntityEnum.Constituent] = 'constituent-aggregates';
+      this.entities[ResourceEnum.Constituent] = 'constituent-aggregates';
     }
   }
 
@@ -71,7 +71,7 @@ export class ResourceService {
     return this.domains[domainEnum];
   }
 
-  getEntityResource(entityEnum: EntityEnum) {
+  getEntityResource(entityEnum: ResourceEnum) {
     return this.entities[entityEnum];
   }
 

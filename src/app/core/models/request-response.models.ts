@@ -19,6 +19,8 @@ export class BaseRequest {
   public resource: string;
   public id: number;
   public successMessage: string;
+  public failureMessage: string;
+  public successUrl: string;
 }
 
 export class BaseResponse<T> {
@@ -29,10 +31,23 @@ export class BaseResponse<T> {
   }
 }
 
+export class BaseEntity {
+}
+
+export class BaseFilter {
+  public resource: string;
+  public id: number;
+  public successMessage: string;
+  public failureMessage: string;
+  public successUrl: string;
+}
+
 export class BasePostRequest<T> {
   public data: T;
   public resource: string;
   public successMessage: string;
+  public failureMessage: string;
+  public successUrl: string;
 }
 
 export class EntityRequest {
