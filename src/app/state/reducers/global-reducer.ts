@@ -39,7 +39,6 @@ import { storeFreeze } from 'ngrx-store-freeze';
  * the state of the reducer plus any selector functions. The `* as`
  * notation packages up all of the exports into a single object.
  */
-//import * as ConstituentSearchReducer from './constituent/constituent-search-reducer';
 import * as ConstituentAggregateReducer from './constituent/constituent-aggregate-reducer';
 import * as StatusReducer  from './status-reducer';
 import * as ResourceReducer from './resource-reducer';

@@ -17,7 +17,7 @@ export class ResourceEffects extends BaseEffect {
   @Effect()
   get$: Observable<Action> = this.action$
     .ofType(ResourceActions.GET)
-    .mergeMap(action => this.dataService.get<BaseEntity>(action.payload)
+    .switchMap(action => this.dataService.get<BaseEntity>(action.payload)
       .map(res => {
         this.logService.log(this.getClassName() + ':get$ success', res);
         if (res.responseInfo.statusCode !== 0) {

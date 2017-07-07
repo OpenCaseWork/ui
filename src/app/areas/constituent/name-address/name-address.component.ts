@@ -99,6 +99,7 @@ export class NameAddressComponent implements OnInit, OnChanges, AfterViewInit {
 
     // populate form, but only if have populated constituent
     if (this.constituent && this.constituent.constituent) {
+      this.logService.log('constituent populated');
       let patchObject = Object.assign({}, this.constituent.constituent);
       if (this.domains) {
         patchObject.suffix =

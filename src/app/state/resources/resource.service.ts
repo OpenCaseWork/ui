@@ -14,6 +14,7 @@ export enum ResourceEnum {
 
 export enum SearchEnum {
   Constituent = 0,
+  ContactEvent = 1,
 }
 
 export class ConstituentResources {
@@ -45,7 +46,7 @@ export class ResourceService {
       this.domains[DomainEnum.ContactEvent] = 'assets/test-data/contact-event-domains.json';
     } else {
       this.domains[DomainEnum.Constituent] = 'constituents/domains';
-      this.domains[DomainEnum.Constituent] = 'contact-events/domains';
+      this.domains[DomainEnum.ContactEvent] = 'contact-events/domains';
     }
   }
 

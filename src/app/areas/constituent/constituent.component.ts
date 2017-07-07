@@ -14,7 +14,8 @@ import { ConstituentAggregate } from '../../models/constituents/constituents-agg
 import { ConstituentStoreService } from '../../state/store-services/constituent-store-service';
 import { StatusStoreService } from '../../state/store-services/status-store.service';
 import { DomainStoreService } from '../../state/store-services/domain-store.service';
-import { DomainEnum } from '../../state/resources/resource.service';
+import { DomainEnum, ResourceEnum } from '../../state/resources/resource.service';
+import { ResourceStoreService } from '../../state/store-services/resource-store-service';
 
 @Component({
   selector: 'app-constituent',
@@ -31,7 +32,7 @@ export class ConstituentComponent implements OnInit, OnDestroy {
   private id: number;
 
   public constructor(private route: ActivatedRoute,
-    private storeService: ConstituentStoreService,
+    private storeService: ResourceStoreService,
     private domainStore: DomainStoreService,
     private logService: LogService,
     private statusService: StatusStoreService,
@@ -46,7 +47,7 @@ export class ConstituentComponent implements OnInit, OnDestroy {
       .takeUntil(this.ngUnsubscribe);
     this.domainStore.loadDomains(DomainEnum.Constituent);
 
-    this.constituent$ = this.storeService.ConstituentAggregate$()
+    this.constituent$ = this.storeService.Resources$(ResourceEnum.Constituent)
       .takeUntil(this.ngUnsubscribe);
     this.constituent$.subscribe(res => this.setConstituent(res));
 
@@ -54,7 +55,7 @@ export class ConstituentComponent implements OnInit, OnDestroy {
       .takeUntil(this.ngUnsubscribe)
       .subscribe(params => {
         this.id = +params['id'];
-        this.storeService.getConstituent(this.id);
+        this.storeService.getResource(this.id, ResourceEnum.Constituent);
       });
   }
 
@@ -77,7 +78,7 @@ export class ConstituentComponent implements OnInit, OnDestroy {
     this.logService.log('before update:' + JSON.stringify(clone.constituent));
     clone.constituent = this.nameAddressComponent.updateConstituentFromForm(clone.constituent);
     this.logService.log('after update:' + JSON.stringify(clone.constituent));
-    this.storeService.saveConstituent(clone);
+    this.storeService.saveResource(clone, ResourceEnum.Constituent);
   }
 
   ngOnDestroy() {
