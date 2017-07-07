@@ -13,6 +13,7 @@ import { BaseStoreService } from './../../core/state/store-services/base-store.s
 import { RouteUrlConstituent } from '../../areas/dashboard/dashboard-routing.urls';
 import { ActivatedRoute } from '@angular/router';
 import { RouteUrlDashboard } from '../../app-routing.urls';
+import { ResourceService, ResourceEnum } from '../resources/resource.service';
 
 // Wrapper service of the Account State in the Store
 @Injectable()
@@ -21,12 +22,17 @@ export class NavigationStoreService extends BaseStoreService {
   constructor(
     private logService: LogService,
     private store: Store<GlobalReducer.GlobalState>,
+    private resourceService: ResourceService,
     private route: ActivatedRoute) {
       super();
     }
 
-  openResource(url: string, id: number) {
-    this.store.dispatch(go([url, id ]));
+  // TODO: support openResource generically?
+  openResource(id: number, resourceEnum: ResourceEnum) {
+    let url = this.resourceService.getResourceUrls(resourceEnum);
+    if (url) {
+      this.store.dispatch(go([url, id ]));
+    }
   }
 
   openConstituent(id: number) {

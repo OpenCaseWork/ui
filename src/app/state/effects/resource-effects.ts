@@ -10,6 +10,7 @@ import { BaseEffect }                 from './base-effect';
 import { ResponseStatus, BaseEntity } from '../../core/models/request-response.models';
 import { LogService }                 from '../../core/logging/log.service';
 import { BaseDataService }            from '../../core/state/data-services/base-data.service';
+import { NavigationStoreService } from '../store-services/navigation-store.service';
 
 @Injectable()
 export class ResourceEffects extends BaseEffect {
@@ -50,8 +51,6 @@ export class ResourceEffects extends BaseEffect {
           this.store.dispatch(new ResourceActions.SaveFailAction(res.responseInfo, action.index));
           return (new StatusActions.FailAction(res.responseInfo));
         } else {
-          // TODO: move navigation back to the component
-          //this.navService.openConstituent(res.data.constituent.constituentId);
           this.store.dispatch(new ResourceActions.SaveSuccessAction(res, action.index));
           if (res.responseInfo.message) {
             return (new StatusActions.SuccessAction(res.responseInfo));
@@ -78,6 +77,7 @@ export class ResourceEffects extends BaseEffect {
     private action$: Actions,
     private dataService: BaseDataService,
     private logService: LogService,
+    private navService: NavigationStoreService,
     private store: Store<GlobalReducer.GlobalState>) {
     super();
   }

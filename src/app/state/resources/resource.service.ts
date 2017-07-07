@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { LogService } from '../../core/logging/log.service';
 import { EnvironmentService } from '../../core/environment/environment.service';
+import { RouteUrlDashboard } from '../../app-routing.urls';
+import { RouteUrlConstituent } from '../../areas/dashboard/dashboard-routing.urls';
 
 export enum DomainEnum {
   Constituent = 0,
@@ -29,6 +31,7 @@ export class ResourceService {
   private domains: Array<string>;
   private entities: Array<string>;
   private searches: Array<string>;
+  private resourceUrls: Array<string>;
 
   constructor(
     protected environmentService: EnvironmentService,
@@ -37,6 +40,12 @@ export class ResourceService {
       this.addDomains();
       this.addEntities();
       this.addSearches();
+      this.addResourceUrls();
+  }
+
+  private addResourceUrls() {
+    this.resourceUrls = new Array<string>();
+    this.resourceUrls[ResourceEnum.Constituent] = RouteUrlDashboard() + '/' + RouteUrlConstituent();
   }
 
   private addDomains() {
@@ -78,6 +87,10 @@ export class ResourceService {
 
   getSearchResource(searchEnum: SearchEnum) {
     return this.searches[searchEnum];
+  }
+
+  getResourceUrls(resourceEnum: ResourceEnum) {
+    return this.resourceUrls[resourceEnum];
   }
 
   getResources(): ConstituentResources {

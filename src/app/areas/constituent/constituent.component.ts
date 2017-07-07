@@ -16,6 +16,7 @@ import { StatusStoreService } from '../../state/store-services/status-store.serv
 import { DomainStoreService } from '../../state/store-services/domain-store.service';
 import { DomainEnum, ResourceEnum } from '../../state/resources/resource.service';
 import { ResourceStoreService } from '../../state/store-services/resource-store-service';
+import { NavigationStoreService } from '../../state/store-services/navigation-store.service';
 
 @Component({
   selector: 'app-constituent',
@@ -36,6 +37,7 @@ export class ConstituentComponent implements OnInit, OnDestroy {
     private domainStore: DomainStoreService,
     private logService: LogService,
     private statusService: StatusStoreService,
+    private navService: NavigationStoreService,
     private location: Location) {
     this.constituentAggregate = new ConstituentAggregate();
   }
@@ -66,6 +68,10 @@ export class ConstituentComponent implements OnInit, OnDestroy {
 
   setConstituent(newConstituent: ConstituentAggregate) {
     this.constituentAggregate = newConstituent;
+    // on save, re-navigate to this entity to trigger URL update
+    if (newConstituent.constituent) {
+      this.navService.openConstituent(newConstituent.constituent.constituentId);
+    }
   }
 
   saveConstituentAggregate() {
