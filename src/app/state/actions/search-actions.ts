@@ -2,13 +2,13 @@ import { Action } from '@ngrx/store';
 
 import { ResponseStatus, BasePostRequest, BaseResponse, BaseFilter, BaseEntity } from '../../core/models/request-response.models';
 
-export const SEARCH = 'Constituents Search';
-export const LOADING = 'Constituents Loading';
-export const LOADED = 'Constituents Loaded';
-export const SEARCH_SUCCESS = 'Constituents Success';
-export const SEARCH_FAILURE = 'Constituents Failure';
-export const SELECTED = 'Constituents Selected';
-export const UNLOAD = 'Constituents Unload';
+export const SEARCH = 'Search';
+export const LOADING = 'Loading';
+export const LOADED = 'Loaded';
+export const SEARCH_SUCCESS = 'Success';
+export const SEARCH_FAILURE = 'Failure';
+export const SELECTED = 'Selected';
+export const UNLOAD = 'Unload';
 
 export class SearchAction implements Action {
   readonly type = SEARCH;

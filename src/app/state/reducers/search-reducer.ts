@@ -31,6 +31,7 @@ function fillSearches(): Array<SearchSlice> {
     let state = initialSliceState;
     array[counter] = state;
     counter++;
+    console.log('fillsearches:' + counter);
   });
   return array;
 }

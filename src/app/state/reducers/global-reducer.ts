@@ -39,7 +39,7 @@ import { storeFreeze } from 'ngrx-store-freeze';
  * the state of the reducer plus any selector functions. The `* as`
  * notation packages up all of the exports into a single object.
  */
-import * as ConstituentSearchReducer from './constituent/constituent-search-reducer';
+//import * as ConstituentSearchReducer from './constituent/constituent-search-reducer';
 import * as ConstituentAggregateReducer from './constituent/constituent-aggregate-reducer';
 import * as StatusReducer  from './status-reducer';
 import * as ResourceReducer from './resource-reducer';
@@ -52,7 +52,7 @@ import * as SearchReducer from './search-reducer';
  * our top level state interface is just a map of keys to inner state types.
  */
 export interface GlobalState {
-  constituentSearchState: ConstituentSearchReducer.State;
+  //constituentSearchState: ConstituentSearchReducer.State;
   constituentAggregateState: ConstituentAggregateReducer.State;
   fullDomainState: DomainsReducer.FullDomainsState;
   statusState: StatusReducer.State;
@@ -63,7 +63,7 @@ export interface GlobalState {
 
 /* Names of reducers must match names of GlobalState above! */
 const reducers = {
-  constituentSearchState: ConstituentSearchReducer.reducer,
+  //constituentSearchState: ConstituentSearchReducer.reducer,
   constituentAggregateState: ConstituentAggregateReducer.reducer,
   fullDomainState: DomainsReducer.reducer,
   statusState: StatusReducer.reducer,

@@ -19,6 +19,10 @@ import { ConstituentSearchRecord, ConstituentSearchRequest } from '../../models/
 import { LogService } from '../../core/logging/log.service';
 import { Observable } from 'rxjs/observable';
 import { ConstituentStoreService } from '../../state/store-services/constituent-store-service';
+import { SearchStoreService } from '../../state/store-services/search-store-service';
+import { SearchEnum } from '../../state/resources/resource.service';
+import { search } from '@ngrx/router-store';
+import { BaseEntity } from '../../core/models/request-response.models';
 
 @Component({
   selector: 'app-constituent-search',
@@ -35,24 +39,23 @@ export class ConstituentSearchComponent implements OnInit, OnDestroy {
   public firstName: string;
 
   constructor(public dialogRef: MdDialogRef<ConstituentSearchComponent>,
-    private database: BaseDataTableService<ConstituentSearchRecord>,
-    private service: ConstituentSearchService,
+    private database: BaseDataTableService<BaseEntity>,
     private logService: LogService,
     private cd: ChangeDetectorRef,
-    private constituentStoreService: ConstituentStoreService) {
+    private searchStore: SearchStoreService) {
   }
 
   ngOnInit() {
     this.logService.log('ConstituentSearchComponent.ngOnInit');
 
     // Subscribe to loading
-    this.constituentStoreService.SearchLoading$()
-      .startWith(false)
+    this.searchStore.SearchLoading$(SearchEnum.Constituent)
+     // .startWith(false)  TODO: remove, not sure why added this...
       .takeUntil(this.ngUnsubscribe)
       .subscribe(res => this.setSearching(res));
 
     // Subscribe to constituents search list
-    this.constituentStoreService.SearchConstituent$()
+    this.searchStore.Searche$(SearchEnum.Constituent)
       .takeUntil(this.ngUnsubscribe)
       .subscribe(response => {
         if (response) {
@@ -77,7 +80,7 @@ export class ConstituentSearchComponent implements OnInit, OnDestroy {
     this.searchRequest.firstName = this.firstName;
     this.searchRequest.lastName = this.lastName;
     this.logService.log('searching!');
-    this.constituentStoreService.searchConstituents(this.searchRequest);
+    this.searchStore.search(this.searchRequest, SearchEnum.Constituent);
   }
 
   select() {

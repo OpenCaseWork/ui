@@ -1,5 +1,7 @@
+import { BaseFilter, BaseEntity } from '../../../core/models/request-response.models';
+
 /*[Table("constituent_search")]*/
-export class ConstituentSearchRecord {
+export class ConstituentSearchRecord extends BaseEntity {
   /*[Column("provider_number")]*/
   public providerNumber: string;
   /*[Column("constituent_id")]*/
@@ -32,7 +34,7 @@ export class ConstituentSearchRecord {
   public businessPhone: string;
 }
 
-export class ConstituentSearchRequest {
+export class ConstituentSearchRequest extends BaseFilter {
   public firstName: string;
   public lastName: string;
   public address: string;

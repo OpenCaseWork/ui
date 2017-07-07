@@ -26,6 +26,7 @@ export class ConstituentStoreService extends BaseStoreService {
       super();
     }
 
+/*
    SearchConstituent$(): Observable<ConstituentSearchRecord[]> {
     this.logService.log(this.getClassName() + ':SearchConstituent$');
     return this.store.select(GlobalSelectors.constituentList);
@@ -39,13 +40,14 @@ export class ConstituentStoreService extends BaseStoreService {
   SearchLoading$(): Observable<boolean> {
     this.logService.log(this.getClassName() + ':SearchLoading$');
     return this.store.select(GlobalSelectors.constituentListIsLoading);
-  }
+  }*/
 
    ConstituentAggregate$(): Observable<ConstituentAggregate> {
     this.logService.log(this.getClassName() + ':ConstituentAggregate$');
     return this.store.select(GlobalSelectors.constituent);
   }
 
+/*
   searchConstituents(request: ConstituentSearchRequest): void {
     let payload = new BasePostRequest<ConstituentSearchRequest>();
     payload.resource = this.resourceService.getResources().search;
@@ -53,7 +55,7 @@ export class ConstituentStoreService extends BaseStoreService {
     let state: boolean;
     this.logService.log(this.getClassName() + ':start searchConstituents');
     this.store.dispatch(new ConstituentSearchActions.SearchAction(payload));
-  }
+  }*/
 
   // Load using API if not already loaded into the Store
   getConstituent(id: number): void {

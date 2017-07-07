@@ -11,7 +11,7 @@ import { ResourceService, SearchEnum }                            from '../resou
 
 // Wrapper service of the State in the Store
 @Injectable()
-export class ConstituentStoreService extends BaseStoreService {
+export class SearchStoreService extends BaseStoreService {
 
   constructor(
     private logService: LogService,

@@ -1,6 +1,4 @@
 import { createSelector } from 'reselect';
-import * as ConstituentSearchReducer from './constituent/constituent-search-reducer';
-import * as ConstituentDomainsReducer from './constituent/constituent-domains-reducer';
 import * as ConstituentAggregateReducer from './constituent/constituent-aggregate-reducer';
 import * as StatusReducer from './status-reducer';
 import * as TransferAccounts from './transfer-accounts-reducer';
@@ -23,8 +21,6 @@ import { isLoaded } from './constituent/constituent-search-reducer';
  * ```
  */
 // Define selectors for the States in the Store.
-export const getConstituentSearchState = (state: GlobalState) => state.constituentSearchState;
-//export const getConstituentDomainsState = (state: GlobalState) => state.constituentDomainsState;
 export const getConstituentState = (state: GlobalState) => state.constituentAggregateState;
 export const getStatusState = (state: GlobalState) => state.statusState;
 //export const getTransferAccountState = (state: GlobalState) => state.transferAccounts;
@@ -43,17 +39,6 @@ export const domainsState = (state: GlobalState) => state.fullDomainState;
  */
 
 // Define selectors for the individual property of State for convenience
-export const constituentListIsLoaded = createSelector(getConstituentSearchState, ConstituentSearchReducer.isLoaded);
-export const constituentListIsLoading = createSelector(getConstituentSearchState, ConstituentSearchReducer.isLoading);
-export const constituentList = createSelector(getConstituentSearchState, ConstituentSearchReducer.results);
-export const constituentsSelected = createSelector(getConstituentSearchState, ConstituentSearchReducer.selected);
-export const constituentsResponseStatus = createSelector(getConstituentSearchState, ConstituentSearchReducer.responseStatus);
-
-//export const constituentDomainsIsLoaded = createSelector(getConstituentDomainsState, ConstituentDomainsReducer.isLoaded);
-//export const constituentDomainsIsLoading = createSelector(getConstituentDomainsState, ConstituentDomainsReducer.isLoading);
-//export const constituentDomains = createSelector(getConstituentDomainsState, ConstituentDomainsReducer.results);
-//export const constituentsDomainsResponseStatus = createSelector(getConstituentDomainsState, ConstituentDomainsReducer.responseStatus);
-
 export const constituentIsLoading = createSelector(getConstituentState, ConstituentAggregateReducer.isLoading);
 export const constituent = createSelector(getConstituentState, ConstituentAggregateReducer.results);
 

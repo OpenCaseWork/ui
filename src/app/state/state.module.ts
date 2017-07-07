@@ -15,6 +15,8 @@ import { DomainStoreService } from './store-services/domain-store.service';
 import { DomainEffects } from './effects/domains/domain-effects';
 import { ResourceEffects } from './effects/resource-effects';
 import { SearchEffects } from './effects/search-effects';
+import { SearchStoreService } from './store-services/search-store-service';
+import { ResourceStoreService } from './store-services/resource-store-service';
 
 @NgModule({
   imports: [
@@ -50,6 +52,8 @@ import { SearchEffects } from './effects/search-effects';
     NavigationStoreService,
     StatusStoreService,
     DomainStoreService,
+    SearchStoreService,
+    ResourceStoreService
   ],
   exports: [
   ],

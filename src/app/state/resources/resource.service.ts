@@ -14,7 +14,6 @@ export enum ResourceEnum {
 
 export enum SearchEnum {
   Constituent = 0,
-  ContactEvent = 1
 }
 
 export class ConstituentResources {
@@ -36,6 +35,7 @@ export class ResourceService {
       this.logService.log('ResourceService constructor');
       this.addDomains();
       this.addEntities();
+      this.addSearches();
   }
 
   private addDomains() {
@@ -61,9 +61,9 @@ export class ResourceService {
   private addSearches() {
     this.searches = new Array<string>();
     if (this.environmentService.useMockData) {
-      this.entities[SearchEnum.Constituent] = 'assets/test-data/constituent-search.json';
+      this.searches[SearchEnum.Constituent] = 'assets/test-data/constituent-search.json';
     } else {
-      this.entities[SearchEnum.Constituent] = 'constituents/search';
+      this.searches[SearchEnum.Constituent] = 'constituents/search';
     }
   }
 
