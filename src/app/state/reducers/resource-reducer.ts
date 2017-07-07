@@ -4,6 +4,7 @@ import * as ResourceActions             from '../actions/resource-actions';
 import { ResponseStatus, BaseEntity }   from '../../core/models/request-response.models';
 import { ResourceEnum } from '../resources/resource.service';
 import { EnumExtension } from '../../core/extensions/enum-extension';
+import { results } from './constituent/constituent-search-reducer';
 
 export interface ResourceState {
   resources: Array<ResourceSlice>;
@@ -39,8 +40,10 @@ export function reducer(state = initialState, action: ResourceActions.Actions): 
   console.log('resource reducer:' + action.type);
   switch (action.type) {
     case ResourceActions.GET: {
+      let existingResults = state.resources[action.index].results;
       const resourceSlice: ResourceSlice = Object.assign({}, initialSliceState, {
-        loading: true
+        loading: true,
+        results: existingResults
       });
       let newState = generateNewState(state, resourceSlice, action.index);
       return newState;
@@ -62,8 +65,10 @@ export function reducer(state = initialState, action: ResourceActions.Actions): 
       return newState;
     }
     case ResourceActions.SAVE: {
+      let existingResults = state.resources[action.index].results;
       const resourceSlice: ResourceSlice = Object.assign({}, initialSliceState, {
-        loading: true
+        loading: true,
+        results: existingResults
       });
       let newState = generateNewState(state, resourceSlice, action.index);
       return newState;
