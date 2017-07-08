@@ -9,6 +9,7 @@ import * as StatusReducer   from './status-reducer';
 import * as ResourceReducer from './resource-reducer';
 import * as DomainsReducer  from './domains/domains-reducer';
 import * as SearchReducer   from './search-reducer';
+import * as AppReducer      from './app-reducer';
 import { environment }      from '../../../environments/environment';
 
 /**
@@ -20,6 +21,7 @@ export interface GlobalState {
   statusState: StatusReducer.State;
   resourceState: ResourceReducer.ResourceState;
   searchState: SearchReducer.SearchState;
+  appState: AppReducer.ResourceState;
   // TODO add other States here
 }
 
@@ -29,6 +31,7 @@ const reducers = {
   statusState: StatusReducer.reducer,
   resourceState: ResourceReducer.reducer,
   searchState: SearchReducer.reducer,
+  appState: AppReducer.reducer
   // TODO add other reducers here
 };
 

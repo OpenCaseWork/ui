@@ -15,6 +15,7 @@ import { ResourceEffects }          from './effects/resource-effects';
 import { SearchEffects }            from './effects/search-effects';
 import { SearchStoreService }       from './store-services/search-store-service';
 import { ResourceStoreService }     from './store-services/resource-store-service';
+import { AppStoreService } from './store-services/app-store.service';
 
 @NgModule({
   imports: [
@@ -48,7 +49,8 @@ import { ResourceStoreService }     from './store-services/resource-store-servic
     StatusStoreService,
     DomainStoreService,
     SearchStoreService,
-    ResourceStoreService
+    ResourceStoreService,
+    AppStoreService
   ],
   exports: [
   ],

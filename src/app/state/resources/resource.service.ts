@@ -8,6 +8,7 @@ import { ResourceEffects } from '../effects/resource-effects';
 import { ConstituentAggregate } from '../../models/constituents/constituents-aggregates.models';
 import { BaseEntity } from '../../core/models/request-response.models';
 import { ContactEventDomains } from '../../models/contact-events/domains/contact-event-domains.models';
+import { ContactType } from '../../models/constituents/domains/constituents-domains.models';
 
 export enum DomainEnum {
   Constituent = 0,
@@ -22,6 +23,10 @@ export enum ResourceEnum {
 export enum SearchEnum {
   Constituent = 0,
   ContactEvent = 1,
+}
+
+export enum AppStateEnum {
+  SelectedContactTypes = 0
 }
 
 @Injectable()
@@ -83,6 +88,16 @@ export class ResourceService {
         entity = new ConstituentAggregate();
         break;
       case ResourceEnum.ContactEvent:
+        break;
+    }
+    return entity;
+  }
+
+  getNewState(stateEnum: AppStateEnum): BaseEntity {
+    let entity: BaseEntity;
+    switch (stateEnum) {
+      case AppStateEnum.SelectedContactTypes:
+        entity = new Array<ContactType>();
         break;
     }
     return entity;

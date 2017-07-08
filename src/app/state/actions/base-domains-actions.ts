@@ -21,7 +21,7 @@ export class BaseDomainActions {
     this.LOAD_FAILURE = this.domainName + ':Failure Domains';
     this.UNLOAD = this.domainName + ':Unload Domains';
   }
-}
+} 
 
 export const LOAD = ':Load Domains';
 export const LOADING = ':Loading Domains';
