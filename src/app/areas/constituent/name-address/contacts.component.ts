@@ -33,6 +33,8 @@ export class ContactsComponent implements OnInit, OnChanges, OnDestroy {
   dialogRef: MdDialogRef<AddContactComponent>;
   mask = [/[1-9]/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
   contactsForm: FormGroup;
+  group: any = {};
+
 
   constructor(
     private logService: LogService,
@@ -104,6 +106,50 @@ export class ContactsComponent implements OnInit, OnChanges, OnDestroy {
     this.cd.markForCheck();
   }
 
+  updateContacts(placeHolder: string) {
+    let defaults = this.domains.contactTypes.filter(p => p.placeHolder === placeHolder);
+    defaults.forEach(contactType => {
+      let contact = this.contacts.find(p => p.contactTypeId === contactType.id);
+      if (!contact) {
+        contact = new ConstituentContact();
+        this.setContactUIFields(contact, contactType);
+        this.contacts.push(contact);
+      } else {
+        this.setContactUIFields(contact, contactType);
+      }
+    });
+    this.logService.log('local contacts count:', this.contacts.length);
+    this.cd.markForCheck();
+  }
+
+  updateFormGroup() {
+    this.logService.log('ContactsComponent updateFormGroup:contacts:', this.contacts);
+    this.contacts = this.contacts.sort(function(obj1: ConstituentContact, obj2: ConstituentContact) {
+      return obj1.uiSequence - obj2.uiSequence;
+    });
+    this.contacts.forEach(contact => {
+      if (contact.contactTypeId === EMAIL_FIELD) {
+        this.group[contact.fieldName] = this.validatorService.createEmailControl(contact.contactValue);
+      } else {
+        if (contact.isPhone) {
+          this.group[contact.fieldName] = this.validatorService.createPhoneControl(contact.contactValue);
+        }
+      }
+    });
+    this.logService.log('form GROUP:', this.contactsForm);
+
+    //const arrayControl = this.contactsForm.controls.
+    //let newGroup = this.contactsForm;
+    //arrayControl.push(newGroup);
+    this.contactsForm = new FormGroup(this.group);
+
+
+    if (this.contactsForm) {
+      this.contactsForm.reset();
+    }
+  }
+
+
   // TODO: figure out pattern for UI-only needed properties
   private setContactUIFields(contact: ConstituentContact, contactType: ContactType) {
     contact.contactTypeId = contactType.id;
@@ -125,7 +171,7 @@ export class ContactsComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   createFormGroup() {
-    let group: any = {};
+    //let group: any = {};
 
     this.logService.log('ContactsComponent createFormGroup:contacts:', this.contacts);
     this.contacts = this.contacts.sort(function(obj1: ConstituentContact, obj2: ConstituentContact) {
@@ -133,15 +179,15 @@ export class ContactsComponent implements OnInit, OnChanges, OnDestroy {
     });
     this.contacts.forEach(contact => {
       if (contact.contactTypeId === EMAIL_FIELD) {
-        group[contact.fieldName] = this.validatorService.createEmailControl(contact.contactValue);
+        this.group[contact.fieldName] = this.validatorService.createEmailControl(contact.contactValue);
       } else {
         if (contact.isPhone) {
-           group[contact.fieldName] = this.validatorService.createPhoneControl(contact.contactValue);
+           this.group[contact.fieldName] = this.validatorService.createPhoneControl(contact.contactValue);
         }
       }
     });
-    this.logService.log('form GROUP:', group);
-    this.contactsForm = new FormGroup(group);
+    this.logService.log('form GROUP:', this.group);
+    this.contactsForm = new FormGroup(this.group);
 
     if (this.contactsForm) {
       this.contactsForm.reset();
@@ -181,15 +227,11 @@ export class ContactsComponent implements OnInit, OnChanges, OnDestroy {
     this.dialogRef.afterClosed()
       .takeUntil(this.ngUnsubscribe)
       .subscribe(result => {
-        console.log('result');
-        /*this.searchResult = result;
-        this.dialogRef = null;
-        if (this.searchResult) {
-          // navigate to constituent form, passing constituent id
-          console.log('navigating to consituent');
-          // this.router.navigate([RouteUrlConstituent(), this.searchResult.id ], { relativeTo: this.route });
-          this.navService.openConstituent(this.searchResult.id);
-       }*/
+        this.logService.log('result', result);
+        if (result) {
+          this.updateContacts(result);
+          this.updateFormGroup();
+        }
       });
   }
 }
