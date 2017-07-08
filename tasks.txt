@@ -1,6 +1,7 @@
-- constituent save screen
-	-contacts
-- add more entities	 - questionnaire
+- constituent save screen - all fields
+- demographics
+- print constituent
+- add questionnaire
 - reporting
 - logging errors
 - timestamps and optimistic on all saves

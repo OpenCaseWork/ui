@@ -8,11 +8,12 @@ import { ConstituentContact }               from '../../../models/constituents/c
 import { LogService }                       from '../../../core/logging/log.service';
 import { ValidatorService }                 from '../../../shared/control-services/validator.service';
 import { ConstituentAggregate }             from '../../../models/constituents/constituents-aggregates.models';
-import { DomainEnum, ResourceEnum }         from '../../../state/resources/resource.service';
+import { DomainEnum, ResourceEnum, AppStateEnum } from '../../../state/resources/resource.service';
 import { ConstituentDomains, ContactType }  from '../../../models/constituents/domains/constituents-domains.models';
 import { DomainStoreService }               from '../../../state/store-services/domain-store.service';
 import { ResourceStoreService }             from '../../../state/store-services/resource-store-service';
 import { AddContactComponent } from './add-contact.component';
+import { AppStoreService } from '../../../state/store-services/app-store.service';
 
 
 
@@ -24,7 +25,7 @@ const EMAIL_FIELD = 3;
   templateUrl: './contacts.component.html',
   styleUrls: ['./contacts.component.css']
 })
-export class ContactsComponent implements OnInit, OnChanges, OnDestroy {
+export class ContactsComponent implements OnInit, OnDestroy {
   domains: ConstituentDomains;
   constituent: ConstituentAggregate;
   contacts: Array<ConstituentContact>;
@@ -42,6 +43,7 @@ export class ContactsComponent implements OnInit, OnChanges, OnDestroy {
     private domainStore: DomainStoreService,
     private storeService: ResourceStoreService,
     private cd: ChangeDetectorRef,
+    private appStore: AppStoreService,
     public dialog: MdDialog
   ) {
     this.contacts = new Array<ConstituentContact>();
@@ -65,15 +67,10 @@ export class ContactsComponent implements OnInit, OnChanges, OnDestroy {
       this.domains = <ConstituentDomains> results[0];
       this.constituent = <ConstituentAggregate> results[1];
       this.populateContacts();
-      this.createFormGroup();
+      this.setFormGroup();
       this.patchValues();
       this.loading = false;
     });
-  }
-
-  ngOnChanges() {
-    // IS THIS NEEDED?
-    // this.contactsForm.reset();
   }
 
   ngOnDestroy() {
@@ -85,16 +82,7 @@ export class ContactsComponent implements OnInit, OnChanges, OnDestroy {
   populateContacts() {
     this.contacts = JSON.parse(JSON.stringify(this.constituent.contacts));
     let defaults = this.domains.contactTypes.filter(p => p.isDefault === true);
-    defaults.forEach(contactType => {
-      let contact = this.contacts.find(p => p.contactTypeId === contactType.id);
-      if (!contact) {
-        contact = new ConstituentContact();
-        this.setContactUIFields(contact, contactType);
-        this.contacts.push(contact);
-      } else {
-        this.setContactUIFields(contact, contactType);
-      }
-    });
+    this.updateLocalContacts(defaults);
     let contactsToPopulate = this.contacts.filter(p => !p.fieldName);
     contactsToPopulate.forEach(emptyContact => {
       let contactType = this.domains.contactTypes.find(p => p.id === emptyContact.contactTypeId);
@@ -106,8 +94,14 @@ export class ContactsComponent implements OnInit, OnChanges, OnDestroy {
     this.cd.markForCheck();
   }
 
-  updateContacts(placeHolder: string) {
+  addNewContact(placeHolder: string) {
     let defaults = this.domains.contactTypes.filter(p => p.placeHolder === placeHolder);
+    this.updateLocalContacts(defaults);
+    this.logService.log('local contacts count:', this.contacts.length);
+    this.cd.markForCheck();
+  }
+
+  private updateLocalContacts(defaults: Array<ContactType>) {
     defaults.forEach(contactType => {
       let contact = this.contacts.find(p => p.contactTypeId === contactType.id);
       if (!contact) {
@@ -118,37 +112,7 @@ export class ContactsComponent implements OnInit, OnChanges, OnDestroy {
         this.setContactUIFields(contact, contactType);
       }
     });
-    this.logService.log('local contacts count:', this.contacts.length);
-    this.cd.markForCheck();
   }
-
-  updateFormGroup() {
-    this.logService.log('ContactsComponent updateFormGroup:contacts:', this.contacts);
-    this.contacts = this.contacts.sort(function(obj1: ConstituentContact, obj2: ConstituentContact) {
-      return obj1.uiSequence - obj2.uiSequence;
-    });
-    this.contacts.forEach(contact => {
-      if (contact.contactTypeId === EMAIL_FIELD) {
-        this.group[contact.fieldName] = this.validatorService.createEmailControl(contact.contactValue);
-      } else {
-        if (contact.isPhone) {
-          this.group[contact.fieldName] = this.validatorService.createPhoneControl(contact.contactValue);
-        }
-      }
-    });
-    this.logService.log('form GROUP:', this.contactsForm);
-
-    //const arrayControl = this.contactsForm.controls.
-    //let newGroup = this.contactsForm;
-    //arrayControl.push(newGroup);
-    this.contactsForm = new FormGroup(this.group);
-
-
-    if (this.contactsForm) {
-      this.contactsForm.reset();
-    }
-  }
-
 
   // TODO: figure out pattern for UI-only needed properties
   private setContactUIFields(contact: ConstituentContact, contactType: ContactType) {
@@ -170,9 +134,7 @@ export class ContactsComponent implements OnInit, OnChanges, OnDestroy {
 
   }
 
-  createFormGroup() {
-    //let group: any = {};
-
+  setFormGroup() {
     this.logService.log('ContactsComponent createFormGroup:contacts:', this.contacts);
     this.contacts = this.contacts.sort(function(obj1: ConstituentContact, obj2: ConstituentContact) {
       return obj1.uiSequence - obj2.uiSequence;
@@ -193,6 +155,29 @@ export class ContactsComponent implements OnInit, OnChanges, OnDestroy {
       this.contactsForm.reset();
     }
   }
+
+
+  /*updateFormGroup() {
+    this.logService.log('ContactsComponent updateFormGroup:contacts:', this.contacts);
+    this.contacts = this.contacts.sort(function(obj1: ConstituentContact, obj2: ConstituentContact) {
+      return obj1.uiSequence - obj2.uiSequence;
+    });
+    this.contacts.forEach(contact => {
+      if (contact.contactTypeId === EMAIL_FIELD) {
+        this.group[contact.fieldName] = this.validatorService.createEmailControl(contact.contactValue);
+      } else {
+        if (contact.isPhone) {
+          this.group[contact.fieldName] = this.validatorService.createPhoneControl(contact.contactValue);
+        }
+      }
+    });
+    this.logService.log('form GROUP:', this.contactsForm);
+    this.contactsForm = new FormGroup(this.group);
+    if (this.contactsForm) {
+      this.contactsForm.reset();
+    }
+  }*/
+
 
   isValid(): boolean {
     this.validatorService.triggerFormValidation(this.contactsForm);
@@ -221,16 +206,17 @@ export class ContactsComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   addContact() {
-    console.log('clicked');
+    let contactTypeIds = this.contacts.map( p => p.contactTypeId);
+    this.appStore.setState(contactTypeIds, AppStateEnum.SelectedContactTypes);
     this.dialogRef = this.dialog.open(AddContactComponent);
 
     this.dialogRef.afterClosed()
       .takeUntil(this.ngUnsubscribe)
       .subscribe(result => {
-        this.logService.log('result', result);
+        this.logService.log('addContact result', result);
         if (result) {
-          this.updateContacts(result);
-          this.updateFormGroup();
+          this.addNewContact(result);
+          this.setFormGroup();
         }
       });
   }
