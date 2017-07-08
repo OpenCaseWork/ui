@@ -31,9 +31,7 @@ export class NameAddressComponent implements OnInit, OnChanges {
   @Input() domains: ConstituentDomains;
   //@ViewChild('lastName') vc;
   nameAddressForm: FormGroup;
-  contactsForm: FormGroup;
-  // emailFormControl: FormControl;
-  contacts: Array<String>;
+
 
   filteredCities: Observable<SelectItem[]>;
   filteredSuffixes: Observable<SelectItem[]>;
@@ -64,8 +62,6 @@ export class NameAddressComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.contacts = new Array<String>();
-    this.contacts.push('', '', '', '');
   }
 
   ngOnChanges() {
@@ -118,10 +114,6 @@ export class NameAddressComponent implements OnInit, OnChanges {
       title: '',
       suffix: ''
     });
-  }
-
-  createContactsForm() {
-    this.contactsForm = this.formBuilder.group({});
   }
 
   isValid(): boolean {

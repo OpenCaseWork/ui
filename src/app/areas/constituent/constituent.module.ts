@@ -12,6 +12,7 @@ import { LogService }             from '../../core/logging/log.service';
 import { AutoFocusDirective }     from './name-address/autofocus.directive';
 import { DemographicsComponent }  from './demographics/demographics.component';
 import { ContactsComponent } from './name-address/contacts.component';
+import { AddContactComponent } from './name-address/add-contact.component';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { ContactsComponent } from './name-address/contacts.component';
     DemographicsComponent,
     AutoFocusDirective,
     ContactsComponent,
+    AddContactComponent,
   ],
   exports: [
     ConstituentComponent,
@@ -40,6 +42,7 @@ import { ContactsComponent } from './name-address/contacts.component';
     LogService,
   ],
   entryComponents: [
+    AddContactComponent
   ]
 })
 export class ConstituentModule { }

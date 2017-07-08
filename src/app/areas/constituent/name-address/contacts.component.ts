@@ -1,21 +1,20 @@
-import { Component, OnInit, Input, OnChanges,
-        ViewChild, ViewChildren, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder,
-          Validators, AbstractControl}                                        from '@angular/forms';
-import { Observable }                                                         from 'rxjs/Observable';
-import { Subject }                                                            from 'rxjs/Subject';
+import { Component, OnInit, OnChanges, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { FormControl, FormGroup }                                         from '@angular/forms';
+import { Observable }                                                     from 'rxjs/Observable';
+import { Subject }                                                        from 'rxjs/Subject';
+import { MdDialog, MdDialogRef } from '@angular/material';
 
-import { ConstituentContact } from '../../../models/constituents/constituents.models';
-import { LogService } from '../../../core/logging/log.service';
-import { ValidatorService } from '../../../shared/control-services/validator.service';
-import { ConstituentAggregate } from '../../../models/constituents/constituents-aggregates.models';
-import { DomainEnum, ResourceEnum } from '../../../state/resources/resource.service';
-import { ConstituentDomains, ContactType } from '../../../models/constituents/domains/constituents-domains.models';
-import { DomainStoreService } from '../../../state/store-services/domain-store.service';
-import { ResourceStoreService } from '../../../state/store-services/resource-store-service';
-import { BaseEffect } from '../../../state/effects/base-effect';
-import { BaseEntity } from '../../../core/models/request-response.models';
-import { BaseDomains } from '../../../models/domains/domains.models';
+import { ConstituentContact }               from '../../../models/constituents/constituents.models';
+import { LogService }                       from '../../../core/logging/log.service';
+import { ValidatorService }                 from '../../../shared/control-services/validator.service';
+import { ConstituentAggregate }             from '../../../models/constituents/constituents-aggregates.models';
+import { DomainEnum, ResourceEnum }         from '../../../state/resources/resource.service';
+import { ConstituentDomains, ContactType }  from '../../../models/constituents/domains/constituents-domains.models';
+import { DomainStoreService }               from '../../../state/store-services/domain-store.service';
+import { ResourceStoreService }             from '../../../state/store-services/resource-store-service';
+import { AddContactComponent } from './add-contact.component';
+
+
 
 const EMAIL_FIELD = 3;
 
@@ -25,28 +24,23 @@ const EMAIL_FIELD = 3;
   templateUrl: './contacts.component.html',
   styleUrls: ['./contacts.component.css']
 })
-export class ContactsComponent implements OnInit, OnChanges {
-  //@Input() constituent: ConstituentAggregate;
-  //@Input() domains: ConstituentDomains;
+export class ContactsComponent implements OnInit, OnChanges, OnDestroy {
   domains: ConstituentDomains;
   constituent: ConstituentAggregate;
-  private contacts: Array<ConstituentContact>;
-  private loading: boolean;
+  contacts: Array<ConstituentContact>;
+  loading: boolean;
   ngUnsubscribe: Subject<void> = new Subject<void>();
-  public mask = [/[1-9]/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
-
+  dialogRef: MdDialogRef<AddContactComponent>;
+  mask = [/[1-9]/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
   contactsForm: FormGroup;
-  emailFormControl: AbstractControl;
-  homePhoneControl: AbstractControl;
-
 
   constructor(
     private logService: LogService,
     private validatorService: ValidatorService,
-    private formBuilder: FormBuilder,
     private domainStore: DomainStoreService,
     private storeService: ResourceStoreService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    public dialog: MdDialog
   ) {
     this.contacts = new Array<ConstituentContact>();
     this.logService.log('ContactsComponent.constructor');
@@ -75,6 +69,17 @@ export class ContactsComponent implements OnInit, OnChanges {
     });
   }
 
+  ngOnChanges() {
+    // IS THIS NEEDED?
+    // this.contactsForm.reset();
+  }
+
+  ngOnDestroy() {
+    this.logService.log('ngOnDestroy');
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
+
   populateContacts() {
     this.contacts = JSON.parse(JSON.stringify(this.constituent.contacts));
     let defaults = this.domains.contactTypes.filter(p => p.isDefault === true);
@@ -99,16 +104,13 @@ export class ContactsComponent implements OnInit, OnChanges {
     this.cd.markForCheck();
   }
 
+  // TODO: figure out pattern for UI-only needed properties
   private setContactUIFields(contact: ConstituentContact, contactType: ContactType) {
     contact.contactTypeId = contactType.id;
-    contact['fieldName'] = contactType.fieldName;
-    contact['placeHolder'] = contactType.placeHolder;
-    contact['isPhone'] = contactType.isPhone;
-    contact['uiSequence'] = contactType.uiSequence;
-  }
-
-  ngOnChanges() {
-    this.logService.log('ContactsComponent.ngOnChanges');
+    contact.fieldName = contactType.fieldName;
+    contact.placeHolder = contactType.placeHolder;
+    contact.isPhone = contactType.isPhone;
+    contact.uiSequence = contactType.uiSequence;
   }
 
   patchValues() {
@@ -127,17 +129,15 @@ export class ContactsComponent implements OnInit, OnChanges {
 
     this.logService.log('ContactsComponent createFormGroup:contacts:', this.contacts);
     this.contacts = this.contacts.sort(function(obj1: ConstituentContact, obj2: ConstituentContact) {
-      return obj1['uiSequence'] - obj2['uiSequence'];
+      return obj1.uiSequence - obj2.uiSequence;
     });
     this.contacts.forEach(contact => {
       if (contact.contactTypeId === EMAIL_FIELD) {
-        group[contact['fieldName']] = this.validatorService.createEmailControl(contact.contactValue);
+        group[contact.fieldName] = this.validatorService.createEmailControl(contact.contactValue);
       } else {
-        if (contact['isPhone']) {
-           group[contact['fieldName']] = this.validatorService.createPhoneControl(contact.contactValue);
-        }// else {
-        //   group[contact['fieldName']] = new FormControl(contact.contactValue || '');
-        //}
+        if (contact.isPhone) {
+           group[contact.fieldName] = this.validatorService.createPhoneControl(contact.contactValue);
+        }
       }
     });
     this.logService.log('form GROUP:', group);
@@ -155,23 +155,41 @@ export class ContactsComponent implements OnInit, OnChanges {
 
   updateContactsFromForm(): Array<ConstituentContact> {
     const formModel = this.contactsForm.value;
-    //let  contactsToUpdate = new Array<ConstituentContact>();
-
     Object.keys(this.contactsForm.controls).forEach(key => {
       let control = this.contactsForm.get(key);
-      let contact = this.contacts.find(p => p['fieldName'] === key);
+      let contact = this.contacts.find(p => p.fieldName === key);
       if (contact) {
         contact.contactValue = control.value;
-        //let contactToUpdate = contactsToUpdate.find(p => p.contactTypeId === contact.contactTypeId)
-        //if (contactToUpdate) {
-        //  contactToUpdate.contactValue = contact.contactValue;
-        //} else {
-        //contactsToUpdate.push(contact);
-        //}
       }
     });
     this.logService.log('ContactComponent: contacts to update:', this.contacts);
     return this.contacts;
   }
 
+  fieldHasError(fieldName: string): boolean {
+    if (this.contactsForm.controls[fieldName].hasError('pattern')) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  addContact() {
+    console.log('clicked');
+    this.dialogRef = this.dialog.open(AddContactComponent);
+
+    this.dialogRef.afterClosed()
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe(result => {
+        console.log('result');
+        /*this.searchResult = result;
+        this.dialogRef = null;
+        if (this.searchResult) {
+          // navigate to constituent form, passing constituent id
+          console.log('navigating to consituent');
+          // this.router.navigate([RouteUrlConstituent(), this.searchResult.id ], { relativeTo: this.route });
+          this.navService.openConstituent(this.searchResult.id);
+       }*/
+      });
+  }
 }

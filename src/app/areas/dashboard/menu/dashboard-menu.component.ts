@@ -69,10 +69,8 @@ export class DashboardMenuComponent {
       .filter(res => res.constituent.constituentId === 0)
       .takeUntil(this.ngUnsubscribe)
       .subscribe(res => {
-        // if (res.constituent.constituentId === 0) {
-          console.log('navigating to consituent');
-          this.navService.newConstituent();
-       // }
+        console.log('navigating to consituent');
+        this.navService.newConstituent();
     });
   }
 

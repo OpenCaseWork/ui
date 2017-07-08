@@ -1,0 +1,15 @@
+<form class="example-form" [formGroup]="contactTypeForm" novalidate>
+  <md-input-container class="" style="min-width: 300px">
+    <input type="text" placeholder="Contact Type To Add" mdInput [formControl]="contactTypeControl" [mdAutocomplete]="autoContactType">
+  </md-input-container>
+  <md-autocomplete #autoContactType="mdAutocomplete">
+    <md-option *ngFor="let option of filteredContactTypes | async" [value]="option.placeHolder">
+      {{ option.placeHolder }}
+    </md-option>
+  </md-autocomplete>
+  <div><br></div>
+  <div>
+    <button type="button" color="primary" md-raised-button (click)="select()">OK</button>
+    <button type="button" color="primary" md-button (click)="cancel();">Cancel</button>
+  </div>
+</form>

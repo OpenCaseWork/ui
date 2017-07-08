@@ -18,7 +18,7 @@ export class ResourceEffects extends BaseEffect {
   @Effect()
   get$: Observable<Action> = this.action$
     .ofType(ResourceActions.GET)
-    .switchMap(action => this.dataService.get<BaseEntity>(action.payload)
+    .mergeMap(action => this.dataService.get<BaseEntity>(action.payload)
       .map(res => {
         this.logService.log(this.getClassName() + ':get$ success', res);
         if (res.responseInfo.statusCode !== 0) {
@@ -44,7 +44,7 @@ export class ResourceEffects extends BaseEffect {
   save$: Observable<Action> = this.action$
     // Filter actions by action type
     .ofType(ResourceActions.SAVE)
-    .switchMap(action => this.dataService.post<BaseEntity>(action.payload)
+    .mergeMap(action => this.dataService.post<BaseEntity>(action.payload)
       .map(res => {
         this.logService.log(this.getClassName() + ':post$ success', res);
         if (res.responseInfo.statusCode !== 0) {
