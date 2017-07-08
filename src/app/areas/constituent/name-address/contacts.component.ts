@@ -76,6 +76,7 @@ export class ContactsComponent implements OnInit, OnChanges {
   }
 
   populateContacts() {
+    this.contacts = JSON.parse(JSON.stringify(this.constituent.contacts));
     let defaults = this.domains.contactTypes.filter(p => p.isDefault === true);
     defaults.forEach(contactType => {
       let contact = this.contacts.find(p => p.contactTypeId === contactType.id);
@@ -108,15 +109,6 @@ export class ContactsComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     this.logService.log('ContactsComponent.ngOnChanges');
-    /*if (this.constituent.constituent && this.domains) {
-      this.contacts = JSON.parse(JSON.stringify(this.constituent.contacts));
-      this.populateContacts();
-      this.createFormGroup();
-      this.patchValues();
-      this.logService.log('ContactsComponent constituent set');
-    } else {
-      this.logService.log('ContactsComponent constituent empty!');
-    }*/
   }
 
   patchValues() {
