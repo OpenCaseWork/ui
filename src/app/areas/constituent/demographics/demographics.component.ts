@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnChanges, AfterViewInit, ViewChild, ViewChildren } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators, AsyncValidator, AbstractControl } from '@angular/forms';
-import { Observable } from 'rxjs/observable';
+import { Observable } from 'rxjs/Observable';
 import { Constituent } from '../../../models/constituents/constituents.models';
 import {
   ConstituentDomains, City, Suffix,

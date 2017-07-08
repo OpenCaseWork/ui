@@ -1,12 +1,13 @@
-- navigation on save
-- add more entities
 - constituent save screen
 	-contacts
+- add more entities	 - questionnaire
 - reporting
+- logging errors
 - timestamps and optimistic on all saves
 - transaction on aggregates
-- azure AD
-- search to have unload
+- azure AD; integration to api
+- more state to core, create generic framework?
+- search to have unload?
 
 -deploy auth to azure
 -db automation of deploy vsts

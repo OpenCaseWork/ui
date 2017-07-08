@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnChanges, AfterViewInit, ViewChild, ViewChildren } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators, AsyncValidator, AbstractControl } from '@angular/forms';
-import { Observable } from 'rxjs/observable';
+import { Observable } from 'rxjs/Observable';
 import { ConstituentAggregate } from '../../../models/constituents/constituents-aggregates.models';
 import { LogService } from '../../../core/logging/log.service';
 import { ValidatorService } from '../../../shared/control-services/validator.service';

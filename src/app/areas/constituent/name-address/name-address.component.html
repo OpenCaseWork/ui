@@ -4,10 +4,10 @@
     <div fxLayout="column" fxLayoutWrap>
       <div fxLayoutGap="50px" >
         <md-input-container class="">
-          <input mdInput placeholder="Last Name" appAutofocus #lastName formControlName="lastName" maxlength="50" required >
+          <input mdInput placeholder="Last Name" appAutofocus #lastName formControlName="lastName" maxlength="50" required spellcheck="false">
         </md-input-container>
         <md-input-container class="">
-          <input mdInput placeholder="First Name"  formControlName="firstName" maxlength="50" required>
+          <input mdInput placeholder="First Name"  formControlName="firstName" maxlength="50" required spellcheck="false">
         </md-input-container>
         <md-input-container class="">
           <input mdInput placeholder="Federal Id" formControlName="federalId">
@@ -16,13 +16,13 @@
           </md-error>
         </md-input-container>
         <md-input-container class="">
-          <input mdInput placeholder="Middle Name"  formControlName="middleName" maxlength="50">
+          <input mdInput placeholder="Middle Name"  formControlName="middleName" maxlength="50" spellcheck="false">
         </md-input-container>
         <md-input-container class="">
-          <input mdInput placeholder="Nickname"  formControlName="nickName" maxlength="30">
+          <input mdInput placeholder="Nickname"  formControlName="nickName" maxlength="30" spellcheck="false">
         </md-input-container>
         <md-input-container class="">
-          <input mdInput placeholder="Maiden Name"  formControlName="maidenName" maxlength="30">
+          <input mdInput placeholder="Maiden Name"  formControlName="maidenName" maxlength="30" spellcheck="false">
         </md-input-container>
       </div>
     </div>
@@ -108,7 +108,7 @@
 
     <!-- ********************************************************-->
     <!-- contact info -->
-    <div class="spacer ocw-bc-lg ocw-ml-24neg ocw-pl-10 ocw-fw-500 ocw-mr-25neg ocw-pt-10 ocw-pb-10">Contact Info</div>
+    <!--div class="spacer ocw-bc-lg ocw-ml-24neg ocw-pl-10 ocw-fw-500 ocw-mr-25neg ocw-pt-10 ocw-pb-10">Contact Info</div>
       <div class="container flex-end" fxLayoutWrap >
         <div fxLayoutGap="50px">
           <md-input-container class="">
@@ -132,8 +132,10 @@
           <md-icon class="md-24">add</md-icon>
         </button>
       </div>
-    </div>
-    <p>Form value: {{ nameAddressForm.value | json }}</p>
-    <p>Form status: {{ nameAddressForm.status | json }}</p>
+    </div-->
+    <!--p>Form value: {{ nameAddressForm.value | json }}</p>
+    <p>Form status: {{ nameAddressForm.status | json }}</p-->
+    <ocw-contacts ></ocw-contacts>
+
   </form>
 </md-card>

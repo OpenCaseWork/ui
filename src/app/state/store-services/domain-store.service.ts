@@ -1,6 +1,7 @@
 import { Injectable }     from '@angular/core';
 import { Store }          from '@ngrx/store';
 import { Observable }     from 'rxjs/Observable';
+import { Subscription }   from 'rxjs/Subscription';
 import { createSelector } from 'reselect';
 
 import * as GlobalReducer               from '../reducers/global-reducer';
@@ -9,8 +10,8 @@ import { ResourceService, DomainEnum }  from '../resources/resource.service';
 import { LogService }                   from '../../core/logging/log.service';
 import { BaseRequest }                  from '../../core/models/request-response.models';
 import { BaseStoreService }             from '../../core/state/store-services/base-store.service';
-import { BaseDomains }                  from '../../models/domains/domains.models';
-
+import { BaseDomains } from '../../models/domains/domains.models';
+import { ConstituentDomains } from '../../models/constituents/domains/constituents-domains.models';
 
 /**************************************************** */
 // Wrapper service of the Domain State in the Store
@@ -28,7 +29,7 @@ export class DomainStoreService extends BaseStoreService {
   Domain$(domainEnum: DomainEnum): Observable<BaseDomains> {
     this.logService.log(this.getClassName() + ':Domain$');
     let getDomains = (globalState: GlobalReducer.GlobalState) => globalState.fullDomainState.domains[domainEnum].results;
-    return this.store.select(getDomains);
+    return this.store.select(getDomains).filter(p => p !== undefined);
   }
 
   /***********************************************************************************/

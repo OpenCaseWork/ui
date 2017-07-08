@@ -10,6 +10,7 @@ export const SAVE             = 'Resource Save';
 export const SAVE_SUCCESS     = 'Resource SaveSuccess';
 export const SAVE_FAILURE     = 'Resource SaveFailure';
 export const NEW              = 'Resource New';
+export const NEW_SUCCESS      = 'Resource New Success';
 
 export class GetAction implements Action {
   readonly type = GET;
@@ -44,6 +45,11 @@ export class SaveFailAction implements Action {
 export class NewAction implements Action {
   readonly type = NEW;
   constructor(public payload: BaseEntity, public index: number) {}
+}
+
+export class NewSucessAction implements Action {
+  readonly type = NEW_SUCCESS;
+  constructor(public payload: boolean, public index: number) {}
 }
 
 /**

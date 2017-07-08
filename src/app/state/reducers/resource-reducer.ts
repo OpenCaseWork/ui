@@ -2,9 +2,8 @@ import { createSelector } from 'reselect';
 
 import * as ResourceActions             from '../actions/resource-actions';
 import { ResponseStatus, BaseEntity }   from '../../core/models/request-response.models';
-import { ResourceEnum } from '../resources/resource.service';
-import { EnumExtension } from '../../core/extensions/enum-extension';
-import { results } from './constituent/constituent-search-reducer';
+import { ResourceEnum }                 from '../resources/resource.service';
+import { EnumExtension }                from '../../core/extensions/enum-extension';
 
 export interface ResourceState {
   resources: Array<ResourceSlice>;
@@ -13,11 +12,13 @@ export interface ResourceState {
 export interface ResourceSlice {
   results: BaseEntity;
   loading: boolean;
+  new: boolean;
 };
 
 export const initialSliceState: ResourceSlice = {
   results: new BaseEntity(),
   loading: false,
+  new: false
 };
 
 function fillResources(): Array<ResourceSlice> {
@@ -43,7 +44,8 @@ export function reducer(state = initialState, action: ResourceActions.Actions): 
       let existingResults = state.resources[action.index].results;
       const resourceSlice: ResourceSlice = Object.assign({}, initialSliceState, {
         loading: true,
-        results: existingResults
+        results: existingResults,
+        new: false
       });
       let newState = generateNewState(state, resourceSlice, action.index);
       return newState;
@@ -52,6 +54,7 @@ export function reducer(state = initialState, action: ResourceActions.Actions): 
       const resourceSlice: ResourceSlice =  {
         results: action.payload.data,
         loading: false,
+        new: false
       };
       let newState = generateNewState(state, resourceSlice, action.index);
       return newState;
@@ -60,6 +63,7 @@ export function reducer(state = initialState, action: ResourceActions.Actions): 
       const resourceSlice: ResourceSlice = {
         results:  new BaseEntity(),
         loading: false,
+        new: false
       };
       let newState = generateNewState(state, resourceSlice, action.index);
       return newState;
@@ -68,7 +72,8 @@ export function reducer(state = initialState, action: ResourceActions.Actions): 
       let existingResults = state.resources[action.index].results;
       const resourceSlice: ResourceSlice = Object.assign({}, initialSliceState, {
         loading: true,
-        results: existingResults
+        results: existingResults,
+        new: false
       });
       let newState = generateNewState(state, resourceSlice, action.index);
       return newState;
@@ -77,6 +82,7 @@ export function reducer(state = initialState, action: ResourceActions.Actions): 
       const resourceSlice: ResourceSlice = Object.assign({}, initialSliceState, {
         results: action.payload.data,
         loading: false,
+        new: false
       });
       let newState = generateNewState(state, resourceSlice, action.index);
       return newState;
@@ -90,9 +96,10 @@ export function reducer(state = initialState, action: ResourceActions.Actions): 
     }
     case ResourceActions.NEW: {
       const resourceSlice: ResourceSlice = {
-        results: new BaseEntity(),
+        results: action.payload,
         loading: false,
-      }
+        new: true
+      };
       let newState = generateNewState(state, resourceSlice, action.index);
       return newState;
     }

@@ -6,6 +6,11 @@ import { RouteUrlConstituent, RouteUrlAdmin } from '../dashboard-routing.urls';
 import { ConstituentSearchRecord } from '../../../models/constituents/search/constituents-search.models';
 import { ConstituentSearchComponent } from '../../../shared/constituent-search/constituent-search.component';
 import { NavigationStoreService } from '../../../state/store-services/navigation-store.service';
+import { ResourceStoreService } from '../../../state/store-services/resource-store-service';
+import { ResourceEnum } from '../../../state/resources/resource.service';
+import { Observable } from 'rxjs/Observable';
+import { ConstituentAggregate } from '../../../models/constituents/constituents-aggregates.models';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'app-dashboard-menu',
@@ -15,14 +20,17 @@ import { NavigationStoreService } from '../../../state/store-services/navigation
 export class DashboardMenuComponent {
   @ViewChild('constituentMenuButton') constituentMenuTrigger: MdMenuTrigger;
   @ViewChild('appMenuConstituents') constituentMenu: MdMenu;
+  constituent$: Observable<ConstituentAggregate>;
   open = false;
   searchResult: ConstituentSearchRecord;
   trigger: MdMenuTrigger;
   dialogRef: MdDialogRef<ConstituentSearchComponent> | null;
+  ngUnsubscribe: Subject<void> = new Subject<void>();
 
   constructor( private router: Router,
                private route: ActivatedRoute,
                private navService: NavigationStoreService,
+               private storeService: ResourceStoreService,
                public dialog: MdDialog) { }
 
   searchConstituent() {
@@ -54,8 +62,18 @@ export class DashboardMenuComponent {
   closeMenu() {
   }
 
-   newConstituent() {
-     this.navService.newConstituent();
+  newConstituent() {
+    this.storeService.newResource(ResourceEnum.Constituent);
+    this.storeService.Resource$(ResourceEnum.Constituent)
+      .map( x => <ConstituentAggregate> x)
+      .filter(res => res.constituent.constituentId === 0)
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe(res => {
+        // if (res.constituent.constituentId === 0) {
+          console.log('navigating to consituent');
+          this.navService.newConstituent();
+       // }
+    });
   }
 
   howBilling() {

@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-const EMAIL_REGEX: RegExp = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+const EMAIL_REGEX: RegExp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const SSN_REGEX: RegExp = /^(?!(000|666|9))\d{3}-(?!00)\d{2}-(?!0000)\d{4}$/;
+const PHONE_REGEX: RegExp = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
 
 @Injectable()
 export class ValidatorService {
@@ -12,8 +13,12 @@ export class ValidatorService {
   constructor() {
   }
 
-  createEmailControl(): FormControl {
-    return new FormControl('', [Validators.required, Validators.pattern(EMAIL_REGEX)]);
+  createEmailControl(value: string): FormControl {
+    return new FormControl(value || '', [ Validators.pattern(EMAIL_REGEX)]);
+  }
+
+  createPhoneControl(value: string): FormControl {
+    return new FormControl(value || '', Validators.pattern(PHONE_REGEX));
   }
 
   emailRegex(): RegExp {

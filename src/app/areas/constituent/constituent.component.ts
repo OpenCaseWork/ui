@@ -1,25 +1,25 @@
 ﻿import { Component, OnInit, Input, ViewChild, OnDestroy } from '@angular/core';
-import { Location } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
-import { MdSnackBar, MdSpinner, MdSnackBarConfig } from '@angular/material';
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
+import { Location }                                       from '@angular/common';
+import { ActivatedRoute }                                 from '@angular/router';
+import { MdSnackBar, MdSpinner, MdSnackBarConfig }        from '@angular/material';
+import { Subject }                                        from 'rxjs/Subject';
+import { Observable }                                     from 'rxjs/Observable';
 
-import { LogService } from '../../core/logging/log.service';
-import { Constituent } from '../../models/constituents/constituents.models';
-import { ConstituentDomains } from '../../models/constituents/domains/constituents-domains.models';
-import { NameAddressComponent } from './name-address/name-address.component';
-import { DemographicsComponent } from './demographics/demographics.component';
-import { ConstituentAggregate } from '../../models/constituents/constituents-aggregates.models';
-import { ConstituentStoreService } from '../../state/store-services/constituent-store-service';
-import { StatusStoreService } from '../../state/store-services/status-store.service';
-import { DomainStoreService } from '../../state/store-services/domain-store.service';
+import { LogService }               from '../../core/logging/log.service';
+import { Constituent }              from '../../models/constituents/constituents.models';
+import { ConstituentDomains }       from '../../models/constituents/domains/constituents-domains.models';
+import { NameAddressComponent }     from './name-address/name-address.component';
+import { DemographicsComponent }    from './demographics/demographics.component';
+import { ConstituentAggregate }     from '../../models/constituents/constituents-aggregates.models';
+import { StatusStoreService }       from '../../state/store-services/status-store.service';
+import { DomainStoreService }       from '../../state/store-services/domain-store.service';
 import { DomainEnum, ResourceEnum } from '../../state/resources/resource.service';
-import { ResourceStoreService } from '../../state/store-services/resource-store-service';
-import { NavigationStoreService } from '../../state/store-services/navigation-store.service';
+import { ResourceStoreService }     from '../../state/store-services/resource-store-service';
+import { NavigationStoreService }   from '../../state/store-services/navigation-store.service';
+import { ContactsComponent } from './name-address/contacts.component';
 
 @Component({
-  selector: 'app-constituent',
+  selector: 'ocw-constituent',
   templateUrl: './constituent.component.html',
   styleUrls: ['./constituent.component.css']
 })
@@ -47,9 +47,9 @@ export class ConstituentComponent implements OnInit, OnDestroy {
 
     this.domain$ = this.domainStore.Domain$(DomainEnum.Constituent)
       .takeUntil(this.ngUnsubscribe);
-    this.domainStore.loadDomains(DomainEnum.Constituent);
+    //this.domainStore.loadDomains(DomainEnum.Constituent);
 
-    this.constituent$ = this.storeService.Resources$(ResourceEnum.Constituent)
+    this.constituent$ = this.storeService.Resource$(ResourceEnum.Constituent)
       .takeUntil(this.ngUnsubscribe);
     this.constituent$.subscribe(res => this.setConstituent(res));
 
@@ -68,9 +68,11 @@ export class ConstituentComponent implements OnInit, OnDestroy {
 
   setConstituent(newConstituent: ConstituentAggregate) {
     this.constituentAggregate = newConstituent;
+    console.log('ConstituentComponent:set constituent:' + JSON.stringify(this.constituentAggregate));
     // on save, re-navigate to this entity to trigger URL update
-    if (newConstituent.constituent) {
+    if (newConstituent.constituent && newConstituent.constituent.constituentId > 0) {
       this.navService.openConstituent(newConstituent.constituent.constituentId);
+      console.log('ConstituentComponent:navigate');
     }
   }
 
@@ -83,6 +85,7 @@ export class ConstituentComponent implements OnInit, OnDestroy {
     const clone = Object.assign({}, this.constituentAggregate);
     this.logService.log('before update:' + JSON.stringify(clone.constituent));
     clone.constituent = this.nameAddressComponent.updateConstituentFromForm(clone.constituent);
+    clone.contacts = this.nameAddressComponent.updateContactsFromForm();
     this.logService.log('after update:' + JSON.stringify(clone.constituent));
     this.storeService.saveResource(clone, ResourceEnum.Constituent);
   }

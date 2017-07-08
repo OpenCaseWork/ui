@@ -31,11 +31,13 @@ export class ContactType {
   /*[Column("is_phone")]*/
   public isPhone: boolean;
   /*[Column("ui_sequence")]*/
-  public uISequence: number;
+  public uiSequence: number;
   /*[Column("is_default")]*/
   public isDefault: boolean;
   /*[Column("is_email")]*/
   public isEmail: boolean;
+  public fieldName: string;
+  public placeHolder: string;
 }
 
 /*[Table("zip_code")]*/

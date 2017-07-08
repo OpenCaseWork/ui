@@ -1,13 +1,13 @@
 ﻿import {
   Component, OnInit, Input, OnChanges, AfterViewInit,
-  ViewChild, ViewChildren, ChangeDetectionStrategy, ChangeDetectorRef
+  ViewChild, ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
 import {
   FormControl, FormGroup, FormBuilder,
   Validators, AbstractControl
 } from '@angular/forms';
-import { Observable } from 'rxjs/observable';
-import { Constituent } from '../../../models/constituents/constituents.models';
+import { Observable } from 'rxjs/Observable';
+import { Constituent, ConstituentContact } from '../../../models/constituents/constituents.models';
 import {
   ConstituentDomains, City, Suffix,
   Title, PostalCode, Township, State
@@ -16,8 +16,8 @@ import { LogService } from '../../../core/logging/log.service';
 import { AutoCompleteService, SELECT_DESCRIPTION_FIELD } from '../../../shared/control-services/auto-complete.service';
 import { ValidatorService } from '../../../shared/control-services/validator.service';
 import { SelectItem } from '../../../models/domains/domains.models';
-import { ConstituentContact } from '../../../models/constituents/constituents.models';
 import { ConstituentAggregate } from '../../../models/constituents/constituents-aggregates.models';
+import { ContactsComponent } from './contacts.component';
 
 @Component({
   selector: 'app-name-address',
@@ -25,7 +25,8 @@ import { ConstituentAggregate } from '../../../models/constituents/constituents-
   templateUrl: './name-address.component.html',
   styleUrls: ['./name-address.component.css']
 })
-export class NameAddressComponent implements OnInit, OnChanges, AfterViewInit {
+export class NameAddressComponent implements OnInit, OnChanges {
+  @ViewChild(ContactsComponent) private contactsComponent: ContactsComponent;
   @Input() constituent: ConstituentAggregate;
   @Input() domains: ConstituentDomains;
   //@ViewChild('lastName') vc;
@@ -56,18 +57,10 @@ export class NameAddressComponent implements OnInit, OnChanges, AfterViewInit {
     private formBuilder: FormBuilder,
     private cd: ChangeDetectorRef
   ) {
-    this.emailFormControl = this.validatorService.createEmailControl();
+    this.emailFormControl = this.validatorService.createEmailControl('');
     this.createForm();
     this.federalId = this.nameAddressForm.controls['federalId'];
     console.log('NameAddressComponent.constructor');
-  }
-
-  ngAfterViewInit() {
-    console.log('NameAddressComponent.ngAfterViewInit');
-    /*if (this.vc) {
-      this.logService.log('set focus to last name');
-      this.vc.nativeElement.focus();
-    }*/
   }
 
   ngOnInit() {
@@ -133,7 +126,7 @@ export class NameAddressComponent implements OnInit, OnChanges, AfterViewInit {
 
   isValid(): boolean {
     this.validatorService.triggerFormValidation(this.nameAddressForm);
-    return this.nameAddressForm.valid;
+    return this.nameAddressForm.valid && this.contactsComponent.isValid();
   }
 
   updateConstituentFromForm(constituentToUpdate: Constituent): Constituent {
@@ -141,6 +134,10 @@ export class NameAddressComponent implements OnInit, OnChanges, AfterViewInit {
     const saveConstituent: Constituent = Object.assign({}, constituentToUpdate, formModel);
     saveConstituent.suffixId = this.autoCompleteService.getIdValue(this.domains.suffixes, saveConstituent.suffix);
     return saveConstituent;
+  }
+
+  updateContactsFromForm(): Array<ConstituentContact> {
+      return this.contactsComponent.updateContactsFromForm();
   }
 
 }

@@ -7,7 +7,6 @@ import { SessionService } from '../../core/session/session.service';
 import { IdleService } from '../../core/session/idle.service';
 import { DashboardMenuComponent } from './menu/dashboard-menu.component';
 import { ConstituentDomains } from '../../models/constituents/domains/constituents-domains.models';
-import { ConstituentStoreService } from '../../state/store-services/constituent-store-service';
 import { LogService } from '../../core/logging/log.service';
 import { StatusStoreService } from '../../state/store-services/status-store.service';
 import { ResponseStatus } from '../../core/models/request-response.models';
@@ -15,6 +14,7 @@ import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
 import { DomainStoreService } from '../../state/store-services/domain-store.service';
 import { DomainEnum } from '../../state/resources/resource.service';
 import { ContactEventDomains } from '../../models/contact-events/domains/contact-event-domains.models';
+import { DomainsState } from '../../state/reducers/domains/domains-reducer';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,7 +23,7 @@ import { ContactEventDomains } from '../../models/contact-events/domains/contact
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   constituentDomain$: Observable<ConstituentDomains>;
-  contactEventDomain$: Observable<ContactEventDomains>;
+  contactEventDomain$: Observable<ConstituentDomains>;
   status$: Observable<ResponseStatus>;
   ngUnsubscribe: Subject<void> = new Subject<void>();
 

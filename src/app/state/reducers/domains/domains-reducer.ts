@@ -1,11 +1,11 @@
 import { createSelector } from 'reselect';
-import { BaseDomainActions, DomainActions } from '../../actions/base-domains-actions';
-import * as Actions from '../../actions/base-domains-actions';
-import { ResponseStatus, BaseResponse } from '../../../core/models/request-response.models';
-import { BaseDomains } from '../../../models/domains/domains.models';
-import { ResponseInfo } from '../../actions/transfer-accounts-action';
-import { EnumExtension } from '../../../core/extensions/enum-extension';
-import { DomainEnum } from '../../resources/resource.service';
+
+import * as Actions                         from '../../actions/base-domains-actions';
+import { DomainEnum }                       from '../../resources/resource.service';
+import { ResponseStatus, BaseResponse }     from '../../../core/models/request-response.models';
+import { EnumExtension }                    from '../../../core/extensions/enum-extension';
+import { BaseDomains }                      from '../../../models/domains/domains.models';
+
 
 export interface FullDomainsState {
   domains: Array<DomainsState>;
@@ -45,14 +45,14 @@ function fillDomains(): Array<DomainsState> {
 
 export const initialState: FullDomainsState = {
   domains: fillDomains()
-}
+};
 
 // Define State Selector for convenience
 // export function createReducer(actions: BaseDomainActions) {
 // Reducer responses to Action and handles state change
 //  return function reducer(currentState: FullDomainsState,  action: DomainActions): FullDomainsState {
 
-export function reducer(currentState = initialState, action: DomainActions): FullDomainsState {
+export function reducer(currentState = initialState, action: Actions.DomainActions): FullDomainsState {
   console.log('domains collection reducer:' + action.type);
   // console.log('domain state' + JSON.stringify(initialState));
   switch (action.type) {

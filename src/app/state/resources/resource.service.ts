@@ -1,8 +1,13 @@
 import { Injectable } from '@angular/core';
-import { LogService } from '../../core/logging/log.service';
-import { EnvironmentService } from '../../core/environment/environment.service';
-import { RouteUrlDashboard } from '../../app-routing.urls';
-import { RouteUrlConstituent } from '../../areas/dashboard/dashboard-routing.urls';
+
+import { LogService }           from '../../core/logging/log.service';
+import { EnvironmentService }   from '../../core/environment/environment.service';
+import { RouteUrlDashboard }    from '../../app-routing.urls';
+import { RouteUrlConstituent }  from '../../areas/dashboard/dashboard-routing.urls';
+import { ResourceEffects } from '../effects/resource-effects';
+import { ConstituentAggregate } from '../../models/constituents/constituents-aggregates.models';
+import { BaseEntity } from '../../core/models/request-response.models';
+import { ContactEventDomains } from '../../models/contact-events/domains/contact-event-domains.models';
 
 export enum DomainEnum {
   Constituent = 0,
@@ -18,12 +23,6 @@ export enum SearchEnum {
   Constituent = 0,
   ContactEvent = 1,
 }
-
-export class ConstituentResources {
-  entity: string;
-  domains: string;
-  search: string;
-};
 
 @Injectable()
 export class ResourceService {
@@ -77,6 +76,18 @@ export class ResourceService {
     }
   }
 
+  getNewResource(entityEnum: ResourceEnum): BaseEntity {
+    let entity: BaseEntity;
+    switch (entityEnum) {
+      case ResourceEnum.Constituent:
+        entity = new ConstituentAggregate();
+        break;
+      case ResourceEnum.ContactEvent:
+        break;
+    }
+    return entity;
+  }
+
   getDomainResource(domainEnum: DomainEnum) {
     return this.domains[domainEnum];
   }
@@ -91,20 +102,6 @@ export class ResourceService {
 
   getResourceUrls(resourceEnum: ResourceEnum) {
     return this.resourceUrls[resourceEnum];
-  }
-
-  getResources(): ConstituentResources {
-    let resources = new ConstituentResources();
-    if (this.environmentService.useMockData) {
-        resources.entity = 'assets/test-data/constituent-aggregate.json';
-        resources.domains = 'assets/test-data/constituent-domains.json';
-        resources.search = 'assets/test-data/constituent-search.json';
-    } else {
-        resources.entity = 'constituent-aggregates';
-        resources.domains = 'constituents/domains';
-        resources.search = 'constituents/search';
-    }
-    return resources;
   }
 
 }

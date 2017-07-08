@@ -1,27 +1,18 @@
-import {
-  MdDialogRef,
-  MdSpinner
-} from '@angular/material';
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  ViewChild,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef
-} from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { MdDialogRef, MdSpinner }                                                               from '@angular/material';
+import { Component, OnInit, OnDestroy, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef }  from '@angular/core';
+import { search }                                                                               from '@ngrx/router-store';
+import { Subject }                                                                              from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
-import { BaseDataTableService } from '../data-table/base-data-table.service';
-import { ConstituentSearchService } from './constituent-search.service';
-import { SearchTableComponent } from './search-table.component';
-import { ConstituentSearchRecord, ConstituentSearchRequest } from '../../models/constituents/search/constituents-search.models';
-import { LogService } from '../../core/logging/log.service';
-import { Observable } from 'rxjs/observable';
-import { ConstituentStoreService } from '../../state/store-services/constituent-store-service';
-import { SearchStoreService } from '../../state/store-services/search-store-service';
-import { SearchEnum } from '../../state/resources/resource.service';
-import { search } from '@ngrx/router-store';
+
+import { BaseDataTableService }                               from '../data-table/base-data-table.service';
+import { ConstituentSearchService }                           from './constituent-search.service';
+import { SearchTableComponent }                               from './search-table.component';
+import { ConstituentSearchRecord, ConstituentSearchRequest }  from '../../models/constituents/search/constituents-search.models';
+import { LogService }                                         from '../../core/logging/log.service';
+import { Observable }                                         from 'rxjs/Observable';
+import { SearchStoreService }                                 from '../../state/store-services/search-store-service';
+import { SearchEnum }                                         from '../../state/resources/resource.service';
+
 import { BaseEntity } from '../../core/models/request-response.models';
 
 @Component({
