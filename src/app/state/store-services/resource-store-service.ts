@@ -24,6 +24,7 @@ export class ResourceStoreService extends BaseStoreService {
     this.logService.log(this.getClassName() + ':Resource$');
     let getResource = (globalState: GlobalReducer.GlobalState) => globalState.resourceState.resources[resourceEnum].results;
     return this.store.select(getResource)
+      //.timeout(5000)
       .filter(p => p !== undefined);
   }
 

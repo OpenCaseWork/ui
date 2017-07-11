@@ -19,24 +19,48 @@ export class BaseDataService implements ILoggedClass {
   post<T>(request: BasePostRequest<T>): Observable<BaseResponse<T>> {
     this.logService.log(this.getClassName() + '.post');
     return this.httpService.post(request.resource, JSON.stringify(request.data))
+      .retryWhen(e => e.scan<number>((errorCount, err) => {
+        if (errorCount >= 1) {
+          throw err;
+        }
+        return errorCount + 1;
+      }, 0).delay(1000))
       .map(res => res.json());
   }
 
   get<T>(request: EntityRequest): Observable<BaseResponse<T>> {
     this.logService.log(this.getClassName() + '.get');
     return this.httpService.get(request.resource + '/' + request.id)
+      .retryWhen(e => e.scan<number>((errorCount, err) => {
+        if (errorCount >= 1) {
+          throw err;
+        }
+        return errorCount + 1;
+      }, 0).delay(1000))
       .map(res => res.json());
   }
 
   search<T>(request: BasePostRequest<T>): Observable<BaseResponse<T>> {
     this.logService.log(this.getClassName() + '.search');
     return this.httpService.post(request.resource, JSON.stringify(request.data))
+      .retryWhen(e => e.scan<number>((errorCount, err) => {
+        if (errorCount >= 1) {
+          throw err;
+        }
+        return errorCount + 1;
+      }, 0).delay(1000))
       .map(res => res.json());
   }
 
   loadDomains<T>(request: BaseRequest): Observable<BaseResponse<T>> {
     this.logService.log(this.getClassName() + '.loadDomains');
     return this.httpService.get(request.resource)
+      .retryWhen(e => e.scan<number>((errorCount, err) => {
+        if (errorCount >= 1) {
+          throw err;
+        }
+        return errorCount + 1;
+      }, 0).delay(1000))
       .map(response => response.json());
   }
 }

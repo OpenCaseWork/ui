@@ -3,11 +3,11 @@ import { SelectItem } from '../../Domains/domains.models';
 export class ConstituentDomains {
   public cities: SelectItem[];
   public contactTypes: ContactType[];
-  public postalCodes: PostalCode[];
-  public states: State[];
+  public postalCodes: SelectItem[];
+  public states: SelectItem[];
   public suffixes: SelectItem[];
   public titles: SelectItem[];
-  public townships: Township[];
+  public townships: SelectItem[];
 }
 /*[Table("city")]*/
 export class City {

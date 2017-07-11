@@ -1,8 +1,9 @@
-import { Component, OnInit, OnChanges, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup }                                         from '@angular/forms';
-import { Observable }                                                     from 'rxjs/Observable';
-import { Subject }                                                        from 'rxjs/Subject';
-import { MdDialog, MdDialogRef } from '@angular/material';
+import { Component, OnInit, ChangeDetectionStrategy,
+  ChangeDetectorRef, OnDestroy }                     from '@angular/core';
+import { FormControl, FormGroup }                    from '@angular/forms';
+import { Observable }                                from 'rxjs/Observable';
+import { Subject }                                   from 'rxjs/Subject';
+import { MdDialog, MdDialogRef }                     from '@angular/material';
 
 import { ConstituentContact }               from '../../../models/constituents/constituents.models';
 import { LogService }                       from '../../../core/logging/log.service';
@@ -12,10 +13,8 @@ import { DomainEnum, ResourceEnum, AppStateEnum } from '../../../state/resources
 import { ConstituentDomains, ContactType }  from '../../../models/constituents/domains/constituents-domains.models';
 import { DomainStoreService }               from '../../../state/store-services/domain-store.service';
 import { ResourceStoreService }             from '../../../state/store-services/resource-store-service';
-import { AddContactComponent } from './add-contact.component';
-import { AppStoreService } from '../../../state/store-services/app-store.service';
-
-
+import { AddContactComponent }              from './add-contact.component';
+import { AppStoreService }                  from '../../../state/store-services/app-store.service';
 
 const EMAIL_FIELD = 3;
 
@@ -32,7 +31,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
   loading: boolean;
   ngUnsubscribe: Subject<void> = new Subject<void>();
   dialogRef: MdDialogRef<AddContactComponent>;
-  mask = [/[1-9]/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
+  mask = [/[1-9]/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   contactsForm: FormGroup;
   group: any = {};
 
@@ -62,15 +61,23 @@ export class ContactsComponent implements OnInit, OnDestroy {
         .takeUntil(this.ngUnsubscribe)
     );
 
-    const subscriptions = observables.subscribe(results => {
-      this.logService.log('ContactsComponent:subscription resolved', results);
-      this.domains = <ConstituentDomains> results[0];
-      this.constituent = <ConstituentAggregate> results[1];
-      this.populateContacts();
-      this.setFormGroup();
-      this.patchValues();
-      this.loading = false;
-    });
+    const subscriptions = observables
+      .timeout(5000)
+      .subscribe(results => {
+        this.logService.log('ContactsComponent:subscription resolved', results);
+        this.domains = <ConstituentDomains>results[0];
+        this.constituent = <ConstituentAggregate>results[1];
+        this.populateContacts();
+        this.setFormGroup();
+        this.patchValues();
+        this.loading = false;
+      }, err => this.handleError()
+      );
+  }
+
+  handleError() {
+    this.loading = false;
+    this.cd.markForCheck();
   }
 
   ngOnDestroy() {
@@ -90,13 +97,6 @@ export class ContactsComponent implements OnInit, OnDestroy {
         this.setContactUIFields(emptyContact, contactType);
       }
     });
-    this.logService.log('local contacts count:', this.contacts.length);
-    this.cd.markForCheck();
-  }
-
-  addNewContact(placeHolder: string) {
-    let defaults = this.domains.contactTypes.filter(p => p.placeHolder === placeHolder);
-    this.updateLocalContacts(defaults);
     this.logService.log('local contacts count:', this.contacts.length);
     this.cd.markForCheck();
   }
@@ -123,7 +123,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
     contact.uiSequence = contactType.uiSequence;
   }
 
-  patchValues() {
+  patchValues(): void{
     let patchObject = {};
     this.contacts.forEach(element => {
       let contactType = this.domains.contactTypes.find(p => p.id === element.contactTypeId);
@@ -134,8 +134,8 @@ export class ContactsComponent implements OnInit, OnDestroy {
 
   }
 
-  setFormGroup() {
-    this.logService.log('ContactsComponent createFormGroup:contacts:', this.contacts);
+  setFormGroup(): void {
+    this.logService.log('ContactsComponent setFormGroup:contacts:', this.contacts);
     this.contacts = this.contacts.sort(function(obj1: ConstituentContact, obj2: ConstituentContact) {
       return obj1.uiSequence - obj2.uiSequence;
     });
@@ -156,34 +156,14 @@ export class ContactsComponent implements OnInit, OnDestroy {
     }
   }
 
-
-  /*updateFormGroup() {
-    this.logService.log('ContactsComponent updateFormGroup:contacts:', this.contacts);
-    this.contacts = this.contacts.sort(function(obj1: ConstituentContact, obj2: ConstituentContact) {
-      return obj1.uiSequence - obj2.uiSequence;
-    });
-    this.contacts.forEach(contact => {
-      if (contact.contactTypeId === EMAIL_FIELD) {
-        this.group[contact.fieldName] = this.validatorService.createEmailControl(contact.contactValue);
-      } else {
-        if (contact.isPhone) {
-          this.group[contact.fieldName] = this.validatorService.createPhoneControl(contact.contactValue);
-        }
-      }
-    });
-    this.logService.log('form GROUP:', this.contactsForm);
-    this.contactsForm = new FormGroup(this.group);
-    if (this.contactsForm) {
-      this.contactsForm.reset();
-    }
-  }*/
-
-
   isValid(): boolean {
     this.validatorService.triggerFormValidation(this.contactsForm);
     return this.contactsForm.valid;
   }
 
+  /********************************************************************** */
+  /* Called from parent form to get list of updated contacts from control
+  /*********************************************************************** */
   updateContactsFromForm(): Array<ConstituentContact> {
     const formModel = this.contactsForm.value;
     Object.keys(this.contactsForm.controls).forEach(key => {
@@ -197,6 +177,9 @@ export class ContactsComponent implements OnInit, OnDestroy {
     return this.contacts;
   }
 
+  /********************************************************************* */
+  /* Called from HTML Template to determine if field has validation error
+  /********************************************************************* */
   fieldHasError(fieldName: string): boolean {
     if (this.contactsForm.controls[fieldName].hasError('pattern')) {
       return true;
@@ -205,7 +188,10 @@ export class ContactsComponent implements OnInit, OnDestroy {
     }
   }
 
-  addContact() {
+  /***************************************************** */
+  /* Called from HTML Template to add a new contact type */
+  /***************************************************** */
+  addContactType() {
     let contactTypeIds = this.contacts.map( p => p.contactTypeId);
     this.appStore.setState(contactTypeIds, AppStateEnum.SelectedContactTypes);
     this.dialogRef = this.dialog.open(AddContactComponent);
@@ -219,5 +205,12 @@ export class ContactsComponent implements OnInit, OnDestroy {
           this.setFormGroup();
         }
       });
+  }
+
+  addNewContact(placeHolder: string) {
+    let defaults = this.domains.contactTypes.filter(p => p.placeHolder === placeHolder);
+    this.updateLocalContacts(defaults);
+    this.logService.log('local contacts count:', this.contacts.length);
+    this.cd.markForCheck();
   }
 }

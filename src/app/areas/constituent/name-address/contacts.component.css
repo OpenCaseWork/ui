@@ -15,11 +15,24 @@
   min-width: 159px;
 }
 
-.spacer {
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
-
 .example-full-width {
   width: 100%;
+}
+
+.ocw-gradient {
+  /* Standard syntax */
+  background: -webkit-linear-gradient(left, #014888, #2987bb);
+  background: -moz-linear-gradient(left, #014888, #2987bb);
+  background: -o-linear-gradient(left, #014888, #2987bb);
+  background: linear-gradient(to right, #2d3e5a, #c1cbd4); 
+  /* Standard syntax */
+}
+
+.ocw-font-white {
+  color: white;
+}
+
+.ocw-spacer {
+  margin-top: 20px;
+  margin-bottom: 10px;
 }

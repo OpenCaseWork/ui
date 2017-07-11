@@ -1,5 +1,7 @@
 <!--div>This is a test!</div-->
-<div class="spacer ocw-bc-lg ocw-ml-24neg ocw-pl-10 ocw-fw-500 ocw-mr-25neg ocw-pt-10 ocw-pb-10">Contact Info</div>
+<div class="ocw-spacer ocw-gradient ocw-ml-24neg ocw-pl-10 ocw-fw-500 ocw-mr-25neg ocw-pt-10 ocw-pb-10">
+  <div class="ocw-font-white">Contact Info</div>
+</div>
 <div class="container flex-end" fxLayoutWrap>
   <md-spinner class="" style="max-height: 62px; margin: auto" class="overlay" *ngIf="loading" ></md-spinner>
   <div fxLayoutGap="50px" *ngIf="contactsForm" [formGroup]="contactsForm">
@@ -16,7 +18,7 @@
     </md-input-container>
   </div>
   <div class="container" fxLayoutWrap>
-    <button md-mini-fab color="primary" type="button" (click)="addContact()">
+    <button md-mini-fab color="primary" type="button" (click)="addContactType()">
           <md-icon class="md-24">add</md-icon>
     </button>
   </div> 

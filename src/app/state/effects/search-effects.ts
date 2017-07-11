@@ -35,7 +35,8 @@ export class SearchEffects extends BaseEffect {
         // TODO: allow config for message
         status.message = 'Error searching for resource';
         this.store.dispatch(new SearchActions.SearchFailAction(status, action.index));
-        return Observable.of(new StatusActions.FailAction(status));
+        this.store.dispatch(new StatusActions.FailAction(status));
+        return Observable.throw(err);
       })
     );
 

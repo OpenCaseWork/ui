@@ -35,7 +35,8 @@ export class DomainEffects extends BaseEffect {
         status.statusCode = 500;
         status.errorEnumId = 1;
         status.message = 'Load Domains failed';
-        return Observable.of(new StatusActions.FailAction(status));
+        this.store.dispatch(new StatusActions.FailAction(status));
+        return Observable.throw(err);
       })
     );
 

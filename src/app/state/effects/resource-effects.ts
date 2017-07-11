@@ -36,7 +36,8 @@ export class ResourceEffects extends BaseEffect {
         // TODO: allow config of message
         status.message = 'Error getting resource';
         this.store.dispatch(new ResourceActions.GetFailAction(status, action.index));
-        return Observable.of(new StatusActions.FailAction(status));
+        this.store.dispatch(new StatusActions.FailAction(status));
+        return Observable.throw(err);
       })
     );
 
@@ -69,7 +70,8 @@ export class ResourceEffects extends BaseEffect {
         //TODO: config message
         status.message = 'Save failed';
         this.store.dispatch(new ResourceActions.SaveFailAction(status, action.index));
-        return Observable.of(new StatusActions.FailAction(status));
+        this.store.dispatch(new StatusActions.FailAction(status));
+        return Observable.throw(err);
       })
     );
 

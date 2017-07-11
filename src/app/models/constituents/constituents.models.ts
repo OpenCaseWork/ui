@@ -1,4 +1,5 @@
 import { AuditedEntity } from '../Audit/audit.models';
+import { SelectItem } from '../Domains/domains.models';
 
 export class Constituent extends AuditedEntity {
 
@@ -10,7 +11,6 @@ export class Constituent extends AuditedEntity {
   public constituentId: number;
   /*[Column("title_id")]*/
   public titleId: number;
-  public title: string;
   /*[Column("first_name")]*/
   public firstName: string;
   /*[Column("last_name")]*/
@@ -19,7 +19,6 @@ export class Constituent extends AuditedEntity {
   public middleName: string;
   /*[Column("suffix_id")]*/
   public suffixId: number;
-  public suffix: string;
   public nickName: string;
   /*[Column("addr1")]*/
   public address1: string;
@@ -29,18 +28,21 @@ export class Constituent extends AuditedEntity {
   public cityId: number;
   /*[Column("township_id")]*/
   public townshipId: number;
+  /*[Column("state_id")]*/
+  public stateId: number;
   /*[Column("state_cd")]*/
   public stateCd: string;
-  /*[Column("zip_code_id")]*/
+  /*[Column("zip_id")]*/
   public postalCodeId: number;
   /*[Column("zip_code")]*/
-  public postalCode: string;
+  private postalCode: string;
   /*[Column("federal_id")]*/
   public federalId: string;
   /*[Column("birth_date")]*/
   public birthDate: Date;
   /*[Column("gender")]*/
   public genderId: number;
+  public gender: SelectItem;
   /*[Column("minority_id")]*/
   public minorityId: number;
   /*[Column("income_level_id")]*/
@@ -63,6 +65,8 @@ export class Constituent extends AuditedEntity {
   public femaleHeadedHousehold: boolean;
   /*[Column("pet")]*/
   public pet: boolean;
+  /*[Column("select_fields")]*/
+
 }
 
 /*[Table("contact")]*/

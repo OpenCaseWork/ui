@@ -29,7 +29,9 @@ export class DomainStoreService extends BaseStoreService {
   Domain$(domainEnum: DomainEnum): Observable<BaseDomains> {
     this.logService.log(this.getClassName() + ':Domain$');
     let getDomains = (globalState: GlobalReducer.GlobalState) => globalState.fullDomainState.domains[domainEnum].results;
-    return this.store.select(getDomains).filter(p => p !== undefined);
+    return this.store.select(getDomains)
+      //.timeout(5000)
+      .filter(p => p !== undefined);
   }
 
   /***********************************************************************************/

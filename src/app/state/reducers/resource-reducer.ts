@@ -16,7 +16,7 @@ export interface ResourceSlice {
 };
 
 export const initialSliceState: ResourceSlice = {
-  results: new BaseEntity(),
+  results: undefined,
   loading: false,
   new: false
 };
