@@ -24,14 +24,16 @@
   color: white;
 }
 
-.ocw-mw-159 {
-  min-width: 159px;
-}
-
 .ocw-spacer {
   margin-top: 20px;
   margin-bottom: 10px;
 }
+
+.ocw-mw-159 {
+  min-width: 159px;
+}
+
+
 
 .example-full-width {
   width: 100%;

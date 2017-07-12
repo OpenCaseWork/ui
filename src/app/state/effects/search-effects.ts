@@ -17,7 +17,7 @@ export class SearchEffects extends BaseEffect {
   @Effect()
   search$: Observable<Action> = this.action$
     .ofType(SearchActions.SEARCH)
-    .switchMap(action => this.dataService.search<Array<BaseEntity>>(action.payload)
+    .mergeMap(action => this.dataService.search<Array<BaseEntity>>(action.payload)
       .map(res => {
         this.logService.log(this.getClassName() + ':search$ success', res);
         if (res.responseInfo.statusCode !== 0) {
