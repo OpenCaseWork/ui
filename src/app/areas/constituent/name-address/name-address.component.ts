@@ -21,7 +21,7 @@ import { ContactsComponent } from './contacts.component';
 
 @Component({
   selector: 'app-name-address',
-  // changeDetection: ChangeDetectionStrategy.OnPush, TODO: turn on if change detect issue fixed with autocomplete 
+  // changeDetection: ChangeDetectionStrategy.OnPush, TODO: turn on if change detect issue fixed in autocomplete
   templateUrl: './name-address.component.html',
   styleUrls: ['./name-address.component.css']
 })
@@ -58,7 +58,11 @@ export class NameAddressComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     this.nameAddressForm.reset();
+    let domainsPopulated: boolean;
     if (this.domains && this.domains.cities) {
+      domainsPopulated = true;
+    }
+    if (domainsPopulated) {
       if (!this.filteredCities) {
         this.filteredCities = this.autoCompleteService.filteredItemAbstract$<SelectItem>(
           this.domains.cities, this.nameAddressForm.controls['city'], SELECT_DESCRIPTION_FIELD);
@@ -79,16 +83,16 @@ export class NameAddressComponent implements OnInit, OnChanges {
     }
 
     // populate form, but only if have populated constituent
-    if (this.constituent && this.constituent.constituent) {
+    if (this.constituent && this.constituent.constituent && domainsPopulated) {
       this.logService.log('constituent patch object', this.constituent.constituent);
       let patchObject = Object.assign({}, this.constituent.constituent);
 
-      this.setSelectValue(patchObject, patchObject.suffixId, this.domains.suffixes, 'suffix');
-      this.setSelectValue(patchObject, patchObject.titleId, this.domains.titles, 'title');
-      this.setSelectValue(patchObject, patchObject.postalCodeId, this.domains.postalCodes, 'postal');
-      this.setSelectValue(patchObject, patchObject.cityId, this.domains.cities, 'city');
-      this.setSelectValue(patchObject, patchObject.townshipId, this.domains.townships, 'township');
-      this.setSelectValue(patchObject, patchObject.stateId, this.domains.states, 'state');
+      this.autoCompleteService.setSelectValue(patchObject, patchObject.suffixId, this.domains.suffixes, 'suffix');
+      this.autoCompleteService.setSelectValue(patchObject, patchObject.titleId, this.domains.titles, 'title');
+      this.autoCompleteService.setSelectValue(patchObject, patchObject.postalCodeId, this.domains.postalCodes, 'postal');
+      this.autoCompleteService.setSelectValue(patchObject, patchObject.cityId, this.domains.cities, 'city');
+      this.autoCompleteService.setSelectValue(patchObject, patchObject.townshipId, this.domains.townships, 'township');
+      this.autoCompleteService.setSelectValue(patchObject, patchObject.stateId, this.domains.states, 'state');
 
       this.logService.log('patch object', patchObject);
       this.nameAddressForm.patchValue(patchObject, { onlySelf: true });
@@ -96,10 +100,6 @@ export class NameAddressComponent implements OnInit, OnChanges {
       this.logService.log('empty constituent!');
     }
     this.logService.log('NameAddressComponent.ngOnChanges');
-  }
-
-  setSelectValue(patchObject: any, id: number, domainList: Array<SelectItem>, fieldName: string ) {
-    patchObject[fieldName] = domainList.find(p => p.id === id);
   }
 
   createForm() {
@@ -130,23 +130,14 @@ export class NameAddressComponent implements OnInit, OnChanges {
   updateConstituentFromForm(constituentToUpdate: ConstituentAggregate): ConstituentAggregate {
     const formModel = this.nameAddressForm.value;
     const saveConstituent: Constituent = Object.assign({}, constituentToUpdate.constituent, formModel);
-    saveConstituent.suffixId = this.assignValue(saveConstituent['suffix']);
-    saveConstituent.titleId = this.assignValue(saveConstituent['title']);
-    saveConstituent.postalCodeId = this.assignValue(saveConstituent['postal']);
-    saveConstituent.cityId = this.assignValue(saveConstituent['city']);
-    saveConstituent.townshipId = this.assignValue(saveConstituent['township']);
-    saveConstituent.stateId = this.assignValue(saveConstituent['state']);
+    saveConstituent.suffixId = this.autoCompleteService.assignSelectValue(saveConstituent['suffix']);
+    saveConstituent.titleId = this.autoCompleteService.assignSelectValue(saveConstituent['title']);
+    saveConstituent.postalCodeId = this.autoCompleteService.assignSelectValue(saveConstituent['postal']);
+    saveConstituent.cityId = this.autoCompleteService.assignSelectValue(saveConstituent['city']);
+    saveConstituent.townshipId = this.autoCompleteService.assignSelectValue(saveConstituent['township']);
+    saveConstituent.stateId = this.autoCompleteService.assignSelectValue(saveConstituent['state']);
     constituentToUpdate.constituent = saveConstituent;
     return constituentToUpdate;
-  }
-
-
-  assignValue(control: SelectItem): number {
-    if (control) {
-      return control.id;
-    } else {
-      return 0;
-    }
   }
 
   updateContactsFromForm(): Array<ConstituentContact> {
@@ -156,9 +147,6 @@ export class NameAddressComponent implements OnInit, OnChanges {
   displaySelectValue(selected: SelectItem): any {
     console.log('selected:', selected);
     return selected ? selected.shortDescription : selected;
-    //if (selected) {
-    //  return selected.shortDescription;
-    //}
   }
 
 }

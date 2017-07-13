@@ -4,11 +4,12 @@
     <md-spinner class="overlay" *ngIf="isLoading()" ></md-spinner>
     <md-card *ngIf="!isLoading()">
       <app-name-address [constituent]="constituent$ | async" [domains]="domain$ | async"></app-name-address>
+       
     </md-card>
   </md-tab>
   <md-tab label="Demographics">
     <md-card>
-      <app-demographics [constituent]="constituent$ | async" [domains]="domain$ | async"></app-demographics>
+      <!--app-demographics [constituent]="constituent$ | async" [domains]="domain$ | async"></app-demographics-->
     </md-card>
   </md-tab>
   <md-tab label="Status">

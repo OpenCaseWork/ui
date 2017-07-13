@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { FormControl, AbstractControl } from '@angular/forms';
+import { SelectItem } from '../../models/domains/domains.models';
 
 export const SELECT_DESCRIPTION_FIELD = 'shortDescription';
 export const ID_FIELD = 'id';
@@ -9,6 +10,18 @@ export const ID_FIELD = 'id';
 export class AutoCompleteService {
 
   constructor() {
+  }
+
+  assignSelectValue(control: SelectItem): number {
+    if (control) {
+      return control.id;
+    } else {
+      return 0;
+    }
+  }
+
+  setSelectValue(patchObject: any, id: number, domainList: Array<SelectItem>, fieldName: string ) {
+    patchObject[fieldName] = domainList.find(p => p.id === id);
   }
 
   getIdValueCustom(array: any[], value: string, valueProperty: string, idProperty: string): number {

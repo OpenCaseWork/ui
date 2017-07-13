@@ -6,3 +6,7 @@
     padding-top: 5px;   
     margin-bottom: 14px  
 }
+
+.mat-raised-button {
+  background-color: #4e5d75 !important
+}

@@ -2,7 +2,7 @@ import { Component, ViewChild }  from '@angular/core';
 import 'rxjs/add/operator/first';
 import { Router, ActivatedRoute }             from '@angular/router';
 import { MdMenuTrigger, MdMenu, MdDialog, MdDialogRef } from '@angular/material';
-import { RouteUrlConstituent, RouteUrlAdmin } from '../dashboard-routing.urls';
+import { RouteUrlConstituent, RouteUrlAdmin, RouteUrlConstituentSearch } from '../dashboard-routing.urls';
 import { ConstituentSearchRecord } from '../../../models/constituents/search/constituents-search.models';
 import { ConstituentSearchComponent } from '../../../shared/constituent-search/constituent-search.component';
 import { NavigationStoreService } from '../../../state/store-services/navigation-store.service';
@@ -34,6 +34,8 @@ export class DashboardMenuComponent {
                public dialog: MdDialog) { }
 
   searchConstituent() {
+    //this.router.navigate([RouteUrlConstituentSearch()], { relativeTo: this.route });
+
     this.dialogRef = this.dialog.open(ConstituentSearchComponent);
 
     this.dialogRef.afterClosed()
@@ -44,7 +46,8 @@ export class DashboardMenuComponent {
         if (this.searchResult) {
           // navigate to constituent form, passing constituent id
           console.log('navigating to consituent');
-          // this.router.navigate([RouteUrlConstituent(), this.searchResult.id ], { relativeTo: this.route });
+          //this.storeService.getResource(this.searchResult.id, ResourceEnum.Constituent);
+          //this.router.navigate([RouteUrlConstituent(), this.searchResult.id ], { relativeTo: this.route });
           this.navService.openConstituent(this.searchResult.id);
        }
       });

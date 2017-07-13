@@ -71,7 +71,8 @@ export class ConstituentComponent implements OnInit, OnDestroy {
     console.log('ConstituentComponent:set constituent:' + JSON.stringify(this.constituentAggregate));
     // on save, re-navigate to this entity to trigger URL update
     if (newConstituent.constituent && newConstituent.constituent.constituentId > 0) {
-      this.navService.openConstituent(newConstituent.constituent.constituentId);
+      this.navService.normalizeConstituentUrl(this.location, newConstituent.constituent.constituentId);
+      //this.navService.openConstituent(newConstituent.constituent.constituentId);
       console.log('ConstituentComponent:navigate');
     }
   }

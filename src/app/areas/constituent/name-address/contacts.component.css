@@ -23,7 +23,7 @@
   /* Standard syntax */
   background: -webkit-linear-gradient(left, #014888, #2987bb);
   background: -moz-linear-gradient(left, #014888, #2987bb);
-  background: -o-linear-gradient(left, #014888, #2987bb);
+  background: -o-linear-gradient(left, #2d3e5a, #2987bb);
   background: linear-gradient(to right, #2d3e5a, #c1cbd4); 
   /* Standard syntax */
 }

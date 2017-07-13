@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy,
   ChangeDetectorRef, OnDestroy }                     from '@angular/core';
+import { Input, OnChanges } from '@angular/core';
 import { FormControl, FormGroup }                    from '@angular/forms';
 import { Observable }                                from 'rxjs/Observable';
 import { Subject }                                   from 'rxjs/Subject';
@@ -16,6 +17,7 @@ import { ResourceStoreService }             from '../../../state/store-services/
 import { AddContactComponent }              from './add-contact.component';
 import { AppStoreService }                  from '../../../state/store-services/app-store.service';
 
+
 const EMAIL_FIELD = 3;
 
 @Component({
@@ -24,9 +26,11 @@ const EMAIL_FIELD = 3;
   templateUrl: './contacts.component.html',
   styleUrls: ['./contacts.component.css']
 })
-export class ContactsComponent implements OnInit, OnDestroy {
-  domains: ConstituentDomains;
-  constituent: ConstituentAggregate;
+export class ContactsComponent implements OnInit, OnDestroy, OnChanges {
+  @Input() domains: ConstituentDomains;
+  @Input() constituent: ConstituentAggregate;
+  // domains: ConstituentDomains;
+  // constituent: ConstituentAggregate;
   contacts: Array<ConstituentContact>;
   loading: boolean;
   ngUnsubscribe: Subject<void> = new Subject<void>();
@@ -54,7 +58,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.contacts = new Array<ConstituentContact>();
 
-    const observables = Observable.combineLatest(
+    /*const observables = Observable.combineLatest(
       this.domainStore.Domain$(DomainEnum.Constituent)
         .takeUntil(this.ngUnsubscribe),
       this.storeService.Resource$(ResourceEnum.Constituent)
@@ -63,6 +67,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
 
     const subscriptions = observables
       .timeout(5000)
+      .takeUntil(this.ngUnsubscribe)
       .subscribe(results => {
         this.logService.log('ContactsComponent:subscription resolved', results);
         this.domains = <ConstituentDomains>results[0];
@@ -72,7 +77,18 @@ export class ContactsComponent implements OnInit, OnDestroy {
         this.patchValues();
         this.loading = false;
       }, err => this.handleError()
-      );
+      );*/
+  }
+
+  ngOnChanges() {
+    this.logService.log('Contacts NgOnChange');
+      if (this.domains && this.domains.contactTypes && this.constituent && this.constituent.constituent) {
+        this.logService.log('Loaded!!!!');
+        this.populateContacts();
+        this.setFormGroup();
+        this.patchValues();
+        this.loading = false;
+      }
   }
 
   handleError() {

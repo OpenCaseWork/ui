@@ -2,6 +2,7 @@ import { Injectable }       from '@angular/core';
 import { ActivatedRoute }   from '@angular/router';
 import { go, RouterState }  from '@ngrx/router-store';
 import { Store }            from '@ngrx/store';
+import { Location } from '@angular/common';
 
 import * as GlobalReducer                 from '../reducers/global-reducer';
 import { LogService }                     from './../../core/logging/log.service';
@@ -10,6 +11,7 @@ import { RouteUrlConstituent }            from '../../areas/dashboard/dashboard-
 import { RouteUrlDashboard }              from '../../app-routing.urls';
 import { ResourceService, ResourceEnum }  from '../resources/resource.service';
 import { Observable } from 'rxjs/Rx';
+
 
 // Wrapper service of the Account State in the Store
 @Injectable()
@@ -29,6 +31,10 @@ export class NavigationStoreService extends BaseStoreService {
     if (url) {
       this.store.dispatch(go([url, id ]));
     }
+  }
+
+  normalizeConstituentUrl(location: Location, id: number) {
+    location.go(RouteUrlDashboard() + '/' + RouteUrlConstituent() + '/' + id );
   }
 
   openConstituent(id: number) {

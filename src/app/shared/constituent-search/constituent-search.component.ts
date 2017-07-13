@@ -14,6 +14,7 @@ import { SearchStoreService }                                 from '../../state/
 import { SearchEnum }                                         from '../../state/resources/resource.service';
 
 import { BaseEntity } from '../../core/models/request-response.models';
+import { NavigationStoreService } from '../../state/store-services/navigation-store.service';
 
 @Component({
   selector: 'app-constituent-search',
@@ -30,6 +31,7 @@ export class ConstituentSearchComponent implements OnInit, OnDestroy {
   public firstName: string;
 
   constructor(public dialogRef: MdDialogRef<ConstituentSearchComponent>,
+    private navService: NavigationStoreService,
     private database: BaseDataTableService<BaseEntity>,
     private logService: LogService,
     private cd: ChangeDetectorRef,
@@ -84,6 +86,7 @@ export class ConstituentSearchComponent implements OnInit, OnDestroy {
     this.logService.log('selected');
     if (searchRecord) {
       this.logService.log('close with searchrecord');
+      //this.navService.openConstituent(searchRecord.id);
       this.dialogRef.close(searchRecord);
     }
   }
