@@ -5,6 +5,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 const EMAIL_REGEX: RegExp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const SSN_REGEX: RegExp = /^(?!(000|666|9))\d{3}-(?!00)\d{2}-(?!0000)\d{4}$/;
 const PHONE_REGEX: RegExp = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+const YES_NO_REGEX: RegExp = /Y|N/;
+const BIRTH_DATE_REGEX: RegExp = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/ ;
+const DATE_REGEX: RegExp = /(\d{4})-(\d{2})-(\d{2})/;
 
 @Injectable()
 export class ValidatorService {
@@ -27,6 +30,18 @@ export class ValidatorService {
 
   ssnRegex(): RegExp {
     return SSN_REGEX;
+  }
+
+  yesNoRegex(): RegExp {
+    return YES_NO_REGEX;
+  }
+
+  dateRegex(): RegExp {
+    return DATE_REGEX;
+  }
+
+  birthDateRegex(): RegExp {
+    return BIRTH_DATE_REGEX;
   }
 
   triggerFormValidation(form: FormGroup) {

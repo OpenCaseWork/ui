@@ -20,7 +20,7 @@ import { ConstituentAggregate } from '../../../models/constituents/constituents-
 import { ContactsComponent } from './contacts.component';
 
 @Component({
-  selector: 'app-name-address',
+  selector: 'ocw-name-address',
   // changeDetection: ChangeDetectionStrategy.OnPush, TODO: turn on if change detect issue fixed in autocomplete
   templateUrl: './name-address.component.html',
   styleUrls: ['./name-address.component.css']

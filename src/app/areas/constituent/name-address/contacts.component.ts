@@ -26,7 +26,7 @@ const EMAIL_FIELD = 3;
   templateUrl: './contacts.component.html',
   styleUrls: ['./contacts.component.css']
 })
-export class ContactsComponent implements OnInit, OnDestroy, OnChanges {
+export class ContactsComponent implements OnDestroy, OnChanges {
   @Input() domains: ConstituentDomains;
   @Input() constituent: ConstituentAggregate;
   // domains: ConstituentDomains;
@@ -50,12 +50,13 @@ export class ContactsComponent implements OnInit, OnDestroy, OnChanges {
     public dialog: MdDialog
   ) {
     this.contacts = new Array<ConstituentContact>();
+    this.loading = true;
     this.logService.log('ContactsComponent.constructor');
   }
 
-  ngOnInit() {
+  /*ngOnInit() {
     this.logService.log('ContactsComponent:ngOnInit');
-    this.loading = true;
+    //this.loading = true;
     this.contacts = new Array<ConstituentContact>();
 
     /*const observables = Observable.combineLatest(
@@ -77,17 +78,18 @@ export class ContactsComponent implements OnInit, OnDestroy, OnChanges {
         this.patchValues();
         this.loading = false;
       }, err => this.handleError()
-      );*/
-  }
+      );
+  }*/
 
   ngOnChanges() {
     this.logService.log('Contacts NgOnChange');
       if (this.domains && this.domains.contactTypes && this.constituent && this.constituent.constituent) {
-        this.logService.log('Loaded!!!!');
+        this.logService.log('Contacts Domains Loaded!!!!');
         this.populateContacts();
         this.setFormGroup();
         this.patchValues();
         this.loading = false;
+        this.cd.markForCheck();
       }
   }
 
@@ -167,9 +169,9 @@ export class ContactsComponent implements OnInit, OnDestroy, OnChanges {
     this.logService.log('form GROUP:', this.group);
     this.contactsForm = new FormGroup(this.group);
 
-    if (this.contactsForm) {
+    /*if (this.contactsForm) {
       this.contactsForm.reset();
-    }
+    }*/
   }
 
   isValid(): boolean {

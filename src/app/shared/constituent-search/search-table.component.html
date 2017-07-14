@@ -40,7 +40,7 @@
 
     <ng-container mdColumnDef="BirthDate">
       <md-header-cell  fxShow.gt-sm fxHide.lt-sm sortable *mdHeaderCellDef>Birth Date</md-header-cell>
-      <md-cell  fxShow.gt-sm fxHide.lt-sm *mdCellDef="let row">{{row.birthDate}}</md-cell>
+      <md-cell  fxShow.gt-sm fxHide.lt-sm *mdCellDef="let row">{{formatDate(row.birthDate)}}</md-cell>
     </ng-container>
 
     <ng-container mdColumnDef="City">

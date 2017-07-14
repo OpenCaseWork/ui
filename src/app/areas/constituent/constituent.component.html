@@ -3,13 +3,13 @@
   <md-tab label="Name/Address">
     <md-spinner class="overlay" *ngIf="isLoading()" ></md-spinner>
     <md-card *ngIf="!isLoading()">
-      <app-name-address [constituent]="constituent$ | async" [domains]="domain$ | async"></app-name-address>
+      <ocw-name-address [constituent]="constituent$ | async" [domains]="domain$ | async"></ocw-name-address>
        
     </md-card>
   </md-tab>
   <md-tab label="Demographics">
     <md-card>
-      <!--app-demographics [constituent]="constituent$ | async" [domains]="domain$ | async"></app-demographics-->
+      <ocw-demographics [constituent]="constituent$ | async" [domains]="domain$ | async"></ocw-demographics>
     </md-card>
   </md-tab>
   <md-tab label="Status">

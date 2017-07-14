@@ -1,5 +1,113 @@
-<div>
-  <md-input-container class="">
-    <input mdInput placeholder="Middle Name"  maxlength="50">
-  </md-input-container>  
-</div>
+<md-card>
+  <form class="example-form" [formGroup]="demographicsForm" novalidate>
+    <div class="ocw-gradient ocw-mt-25neg ocw-ml-24neg ocw-mb-15 ocw-pl-10 ocw-fw-500 ocw-mr-25neg ocw-pt-10 ocw-pb-10"><div class="ocw-font-white">Core Demographics</div></div>
+    <div fxLayout="column" fxLayoutWrap>
+      <div fxLayoutGap="50px">
+
+        <md-input-container class="">
+          <input mdInput placeholder="Birth Date (yyyy-mm-dd)" formControlName="birthDate" spellcheck="false" [textMask]="{mask: mask}">
+          <md-error *ngIf="birthDate.invalid">
+            Please use format yyyy-mm-dd
+          </md-error>
+        </md-input-container>
+
+        <!--md-input-container>
+          <input mdInput [mdDatepicker]="birthDatePicker" formControlName="birthDate" spellcheck="false" [textMask]="{mask: mask}" >
+          <button mdSuffix [mdDatepickerToggle]="birthDatePicker"></button>
+        </md-input-container>
+        <md-datepicker #birthDatePicker></md-datepicker-->
+        
+
+        <!--Gender-->
+        <md-input-container>
+          <input placeholder="Gender" mdInput formControlName="gender" [mdAutocomplete]="autoGender">
+        </md-input-container>
+        <md-autocomplete #autoGender="mdAutocomplete" [displayWith]="displaySelectValue">
+          <md-option *ngFor="let option of filteredGender | async" [value]="option">
+            {{ option.shortDescription }}
+          </md-option>
+        </md-autocomplete>
+
+        <!--Race-->
+        <md-input-container>
+          <input placeholder="Race" mdInput formControlName="race" [mdAutocomplete]="autoRace" style="width:275px">
+        </md-input-container>
+        <md-autocomplete #autoRace="mdAutocomplete" [displayWith]="displaySelectValue">
+          <md-option *ngFor="let option of filteredRace | async" [value]="option">
+            {{ option.shortDescription }}
+          </md-option>
+        </md-autocomplete>
+
+        <!--Ethnicity-->
+        <md-input-container>
+          <input placeholder="Ethnicity" mdInput formControlName="ethnicity" [mdAutocomplete]="autoEthnicity" style="width:175px">
+        </md-input-container>
+        <md-autocomplete #autoEthnicity="mdAutocomplete" [displayWith]="displaySelectValue">
+          <md-option *ngFor="let option of filteredEthnicity | async" [value]="option">
+            {{ option.shortDescription }}
+          </md-option>
+        </md-autocomplete>
+
+        <!--Marital Status-->
+        <md-input-container>
+          <input placeholder="Marital Status" mdInput formControlName="maritalStatus" [mdAutocomplete]="autoMarital" style="width:175px">
+        </md-input-container>
+        <md-autocomplete #autoMarital="mdAutocomplete" [displayWith]="displaySelectValue">
+          <md-option *ngFor="let option of filteredMaritalStatus | async" [value]="option">
+            {{ option.shortDescription }}
+          </md-option>
+        </md-autocomplete>
+
+        <!--Income-->
+        <md-input-container>
+          <input placeholder="Income Level" mdInput formControlName="incomeLevel" [mdAutocomplete]="autoIncome">
+        </md-input-container>
+        <md-autocomplete #autoIncome="mdAutocomplete" [displayWith]="displaySelectValue">
+          <md-option *ngFor="let option of filteredIncomeLevel | async" [value]="option">
+            {{ option.shortDescription }}
+          </md-option>
+        </md-autocomplete>
+
+        <!--Preferred Language-->
+        <md-input-container>
+          <input placeholder="Preferred Language" mdInput formControlName="preferredLanguage" [mdAutocomplete]="autoLanguage" style="width:200px">
+        </md-input-container>
+        <md-autocomplete #autoLanguage="mdAutocomplete" [displayWith]="displaySelectValue">
+          <md-option *ngFor="let option of filteredPreferredLanguage | async" [value]="option">
+            {{ option.shortDescription }}
+          </md-option>
+        </md-autocomplete>
+
+      </div>
+    </div>
+    <div class="ocw-spacer ocw-gradient ocw-ml-24neg ocw-pl-10 ocw-fw-500 ocw-mr-25neg ocw-pt-10 ocw-pb-10"><div class="ocw-font-white">Additional Demographics</div></div>
+    <div fxLayout="column" fxLayoutWrap>
+      <div fxLayoutGap="50px"></div>
+       <md-input-container class="">
+          <input mdInput placeholder="Lives Alone (Y/N)" formControlName="livingAlone" spellcheck="false" [textMask]="{mask: yesNoMask}" maxlength="1">
+          <!--md-error *ngIf="birthDate.invalid">
+            Please use format yyyy-mm-dd
+          </md-error-->
+        </md-input-container>
+
+        <md-input-container class="">
+          <input mdInput placeholder="Lives in Nursing Home (Y/N)" formControlName="livesInNursingHome" spellcheck="false" [textMask]="{mask: yesNoMask}" maxlength="1">
+          <!--md-error *ngIf="birthDate.invalid">
+            Please use format yyyy-mm-dd
+          </md-error-->
+        </md-input-container>
+
+         <!--livingAlone: ['', [Validators.pattern(this.validatorService.yesNoRegex())]],
+      livesInNursingHome: ['', Validators.pattern(this.validatorService.yesNoRegex())],
+      caseWorkerRisk: ['', Validators.pattern(this.validatorService.yesNoRegex())],
+      pet: ['', Validators.pattern(this.validatorService.yesNoRegex())],
+      homeless: ['', Validators.pattern(this.validatorService.yesNoRegex())],
+      femaleHeadedHousehold: ['', Validators.pattern(this.validatorService.yesNoRegex())],
+      frailDisabled: ['', Validators.pattern(this.validatorService.yesNoRegex())],
+      eccpisNumber: [''],
+      rinNumber: '',
+      grgCount: '',-->
+
+    </div>
+  </form>
+</md-card>

@@ -26,7 +26,6 @@ export const initialDomainsState: DomainsState = {
   responseStatus: undefined
 };
 
-
 function fillDomains(): Array<DomainsState> {
   let counter = 0;
   let array = new Array<DomainsState>();

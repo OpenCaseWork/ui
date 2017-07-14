@@ -30,7 +30,9 @@
         "./app/styles/font.css",
         "./app/styles/margins.css",
         "./app/styles/material.css",
-        "./app/styles/padding.css"
+        "./app/styles/padding.css",
+        "./app/styles/layout.css",
+        "./app/styles/colors.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",

@@ -13,6 +13,7 @@ import { AutoFocusDirective }     from './name-address/autofocus.directive';
 import { DemographicsComponent }  from './demographics/demographics.component';
 import { ContactsComponent } from './name-address/contacts.component';
 import { AddContactComponent } from './name-address/add-contact.component';
+import { UppercaseDirective } from './demographics/uppercase.directive';
 
 @NgModule({
   imports: [
@@ -30,6 +31,7 @@ import { AddContactComponent } from './name-address/add-contact.component';
     AutoFocusDirective,
     ContactsComponent,
     AddContactComponent,
+    UppercaseDirective,
   ],
   exports: [
     ConstituentComponent,

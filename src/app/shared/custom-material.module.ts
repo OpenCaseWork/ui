@@ -3,6 +3,8 @@ import { MaterialModule,
         MdButtonModule,
         MdSnackBarModule,
         MdMenuModule,
+        MdNativeDateModule,
+        MdDatepickerModule
          }  from '@angular/material';
 // import { MdMenuTrigger } from '@angular/material';
 
@@ -11,7 +13,9 @@ import { MaterialModule,
     MaterialModule,
     MdButtonModule,
     MdMenuModule,
-    MdSnackBarModule
+    MdSnackBarModule,
+    MdNativeDateModule,
+    MdDatepickerModule
     //MdInputModule
     // MdMenuTrigger
   ],
@@ -20,6 +24,8 @@ import { MaterialModule,
     MdButtonModule,
     MdMenuModule,
     MdSnackBarModule,
+    MdNativeDateModule,
+    MdDatepickerModule
    // MdInputModule
     // MdMenuTrigger
   ],

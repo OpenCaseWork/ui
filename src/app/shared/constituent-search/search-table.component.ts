@@ -3,6 +3,7 @@ import { SelectionModel } from '@angular/material';
 import { BaseDataTableService } from '../data-table/base-data-table.service';
 import { GenericDataSource } from '../data-table/generic-data-source';
 import { ConstituentSearchRecord } from '../../models/constituents/search/constituents-search.models';
+import { DatePipe } from '@angular/common';
 
 @Component({
   moduleId: module.id,
@@ -29,6 +30,11 @@ export class SearchTableComponent implements OnInit {
               private _changeDetectorRef: ChangeDetectorRef) {
     // _changeDetectorRef.detectChanges()
     // this.selection.selected()
+  }
+
+  formatDate(date: Date): string {
+    let datePipe = new DatePipe('US-en');
+    return datePipe.transform(date, 'MM/dd/yyyy');
   }
 
   ngOnInit() {

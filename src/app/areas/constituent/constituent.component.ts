@@ -47,7 +47,7 @@ export class ConstituentComponent implements OnInit, OnDestroy {
 
     this.domain$ = this.domainStore.Domain$(DomainEnum.Constituent)
       .takeUntil(this.ngUnsubscribe);
-    //this.domainStore.loadDomains(DomainEnum.Constituent);
+    this.domainStore.loadDomains(DomainEnum.Constituent);
 
     this.constituent$ = this.storeService.Resource$(ResourceEnum.Constituent)
       .takeUntil(this.ngUnsubscribe);
@@ -86,6 +86,7 @@ export class ConstituentComponent implements OnInit, OnDestroy {
     let clone = Object.assign({}, this.constituentAggregate);
     this.logService.log('before update:', clone);
     clone = this.nameAddressComponent.updateConstituentFromForm(clone);
+    clone = this.demographicsComponent.updateConstituentFromForm(clone);
     clone.contacts = this.nameAddressComponent.updateContactsFromForm();
     this.logService.log('after update:', clone);
     this.storeService.saveResource(clone, ResourceEnum.Constituent);

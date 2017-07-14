@@ -42,31 +42,39 @@ export class Constituent extends AuditedEntity {
   public birthDate: Date;
   /*[Column("gender")]*/
   public genderId: number;
-  public gender: SelectItem;
   /*[Column("minority_id")]*/
-  public minorityId: number;
+    public minorityId: number;
+  /*[Column("minority_id")]*/
+  public ethnicityId: number;    
   /*[Column("income_level_id")]*/
   public incomeLevelId: number;
+    /*[Column("preferred_language_id")]*/
+  public preferredLanguageId: number;
+  public maritalStatusId: number;
   /*[Column("maiden_name")]*/
   public maidenName: string;
   /*[Column("living_alone")]*/
-  public livingAlone: boolean;
+  public livingAlone: string;
   /*[Column("lives_in_nursing_home")]*/
-  public livesInNursingHome: boolean;
+  public livesInNursingHome: string;
   /*[Column("frail_disabled")]*/
-  public frailDisabled: boolean;
+  public frailDisabled: string;
   /*[Column("limited_english")]*/
-  public limitedEnglish: boolean;
+  public limitedEnglish: string;
   /*[Column("case_worker_risk")]*/
-  public caseWorkerRisk: boolean;
+  public caseWorkerRisk: string;
   /*[Column("homeless")]*/
-  public homeless: boolean;
+  public homeless: string;
   /*[Column("female_headed_household")]*/
-  public femaleHeadedHousehold: boolean;
+  public femaleHeadedHousehold: string;
   /*[Column("pet")]*/
-  public pet: boolean;
-  /*[Column("select_fields")]*/
-
+  public pet: string;
+  /*[Column("eccpis_number")]*/
+  public eccpisNumber: string;
+  /*[Column("rin_number")]*/
+  public rinNumber: string;
+  /*[Column("grg_count")]*/
+  public grgCount: number;
 }
 
 /*[Table("contact")]*/
