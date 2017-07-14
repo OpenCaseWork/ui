@@ -5,7 +5,7 @@
       <div fxLayoutGap="50px">
 
         <md-input-container class="">
-          <input mdInput placeholder="Birth Date (yyyy-mm-dd)" formControlName="birthDate" spellcheck="false" [textMask]="{mask: mask}">
+          <input mdInput placeholder="Birth Date (yyyy-mm-dd)" formControlName="birthDate" spellcheck="false" [textMask]="{mask: dateMask}">
           <md-error *ngIf="birthDate.invalid">
             Please use format yyyy-mm-dd
           </md-error>
@@ -80,34 +80,40 @@
 
       </div>
     </div>
-    <div class="ocw-spacer ocw-gradient ocw-ml-24neg ocw-pl-10 ocw-fw-500 ocw-mr-25neg ocw-pt-10 ocw-pb-10"><div class="ocw-font-white">Additional Demographics</div></div>
+    <div class="ocw-spacer ocw-gradient ocw-ml-24neg ocw-pl-10 ocw-fw-500 ocw-mr-25neg ocw-pt-10 ocw-pb-10">
+      <div class="ocw-font-white">Additional Demographics (Y/N)</div>
+    </div>
     <div fxLayout="column" fxLayoutWrap>
-      <div fxLayoutGap="50px"></div>
-       <md-input-container class="">
-          <input mdInput placeholder="Lives Alone (Y/N)" formControlName="livingAlone" spellcheck="false" [textMask]="{mask: yesNoMask}" maxlength="1">
-          <!--md-error *ngIf="birthDate.invalid">
-            Please use format yyyy-mm-dd
-          </md-error-->
+      <div fxLayoutGap="50px">
+        <md-input-container class="">
+          <input mdInput placeholder="Lives Alone" formControlName="livingAlone" maxlength="1"  (keypress)="toUpper($event,'livingAlone')">
         </md-input-container>
 
         <md-input-container class="">
-          <input mdInput placeholder="Lives in Nursing Home (Y/N)" formControlName="livesInNursingHome" spellcheck="false" [textMask]="{mask: yesNoMask}" maxlength="1">
-          <!--md-error *ngIf="birthDate.invalid">
-            Please use format yyyy-mm-dd
-          </md-error-->
+          <input mdInput placeholder="Lives in Nursing Home" formControlName="livesInNursingHome" maxlength="1" (keypress)="toUpper($event,'livesInNursingHome')">
         </md-input-container>
 
-         <!--livingAlone: ['', [Validators.pattern(this.validatorService.yesNoRegex())]],
-      livesInNursingHome: ['', Validators.pattern(this.validatorService.yesNoRegex())],
-      caseWorkerRisk: ['', Validators.pattern(this.validatorService.yesNoRegex())],
-      pet: ['', Validators.pattern(this.validatorService.yesNoRegex())],
-      homeless: ['', Validators.pattern(this.validatorService.yesNoRegex())],
-      femaleHeadedHousehold: ['', Validators.pattern(this.validatorService.yesNoRegex())],
-      frailDisabled: ['', Validators.pattern(this.validatorService.yesNoRegex())],
-      eccpisNumber: [''],
-      rinNumber: '',
-      grgCount: '',-->
+        <md-input-container class="">
+          <input mdInput placeholder="Case Worker Risk" formControlName="caseWorkerRisk" maxlength="1" (keypress)="toUpper($event,'caseWorkerRisk')">
+        </md-input-container>
 
+        <md-input-container class="">
+          <input mdInput placeholder="Pet" formControlName="pet" maxlength="1" (keypress)="toUpper($event,'pet')">
+        </md-input-container>
+
+        <md-input-container class="">
+          <input mdInput placeholder="Homeless" formControlName="homeless" maxlength="1" (keypress)="toUpper($event,'homeless')">
+        </md-input-container>
+
+        <md-input-container class="">
+          <input mdInput placeholder="Female Headed Household" formControlName="femaleHeadedHousehold" maxlength="1" (keypress)="toUpper($event,'femaleHeadedHousehold')">
+        </md-input-container>
+
+        <md-input-container class="">
+          <input mdInput placeholder="Frail/Disabled" formControlName="frailDisabled" maxlength="1" (keypress)="toUpper($event,'frailDisabled')">
+        </md-input-container>
+        
+      </div>
     </div>
   </form>
 </md-card>

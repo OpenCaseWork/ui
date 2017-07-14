@@ -113,6 +113,15 @@ export class DemographicsComponent implements OnChanges {
     });
   }
 
+  toUpper(value: KeyboardEvent, field: string) {
+    if (value) {
+      this.logService.log('key press', value, field);
+      let patchObject = {};
+      patchObject[field] = value.key.toUpperCase();
+      this.demographicsForm.patchValue(patchObject);
+    }
+  }
+
   isValid(): boolean {
     this.validatorService.triggerFormValidation(this.demographicsForm);
     return this.demographicsForm.valid;
