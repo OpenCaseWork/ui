@@ -28,7 +28,7 @@ export class DemographicsComponent implements OnChanges {
   filteredPreferredLanguage: Observable<SelectItem[]>;
   filteredGender: Observable<SelectItem[]>;
   filteredMaritalStatus: Observable<SelectItem[]>;
-  mask = [/[0-9]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/];
+  dateMask = [/[0-9]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/];
   yesNoMask = [/[YyNn]/];
 
   // control references for validation
