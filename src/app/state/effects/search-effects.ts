@@ -7,7 +7,7 @@ import * as SearchActions             from '../actions/search-actions';
 import * as StatusActions             from '../actions/status-actions';
 import * as GlobalReducer             from '../reducers/global-reducer';
 import { BaseEffect }                 from './base-effect';
-import { ResponseStatus, BaseEntity } from '../../core/models/request-response.models';
+import { ResponseStatus, BaseEntity, BaseResponse } from '../../core/models/request-response.models';
 import { LogService }                 from '../../core/logging/log.service';
 import { BaseDataService }            from '../../core/state/data-services/base-data.service';
 
@@ -17,26 +17,32 @@ export class SearchEffects extends BaseEffect {
   @Effect()
   search$: Observable<Action> = this.action$
     .ofType(SearchActions.SEARCH)
-    .mergeMap(action => this.dataService.search<Array<BaseEntity>>(action.payload)
-      .map(res => {
-        this.logService.log(this.getClassName() + ':search$ success', res);
-        if (res.responseInfo.statusCode !== 0) {
-          this.store.dispatch(new SearchActions.SearchFailAction(res.responseInfo, action.index));
-          return (new StatusActions.FailAction(res.responseInfo));
-        } else {
-          return (new SearchActions.SearchSuccessAction(res, action.index));
-        }
-      })
+    .mergeMap(action => this.dataService.search(action.payload)
       .catch(err => {
+        let errorResponse = new BaseResponse();
         this.logService.error(this.getClassName() + ':search$ error ', err);
         let status = new ResponseStatus();
         status.statusCode = 500;
         status.errorEnumId = 1;
+        status.stateIndex = action.payload.stateIndex;
         // TODO: allow config for message
         status.message = 'Error searching for resource';
-        this.store.dispatch(new SearchActions.SearchFailAction(status, action.index));
+        this.store.dispatch(new SearchActions.SearchFailAction(status));
         this.store.dispatch(new StatusActions.FailAction(status));
-        return Observable.throw(err);
+        errorResponse.responseInfo = status;
+        errorResponse.stateIndex = action.payload.stateIndex;
+        return Observable.of(errorResponse);
+      })
+      .map(res => {
+        this.logService.log(this.getClassName() + ':search$ success', res);
+        res.stateIndex = action.payload.stateIndex;
+        res.responseInfo.stateIndex = action.payload.stateIndex;
+        if (res.responseInfo.statusCode !== 0) {
+          this.store.dispatch(new SearchActions.SearchFailAction(res.responseInfo));
+          return (new StatusActions.FailAction(res.responseInfo));
+        } else {
+          return (new SearchActions.SearchSuccessAction(res));
+        }
       })
     );
 

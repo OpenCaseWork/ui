@@ -12,31 +12,33 @@ import { LogService }                 from '../../../core/logging/log.service';
 import { BaseDataService }            from '../../../core/state/data-services/base-data.service';
 import { BaseDomains } from '../../../models/domains/domains.models';
 
-
 @Injectable()
 export class DomainEffects extends BaseEffect {
 
   @Effect()
   domain$: Observable<Action> = this.action$
     .ofType(DomainActions.LOAD)
-    .mergeMap(action => this.dataService.loadDomains<BaseDomains>(action.payload)
+    .mergeMap(action => this.dataService.loadDomains(action.payload)
       .catch(err => {
-        let errorResponse = new BaseResponse<BaseDomains>();
+        let errorResponse = new BaseResponse();
         this.logService.error(this.getClassName() + ':domain$ error ', err);
         let status = new ResponseStatus();
         status.statusCode = 500;
         status.errorEnumId = 1;
         status.message = 'Load Domains failed';
-        errorResponse['responseInfo'] = status;
+        errorResponse.responseInfo = status;
+        errorResponse.stateIndex = action.payload.stateIndex;
         return Observable.of(errorResponse);
       })
       .map(res => {
         this.logService.log(this.getClassName() + ':domain$ success', res);
         if (res.responseInfo.statusCode !== 0) {
           this.store.dispatch(new StatusActions.FailAction(res.responseInfo));
-          return (new DomainActions.DomainLoadFailAction(res.responseInfo, action.index));
+          res.stateIndex = action.payload.stateIndex;
+          res.responseInfo.stateIndex = action.payload.stateIndex;
+          return (new DomainActions.DomainLoadFailAction(res.responseInfo));
         } else {
-          return (new DomainActions.DomainLoadSuccessAction(res, action.index));
+          return (new DomainActions.DomainLoadSuccessAction(res));
         }
       })
     );

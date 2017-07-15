@@ -1,7 +1,7 @@
-import { BaseFilter, BaseEntity } from '../../../core/models/request-response.models';
+import { BaseFilter } from '../../../core/models/request-response.models';
 
 /*[Table("constituent_search")]*/
-export class ConstituentSearchRecord extends BaseEntity {
+export class ConstituentSearchRecord {
   /*[Column("provider_number")]*/
   public providerNumber: string;
   /*[Column("constituent_id")]*/

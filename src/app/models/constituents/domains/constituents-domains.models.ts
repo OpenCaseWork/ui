@@ -1,6 +1,7 @@
 import { SelectItem } from '../../Domains/domains.models';
+import { BaseDomains } from '../../domains/domains.models';
 
-export class ConstituentDomains {
+export class ConstituentDomains extends BaseDomains {
   public cities: SelectItem[];
   public contactTypes: ContactType[];
   public postalCodes: SelectItem[];

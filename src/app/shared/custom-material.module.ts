@@ -4,33 +4,47 @@ import { MaterialModule,
         MdSnackBarModule,
         MdMenuModule,
         MdNativeDateModule,
-        MdDatepickerModule
+        MdDatepickerModule,
+        MdPaginatorModule,
+        MdSortModule
          }  from '@angular/material';
-// import { MdMenuTrigger } from '@angular/material';
+import { MdTableModule, MdSort } from '@angular/material';
+import { CdkTableModule } from '@angular/cdk';
 
 @NgModule({
-  imports: [
+  /*imports: [
     MaterialModule,
     MdButtonModule,
     MdMenuModule,
     MdSnackBarModule,
     MdNativeDateModule,
-    MdDatepickerModule
+    MdDatepickerModule,
+    MdTableModule,
+    CdkTableModule,
+    MdPaginatorModule,
+    MdSortModule,
+    //MdPaginator
     //MdInputModule
     // MdMenuTrigger
-  ],
+  ],*/
   exports: [
     MaterialModule,
     MdButtonModule,
     MdMenuModule,
     MdSnackBarModule,
     MdNativeDateModule,
-    MdDatepickerModule
+    MdDatepickerModule,
+    MdTableModule,
+    CdkTableModule,
+    MdPaginatorModule,
+    MdSortModule
+    //MdPaginator
    // MdInputModule
     // MdMenuTrigger
   ],
   declarations: [
     // MdMenuTrigger
+    //MdPaginator
   ]
 })
 export class CustomMaterialModule {}

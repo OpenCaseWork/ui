@@ -20,22 +20,22 @@ export class AppStoreService extends BaseStoreService {
       super();
     }
 
-   AppState$(appStateEnum: AppStateEnum): Observable<BaseEntity> {
+   AppState$(appStateEnum: AppStateEnum): Observable<any> {
     this.logService.log(this.getClassName() + ':AppState$');
     let getState = (globalState: GlobalReducer.GlobalState) => globalState.appState.resources[appStateEnum].results;
     return this.store.select(getState)
       .filter(p => p !== undefined);
   }
 
-  setState(state: BaseEntity, appStateEnum: AppStateEnum): void {
+  setState(state: any, appStateEnum: AppStateEnum): void {
     this.logService.log(this.getClassName() + ':start setState:', state);
-    this.store.dispatch(new AppActions.SetAction(state, appStateEnum));
+    this.store.dispatch(new AppActions.SetAction(state));
   }
 
   newState(appStateEnum: AppStateEnum): void {
-    let state: BaseEntity;
+    let state: any;
     this.logService.log(this.getClassName() + ':dispatch NewAction');
-    this.store.dispatch(new AppActions.NewAction(this.resourceService.getNewState(appStateEnum), appStateEnum));
+    this.store.dispatch(new AppActions.NewAction(this.resourceService.getNewState(appStateEnum)));
   }
 
 }

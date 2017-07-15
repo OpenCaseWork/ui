@@ -10,7 +10,7 @@ export interface ResourceState {
 }
 
 export interface ResourceSlice {
-  results: BaseEntity;
+  results: any;
   new: boolean;
 };
 
@@ -39,12 +39,12 @@ export function reducer(state = initialState, action: AppActions.Actions): Resou
   console.log('AppActions reducer:' + action.type);
   switch (action.type) {
     case AppActions.GET: {
-      let existingResults = state.resources[action.index].results;
+      let existingResults = state.resources[action.payload.stateIndex].results;
       const resourceSlice: ResourceSlice = Object.assign({}, initialSliceState, {
         results: existingResults,
         new: false
       });
-      let newState = generateNewState(state, resourceSlice, action.index);
+      let newState = generateNewState(state, resourceSlice, action.payload.stateIndex);
       return newState;
     }
     case AppActions.SET: {
@@ -52,7 +52,7 @@ export function reducer(state = initialState, action: AppActions.Actions): Resou
         results: action.payload,
         new: false
       };
-      let newState = generateNewState(state, resourceSlice, action.index);
+      let newState = generateNewState(state, resourceSlice, action.payload.stateIndex);
       return newState;
     }
     case AppActions.NEW: {
@@ -60,7 +60,7 @@ export function reducer(state = initialState, action: AppActions.Actions): Resou
         results:  new BaseEntity(),
         new: true
       };
-      let newState = generateNewState(state, resourceSlice, action.index);
+      let newState = generateNewState(state, resourceSlice, action.payload.stateIndex);
       return newState;
     }
     default: {

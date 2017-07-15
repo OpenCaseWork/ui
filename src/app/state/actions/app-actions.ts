@@ -7,17 +7,17 @@ export const NEW              = 'State New';
 
 export class GetAction implements Action {
   readonly type = GET;
-  constructor(public payload: EntityRequest, public index: number) {}
+  constructor(public payload: EntityRequest) {}
 }
 
 export class SetAction implements Action {
   readonly type = SET;
-  constructor(public payload: BaseEntity, public index: number) {}
+  constructor(public payload: BaseEntity) {}
 }
 
 export class NewAction implements Action {
   readonly type = NEW;
-  constructor(public payload: BaseEntity, public index: number) {}
+  constructor(public payload: BaseEntity) {}
 }
  
 /**

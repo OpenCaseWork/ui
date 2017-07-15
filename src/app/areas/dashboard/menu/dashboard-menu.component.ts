@@ -68,7 +68,7 @@ export class DashboardMenuComponent {
   newConstituent() {
     this.storeService.newResource(ResourceEnum.Constituent);
     this.storeService.Resource$(ResourceEnum.Constituent)
-      .map( x => <ConstituentAggregate> x)
+      .map( x => <ConstituentAggregate> x.data)
       .filter(res => res.constituent.constituentId === 0)
       .takeUntil(this.ngUnsubscribe)
       .subscribe(res => {

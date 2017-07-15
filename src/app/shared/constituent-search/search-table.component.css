@@ -1,44 +1,60 @@
-
-.checkbox {
-  max-width: 24px;
+.table-container {
+  display: flex;
+  flex-direction: column;
+  /*min-width: 700px;*/
 }
 
-.Id {
-  max-width: 60px;
+.cdk-column-checkbox {
+  width: 24px;
 }
 
-.LastName {
-  max-width: 200px;
+.cdk-column-Id {
+  width: 20px !important;
 }
 
-.FirstName {
-  max-width: 125px;
+.cdk-column-LastName {
+  width: 200px;
 }
 
-.Address {
-  max-width: 300px;
+.cdk-column-FirstName {
+  width: 125px;
 }
 
-.Phone {
-  max-width: 100px;
+.cdk-column-Address {
+  width: 300px;
 }
 
-.BirthDate {
-  max-width: 70px;
+.cdk-column-Phone {
+  width: 100px;
+}
+
+.cdk-column-BirthDate {
+  width: 70px;
 }
 
 
-@media (max-width: 480px) {
-  .Address {
+@media (max-width: 960px) {
+  .cdk-column-Address {
     display: none !important;
   }
-  .Phone {
+  .cdk-column-Phone {
     display: none !important;
   }
-  .BirthDate {
-    display: none !important;
-  }
-  .ECCPIS {
+  .cdk-column-ECCPIS {
     display: none !important;
   }
 }
+
+@media (max-width: 720px) {
+  .cdk-column-BirthDate {
+    display: none !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .cdk-column-City {
+    display: none !important;
+  }
+}
+
+  

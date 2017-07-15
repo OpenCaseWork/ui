@@ -1,6 +1,8 @@
 import { Action } from '@ngrx/store';
 
-import { ResponseStatus, BasePostRequest, BaseResponse, BaseFilter, BaseEntity } from '../../core/models/request-response.models';
+import { ResponseStatus, BasePostRequest, BaseResponse, BaseFilter, BaseEntity, BaseEntityList }
+  from '../../core/models/request-response.models';
+import { IndexedPayload } from './indexed-payload';
 
 export const SEARCH = 'Search';
 export const LOADING = 'Loading';
@@ -12,32 +14,32 @@ export const UNLOAD = 'Unload';
 
 export class SearchAction implements Action {
   readonly type = SEARCH;
-  constructor(public payload: BasePostRequest<BaseFilter>, public index: number) { }
+  constructor(public payload: BasePostRequest) { }
 }
 
 export class SearchSuccessAction implements Action {
   readonly type = SEARCH_SUCCESS;
-  constructor(public payload: BaseResponse<Array<BaseEntity>>, public index: number) { }
+  constructor(public payload: BaseResponse) { }
 }
 
 export class SearchFailAction implements Action {
   readonly type = SEARCH_FAILURE;
-  constructor(public payload: ResponseStatus, public index: number) { }
+  constructor(public payload: ResponseStatus) { }
 }
 
 export class LoadingAction implements Action {
   readonly type = LOADING;
-  constructor(public payload: boolean, public index: number) { }
+  constructor(public payload: IndexedPayload<boolean>) { }
 }
 
 export class LoadedAction implements Action {
   readonly type = LOADED;
-  constructor(public payload: boolean, public index: number) { }
+  constructor(public payload: IndexedPayload<boolean>) { }
 }
 
 export class SelectAction implements Action {
   readonly type = SELECTED;
-  constructor(public payload: BaseEntity[], public index: number) { }
+  constructor(public payload: BaseEntityList) { }
 }
 
 /**

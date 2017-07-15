@@ -26,7 +26,7 @@ export class DomainStoreService extends BaseStoreService {
       super();
     }
 
-  Domain$(domainEnum: DomainEnum): Observable<BaseDomains> {
+  Domain$(domainEnum: DomainEnum): Observable<any> {
     this.logService.log(this.getClassName() + ':Domain$');
     let getDomains = (globalState: GlobalReducer.GlobalState) => globalState.fullDomainState.domains[domainEnum].results;
     return this.store.select(getDomains)
@@ -40,6 +40,7 @@ export class DomainStoreService extends BaseStoreService {
   loadDomains(domainEnum: DomainEnum): void {
     let request = new BaseRequest();
     request.resource = this.resourceService.getDomainResource(domainEnum);
+    request.stateIndex = domainEnum;
     let state: boolean;
     this.logService.log(this.getClassName() + ':start loadDomains');
     let getDomains = (globalState: GlobalReducer.GlobalState) => globalState.fullDomainState.domains[domainEnum].loaded;
@@ -49,7 +50,7 @@ export class DomainStoreService extends BaseStoreService {
     this.logService.log(this.getClassName() + ':isDomainsLoaded for ' + request.resource, state);
     if (!state) {
       this.logService.log(this.getClassName() + ':dispatch DomainLoadAction' + request.resource);
-      this.store.dispatch(new DomainLoadAction(request, domainEnum));
+      this.store.dispatch(new DomainLoadAction(request));
     } else {
       this.logService.log(this.getClassName() + ':domains already loaded');
     }

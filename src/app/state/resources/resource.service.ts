@@ -82,10 +82,11 @@ export class ResourceService {
   }
 
   getNewResource(entityEnum: ResourceEnum): BaseEntity {
-    let entity: BaseEntity;
+    let entity = new BaseEntity();
+    entity.stateIndex = entityEnum;
     switch (entityEnum) {
       case ResourceEnum.Constituent:
-        entity = new ConstituentAggregate();
+        entity.data = new ConstituentAggregate();
         break;
       case ResourceEnum.ContactEvent:
         break;
@@ -94,10 +95,11 @@ export class ResourceService {
   }
 
   getNewState(stateEnum: AppStateEnum): BaseEntity {
-    let entity: BaseEntity;
+    let entity = new BaseEntity();
+    entity.stateIndex = stateEnum;
     switch (stateEnum) {
       case AppStateEnum.SelectedContactTypes:
-        entity = new Array<ContactType>();
+        entity.data = new Array<ContactType>();
         break;
     }
     return entity;

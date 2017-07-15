@@ -16,7 +16,7 @@ export class BaseDataService implements ILoggedClass {
     return (<any>this).constructor.name;
   }
 
-  post<T>(request: BasePostRequest<T>): Observable<BaseResponse<T>> {
+  post(request: BasePostRequest): Observable<BaseResponse> {
     this.logService.log(this.getClassName() + '.post');
     return this.httpService.post(request.resource, JSON.stringify(request.data))
       .retryWhen(e => e.scan<number>((errorCount, err) => {
@@ -28,7 +28,7 @@ export class BaseDataService implements ILoggedClass {
       .map(res => res.json());
   }
 
-  get<T>(request: EntityRequest): Observable<BaseResponse<T>> {
+  get(request: EntityRequest): Observable<BaseResponse> {
     this.logService.log(this.getClassName() + '.get');
     return this.httpService.get(request.resource + '/' + request.id)
       .retryWhen(e => e.scan<number>((errorCount, err) => {
@@ -40,7 +40,7 @@ export class BaseDataService implements ILoggedClass {
       .map(res => res.json());
   }
 
-  search<T>(request: BasePostRequest<T>): Observable<BaseResponse<T>> {
+  search(request: BasePostRequest): Observable<BaseResponse> {
     this.logService.log(this.getClassName() + '.search');
     return this.httpService.post(request.resource, JSON.stringify(request.data))
       .retryWhen(e => e.scan<number>((errorCount, err) => {
@@ -52,7 +52,7 @@ export class BaseDataService implements ILoggedClass {
       .map(res => res.json());
   }
 
-  loadDomains<T>(request: BaseRequest): Observable<BaseResponse<T>> {
+  loadDomains(request: BaseRequest): Observable<BaseResponse> {
     this.logService.log(this.getClassName() + '.loadDomains');
     return this.httpService.get(request.resource)
       .retryWhen(e => e.scan<number>((errorCount, err) => {

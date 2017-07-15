@@ -1,7 +1,7 @@
 <md-toolbar class="card-1">
   <div class="flex-toolbar" fxLayout="row" fxFlexAlign="center">
     <button md-button [mdMenuTriggerFor]="appMenuConstituents"     
-      fxShow.gt-sm fxHide.lt-sm
+       fxHide fxShow.gt-xs="true"
       (mouseenter)="openMenu()"
       (mouseleave)="closeMenu()"
       #constituentMenuButton="mdMenuTrigger"><md-icon class="menu-icon">people</md-icon>Constituents</button>
@@ -12,7 +12,7 @@
 
     <!--HOW menu-->
     <button md-button [mdMenuTriggerFor]="appMenuHOW"
-      fxShow.gt-sm fxHide.lt-sm>
+       fxHide fxShow.gt-xs="true">
       <md-icon class="menu-icon">home</md-icon>HOW
     </button>
     <md-menu #appMenuHOW="mdMenu" [overlapTrigger]="false">
@@ -22,7 +22,7 @@
 
     <!-- Reports menu -->
     <button md-button [mdMenuTriggerFor]="appMenuReports"
-      fxShow.gt-sm fxHide.lt-sm>
+      fxHide fxShow.gt-xs="true">
       <md-icon class="menu-icon">list</md-icon>Reports
     </button>
     <md-menu #appMenuReports="mdMenu" [overlapTrigger]="false">
@@ -31,16 +31,18 @@
     </md-menu>
 
     <!-- Social Services menu -->
-    <button md-button fxShow.gt-sm fxHide.lt-sm [mdMenuTriggerFor]="appMenuSocial"><md-icon class="menu-icon">business</md-icon>Social Services</button>    
+    <button md-button [mdMenuTriggerFor]="appMenuSocial" 
+       fxHide fxShow.gt-xs="true">
+      <md-icon class="menu-icon">business</md-icon>Social Services</button>    
     <md-menu #appMenuSocial="mdMenu" [overlapTrigger]="false">
       <button md-menu-item (click)="dailyTimeEntry()"><md-icon>event</md-icon>Daily Time Entry</button>
       <button md-menu-item (click)="newNAPISIntake()"><md-icon>add</md-icon>New NAPIS Intake</button>
       <button md-menu-item (click)="newNAPISIntake()"><md-icon>add</md-icon>Social Services</button>
     </md-menu>  
 
-    <button md-button fxShow.gt-sm fxHide.lt-sm (click)="admininstration()"><md-icon class="menu-icon">settings</md-icon>Admin</button>   
+    <button md-button  fxHide fxShow.gt-xs="true" (click)="admininstration()"><md-icon class="menu-icon">settings</md-icon>Admin</button>   
   </div>
-  <div class="stretch">
+  <div class="stretch" fxLayout="row">
       <div fxFlex="20">
         <button md-icon-button fxHide fxShow.xs="true" [mdMenuTriggerFor]="appMenuConstituents" class="menu-icon"><md-icon>people</md-icon></button>
       </div>

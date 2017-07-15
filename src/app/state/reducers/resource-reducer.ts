@@ -41,13 +41,13 @@ export function reducer(state = initialState, action: ResourceActions.Actions): 
   console.log('resource reducer:' + action.type);
   switch (action.type) {
     case ResourceActions.GET: {
-      let existingResults = state.resources[action.index].results;
+      let existingResults = state.resources[action.payload.stateIndex].results;
       const resourceSlice: ResourceSlice = Object.assign({}, initialSliceState, {
         loading: true,
         results: existingResults,
         new: false
       });
-      let newState = generateNewState(state, resourceSlice, action.index);
+      let newState = generateNewState(state, resourceSlice, action.payload.stateIndex);
       return newState;
     }
     case ResourceActions.GET_SUCCESS: {
@@ -56,7 +56,7 @@ export function reducer(state = initialState, action: ResourceActions.Actions): 
         loading: false,
         new: false
       };
-      let newState = generateNewState(state, resourceSlice, action.index);
+      let newState = generateNewState(state, resourceSlice, action.payload.stateIndex);
       return newState;
     }
     case ResourceActions.GET_FAILURE: {
@@ -65,17 +65,17 @@ export function reducer(state = initialState, action: ResourceActions.Actions): 
         loading: false,
         new: false
       };
-      let newState = generateNewState(state, resourceSlice, action.index);
+      let newState = generateNewState(state, resourceSlice, action.payload.stateIndex);
       return newState;
     }
     case ResourceActions.SAVE: {
-      let existingResults = state.resources[action.index].results;
+      let existingResults = state.resources[action.payload.stateIndex].results;
       const resourceSlice: ResourceSlice = Object.assign({}, initialSliceState, {
         loading: true,
         results: existingResults,
         new: false
       });
-      let newState = generateNewState(state, resourceSlice, action.index);
+      let newState = generateNewState(state, resourceSlice, action.payload.stateIndex);
       return newState;
     }
     case ResourceActions.SAVE_SUCCESS: {
@@ -84,14 +84,14 @@ export function reducer(state = initialState, action: ResourceActions.Actions): 
         loading: false,
         new: false
       });
-      let newState = generateNewState(state, resourceSlice, action.index);
+      let newState = generateNewState(state, resourceSlice, action.payload.stateIndex);
       return newState;
     }
     case ResourceActions.SAVE_FAILURE: {
       const resourceSlice: ResourceSlice = Object.assign({}, initialSliceState, {
         loading: false,
       });
-      let newState = generateNewState(state, resourceSlice, action.index);
+      let newState = generateNewState(state, resourceSlice, action.payload.stateIndex);
       return newState;
     }
     case ResourceActions.NEW: {
@@ -100,7 +100,7 @@ export function reducer(state = initialState, action: ResourceActions.Actions): 
         loading: false,
         new: true
       };
-      let newState = generateNewState(state, resourceSlice, action.index);
+      let newState = generateNewState(state, resourceSlice, action.payload.stateIndex);
       return newState;
     }
     default: {

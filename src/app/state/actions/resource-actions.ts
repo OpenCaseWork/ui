@@ -1,4 +1,5 @@
 import { Action }                         from '@ngrx/store';
+import { IndexedPayload } from './indexed-payload';
 
 import { ResponseStatus, EntityRequest, BaseEntity,
          BaseResponse, BasePostRequest }  from '../../core/models/request-response.models';
@@ -14,42 +15,42 @@ export const NEW_SUCCESS      = 'Resource New Success';
 
 export class GetAction implements Action {
   readonly type = GET;
-  constructor(public payload: EntityRequest, public index: number) {}
+  constructor(public payload: EntityRequest) {}
 }
 
 export class GetSuccessAction implements Action {
   readonly type = GET_SUCCESS;
-  constructor(public payload: BaseResponse<BaseEntity>, public index: number) {}
+  constructor(public payload: BaseResponse) {}
 }
 
 export class GetFailAction implements Action {
   readonly type = GET_FAILURE;
-  constructor(public payload: ResponseStatus, public index: number) {}
+  constructor(public payload: ResponseStatus) {}
 }
 
 export class SaveAction implements Action {
   readonly type = SAVE;
-  constructor(public payload: BasePostRequest<BaseEntity>, public index: number) {}
+  constructor(public payload: BasePostRequest) {}
 }
 
 export class SaveSuccessAction implements Action {
   readonly type = SAVE_SUCCESS;
-  constructor(public payload: BaseResponse<BaseEntity>, public index: number) {}
+  constructor(public payload: BaseResponse) {}
 }
 
 export class SaveFailAction implements Action {
   readonly type = SAVE_FAILURE;
-  constructor(public payload: ResponseStatus, public index: number) {}
+  constructor(public payload: ResponseStatus) {}
 }
 
 export class NewAction implements Action {
   readonly type = NEW;
-  constructor(public payload: BaseEntity, public index: number) {}
+  constructor(public payload: BaseEntity) {}
 }
 
 export class NewSucessAction implements Action {
   readonly type = NEW_SUCCESS;
-  constructor(public payload: boolean, public index: number) {}
+  constructor(public payload: IndexedPayload<boolean>) {}
 }
 
 /**

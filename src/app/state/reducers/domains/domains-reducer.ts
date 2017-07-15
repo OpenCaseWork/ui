@@ -60,18 +60,18 @@ export function reducer(currentState = initialState, action: Actions.DomainActio
       const domainState: DomainsState = Object.assign({}, initialDomainsState, {
         loading: true
       });
-      let newState = generateNewState(currentState, domainState, action.index);
+      let newState = generateNewState(currentState, domainState, action.payload.stateIndex);
       return newState;
     }
     case Actions.LOAD_SUCCESS: {
       const domainState: DomainsState = {
-        results: (action.payload as BaseResponse<BaseDomains>).data,
+        results: (action.payload as BaseResponse).data,
         loading: false,
         loaded: true,
-        responseStatus: (action.payload as BaseResponse<BaseDomains>).responseInfo
+        responseStatus: (action.payload as BaseResponse).responseInfo
       };
       // console.log('domainstate object' + JSON.stringify(domainState));
-      let newState = generateNewState(currentState, domainState, action.index);
+      let newState = generateNewState(currentState, domainState, action.payload.stateIndex);
       // console.log('currentState' + JSON.stringify(currentState));
       return newState;
     }
@@ -81,9 +81,9 @@ export function reducer(currentState = initialState, action: Actions.DomainActio
         results: undefined,
         loading: false,
         loaded: false,
-        responseStatus: (action.payload as BaseResponse<BaseDomains>).responseInfo
+        responseStatus: (action.payload as BaseResponse).responseInfo
       };
-      let newState = generateNewState(currentState, domainState, action.index);
+      let newState = generateNewState(currentState, domainState, action.payload.stateIndex);
       return newState;
     }
     case Actions.UNLOAD: {
@@ -94,7 +94,7 @@ export function reducer(currentState = initialState, action: Actions.DomainActio
         loaded: false,
         responseStatus: undefined
       };
-      let newState = generateNewState(currentState, domainState, action.index);
+      let newState = generateNewState(currentState, domainState, action.payload.stateIndex);
       return newState;
     }
     default: {

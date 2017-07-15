@@ -82,15 +82,15 @@ export class ContactsComponent implements OnDestroy, OnChanges {
   }*/
 
   ngOnChanges() {
-    this.logService.log('Contacts NgOnChange');
-      if (this.domains && this.domains.contactTypes && this.constituent && this.constituent.constituent) {
-        this.logService.log('Contacts Domains Loaded!!!!');
-        this.populateContacts();
-        this.setFormGroup();
-        this.patchValues();
-        this.loading = false;
-        this.cd.markForCheck();
-      }
+    this.logService.log('Contacts NgOnChange', this.domains);
+    if (this.domains && this.domains.contactTypes && this.constituent && this.constituent.constituent) {
+      this.logService.log('Contacts Domains Loaded!!!!');
+      this.populateContacts();
+      this.setFormGroup();
+      this.patchValues();
+      this.loading = false;
+      this.cd.markForCheck();
+    }
   }
 
   handleError() {

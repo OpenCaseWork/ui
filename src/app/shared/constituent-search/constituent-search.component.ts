@@ -7,7 +7,7 @@ import 'rxjs/add/operator/takeUntil';
 import { BaseDataTableService }                               from '../data-table/base-data-table.service';
 import { ConstituentSearchService }                           from './constituent-search.service';
 import { SearchTableComponent }                               from './search-table.component';
-import { ConstituentSearchRecord, ConstituentSearchRequest }  from '../../models/constituents/search/constituents-search.models';
+import { ConstituentSearchRecord, ConstituentSearchRequest } from '../../models/constituents/search/constituents-search.models';
 import { LogService }                                         from '../../core/logging/log.service';
 import { Observable }                                         from 'rxjs/Observable';
 import { SearchStoreService }                                 from '../../state/store-services/search-store-service';
@@ -32,7 +32,7 @@ export class ConstituentSearchComponent implements OnInit, OnDestroy {
 
   constructor(public dialogRef: MdDialogRef<ConstituentSearchComponent>,
     private navService: NavigationStoreService,
-    private database: BaseDataTableService<BaseEntity>,
+    private database: BaseDataTableService<ConstituentSearchRecord>,
     private logService: LogService,
     private cd: ChangeDetectorRef,
     private searchStore: SearchStoreService) {

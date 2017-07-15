@@ -1,129 +1,116 @@
-// TODO: replace with official version
-import {MdTableViewData} from '../material/data-table/data-table';
-import {MdTableSortData, SortableDataSource} from '../material/data-table/data-source';
-// END TODO
-
+import { Injectable } from '@angular/core';
+import { DataSource } from '@angular/cdk';
+import { MdSort, MdPaginator } from '@angular/material';
 import {Observable} from 'rxjs/Observable';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import 'rxjs/add/observable/combineLatest';
 import 'rxjs/add/operator/mergeMap';
+
 import {BaseDataTableService} from './base-data-table.service';
+import { ConstituentSearchRecord } from '../../models/constituents/search/constituents-search.models';
+import { LogService } from '../../core/logging/log.service';
+import { SearchEnum } from '../../state/resources/resource.service';
+import { SearchStoreService } from '../../state/store-services/search-store-service';
+import { Subscription } from 'rxjs/Subscription';
+
 
 export interface PaginationData {
   index: number;
   pageLength: number;
 }
 
-export class GenericDataSource<T> extends SortableDataSource<any> {
-  _filteredData = new BehaviorSubject<T[]>([]);
-  get filteredData(): T[] { return this._filteredData.value; }
+export class GenericDatabase {
+  subscription: Subscription;
+  dataChange: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+  get data(): any[] { return this.dataChange.value; }
 
-  _displayData = new BehaviorSubject<T[]>([]);
-  get displayedData(): T[] { return this._displayData.value; }
+  constructor(private searchEnum: SearchEnum,
+    private searchStore: SearchStoreService) {
+ 
+   // Subscribe to constituents search list
+    this.subscription = this.searchStore.Searche$(SearchEnum.Constituent)
+      .subscribe(response => {
+        if (response) {
+          this.populateData(response);
+          console.log('search complete!');
+        }
+      });
 
-  _renderedData: any[] = [];
+  }
 
-  _filter = new BehaviorSubject<Function>(null);
-  set filter(filter: Function) { this.resetPagination(); this._filter.next(filter); }
-  get filter(): Function { return this._filter.value; }
+  unsubscribe() {
+    this.subscription.unsubscribe();
+  }
 
-  _sort = new BehaviorSubject<MdTableSortData>({column: null, order: 'ascending'});
-  set sort(sort: MdTableSortData) { this.resetPagination(); this._sort.next(sort); }
-  get sort(): MdTableSortData { return this._sort.value; }
+  addEntity(entity: any) {
+    const copiedData = this.data.slice();
+    copiedData.push(entity);
+    this.dataChange.next(copiedData);
+  }
 
-  _pagination = new BehaviorSubject<PaginationData>({index: 0, pageLength: 5});
-  set pagination(pagination: PaginationData) { this._pagination.next(pagination); };
-  get pagination(): PaginationData { return this._pagination.value; }
+  populateData(records: any[]) {
+    //this.logService.log('records:' + records.length);
+    this.clearData();
+    for (let i = 0; i < records.length; i++) {
+      this.addEntity(records[i]);
+    }
+    //this.triggerUpdate();
+  }
 
-  constructor(private _peopleDatabase: BaseDataTableService<T>, private _colToPropMap: any ) {
+  clearData() {
+    const copiedData = this.data.slice();
+    copiedData.length = 0;
+    this.dataChange.next(copiedData);
+  }
+
+}
+
+
+export class ExampleDataSource extends DataSource<any> {
+  constructor(private _exampleDatabase: GenericDatabase, private _sort: MdSort, private _paginator: MdPaginator) {
     super();
+  }
 
-    // When the base data or filter changes, fetch a new set of filtered data.
-    const baseFilteredDataChanges = [this._peopleDatabase.baseDataChange, this._filter];
-    Observable.combineLatest(baseFilteredDataChanges)
-        .mergeMap(() => this._peopleDatabase.getData(this.filter))
-        .subscribe((data: T[]) => { this._filteredData.next(data); });
+  disconnect() {}
 
-    this._pagination.subscribe(() => this._renderedData = []);
+  connect(): Observable<any[]> {
+    const displayDataChanges = [
+      this._exampleDatabase.dataChange,
+      this._sort.mdSortChange,
+      this._paginator.page,
+    ];
+    return Observable.merge(...displayDataChanges).map(() => {
+      //const data = this._exampleDatabase.data.slice();
+      const data = this.getSortedData();
 
-    // Update displayed data when the filtered data changes, or the sort/pagination changes.
-    // When the filtered data changes, re-sort the data and update data size and displayed data.
-    const displayDataChanges = [this._filteredData, this._sort, this._pagination];
-    Observable.combineLatest(displayDataChanges).subscribe((result: any[]) => {
-      const [filteredData, sort, pagination] = result;
+      // Grab the page's slice of data.
+      const startIndex = this._paginator.pageIndex * this._paginator.pageSize;
+      return data.splice(startIndex, this._paginator.pageSize);
 
-      const sortedData = this.sortData(sort, filteredData);
-      let paginatedData = sortedData.splice(pagination.index, pagination.pageLength);
-
-      this._displayData.next(paginatedData);
+      //return this.getSortedData();
     });
   }
 
-  connectTable(viewChange: Observable<MdTableViewData>): Observable<T[]> {
-    return Observable.combineLatest([viewChange, this._displayData]).map((result: any[]) => {
-      const [view, displayData] = result;
+  /** Returns a sorted copy of the database data. */
+  getSortedData(): any[] {
+    const data = this._exampleDatabase.data.slice();
+    if (!this._sort.active || this._sort.direction == '') { return data; }
 
-      // Set the rendered rows length to the virtual page size. Fill in the data provided
-      // from the index start until the end index or pagination size, whichever is smaller.
-      this._renderedData.length = displayData.length;
+    return data.sort((a, b) => {
+      let propertyA: number|string = '';
+      let propertyB: number|string = '';
 
-      const buffer = 20;
-      let rangeStart = Math.max(0, view.start - buffer);
-      let rangeEnd = Math.min(displayData.length, view.end + buffer);
-
-      for (let i = rangeStart; i < rangeEnd; i++) {
-        this._renderedData[i] = displayData[i];
+      switch (this._sort.active) {
+        case 'userId': [propertyA, propertyB] = [a.id, b.id]; break;
+        case 'userName': [propertyA, propertyB] = [a.name, b.name]; break;
+        case 'progress': [propertyA, propertyB] = [a.progress, b.progress]; break;
+        case 'color': [propertyA, propertyB] = [a.color, b.color]; break;
       }
 
-      return this._renderedData; // Currently ignoring the view
+      let valueA = isNaN(+propertyA) ? propertyA : +propertyA;
+      let valueB = isNaN(+propertyB) ? propertyB : +propertyB;
+
+      return (valueA < valueB ? -1 : 1) * (this._sort.direction == 'asc' ? 1 : -1);
     });
-  }
-
-  /** Returns a copy of the display data sorted by the provided sort data. */
-  sortData(sort: MdTableSortData, data: T[]): T[] {
-    console.time('Sort');
-
-    const copiedData = data.slice();
-    if (!this.sort.column) { return copiedData; }
-
- 
-
-    const sortedData = copiedData.sort((a, b) => {
-      let prop = this._colToPropMap[sort.column];
-
-      let valueA = isNaN(+a[prop]) ? a[prop] : +a[prop];
-      let valueB = isNaN(+b[prop]) ? b[prop] : +b[prop];
-
-      return (valueA < valueB ? -1 : 1) * (sort.order == 'ascending' ? 1 : -1);
-    });
-
-    console.timeEnd('Sort');
-    return sortedData;
-  }
-
-  refreshPagination() {
-    const pageIndexExceedsData = this.displayedData.length <= this.pagination.index;
-    if (pageIndexExceedsData) { this.incrementPage(-1); }
-  }
-
-  incrementPage(increment: number) {
-    if (this.canIncrementPage(increment)) {
-      const index = this.pagination.index + this.pagination.pageLength * increment;
-      this.pagination = {index, pageLength: this.pagination.pageLength};
-    }
-  }
-
-  canIncrementPage(increment: number) {
-    const increasedIndex = this.pagination.index + (this.pagination.pageLength * increment);
-    return increasedIndex == 0 ||
-        (increasedIndex >= 0 && increasedIndex < this.filteredData.length);
-  }
-
-  setPageLength(pageLength: number) {
-    this.pagination = {index: 0, pageLength};
-  }
-
-  resetPagination() {
-    this.pagination = {index: 0, pageLength: this.pagination.pageLength};
   }
 }

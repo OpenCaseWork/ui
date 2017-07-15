@@ -2,6 +2,7 @@ import { Action } from '@ngrx/store';
 import { ResponseStatus } from '../../core/models/request-response.models';
 import { BaseDomains } from '../../models/domains/domains.models';
 import { BaseRequest, BaseResponse } from '../../core/models/request-response.models';
+import { IndexedPayload } from './indexed-payload';
 
 export class BaseDomainActions {
   public domainName: string;
@@ -32,32 +33,32 @@ export const UNLOAD = ':Unload Domains';
 
 export class DomainLoadAction implements Action {
   readonly type = LOAD;
-  constructor(public payload: BaseRequest, public index: number) {}
+  constructor(public payload: BaseRequest) {}
 }
 
 export class DomainLoadSuccessAction implements Action {
   readonly type = LOAD_SUCCESS;
-  constructor(public payload: BaseResponse<BaseDomains>, public index: number) {}
+  constructor(public payload: BaseResponse) {}
 }
 
 export class DomainLoadFailAction implements Action {
   readonly type: string;
-  constructor(public payload: ResponseStatus , public index: number) {}
+  constructor(public payload: ResponseStatus) {}
 }
 
 export class DomainLoadingAction implements Action {
   readonly type = LOADING;
-  constructor(public payload: boolean, public index: number) { }
+  constructor(public payload: IndexedPayload<boolean>) { }
 }
 
 export class DomainLoadedAction implements Action {
   readonly type = LOADED;
-  constructor(public payload: boolean, public index: number) { }
+  constructor(public payload: IndexedPayload<boolean>) { }
 }
 
 export class DomainUnloadAction implements Action {
   readonly type = UNLOAD;
-  constructor(public payload: boolean, public index: number) { }
+  constructor(public payload: IndexedPayload<boolean>) { }
 }
 
 /**

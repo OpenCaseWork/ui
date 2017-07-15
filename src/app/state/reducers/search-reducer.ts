@@ -8,8 +8,8 @@ export interface SearchState {
 }
 
 export interface SearchSlice {
-  results: Array<BaseEntity>;
-  selected: Array<BaseEntity>;
+  results: Array<any>;
+  selected: Array<any>;
   loading: boolean;
   loaded: boolean;
   responseStatus: ResponseStatus;
@@ -48,7 +48,7 @@ export function reducer(state = initialState, action: SearchActions.Actions): Se
       const searchSlice: SearchSlice = Object.assign({}, initialSliceState, {
         loading: true
       });
-      let newState = generateNewState(state, searchSlice, action.index);
+      let newState = generateNewState(state, searchSlice, action.payload.stateIndex);
       return newState;
     }
     case SearchActions.SEARCH_SUCCESS: {
@@ -59,7 +59,7 @@ export function reducer(state = initialState, action: SearchActions.Actions): Se
         loaded: true,
         responseStatus: action.payload.responseInfo
       };
-      let newState = generateNewState(state, searchSlice, action.index);
+      let newState = generateNewState(state, searchSlice, action.payload.stateIndex);
       return newState;
     }
     case SearchActions.SEARCH_FAILURE: {
@@ -70,14 +70,14 @@ export function reducer(state = initialState, action: SearchActions.Actions): Se
         loaded: false,
         responseStatus: action.payload
       };
-      let newState = generateNewState(state, searchSlice, action.index);
+      let newState = generateNewState(state, searchSlice, action.payload.stateIndex);
       return newState;
     }
     case SearchActions.SELECTED: {
        const searchSlice = Object.assign({}, initialSliceState, {
         selected: action.payload
       });
-      let newState = generateNewState(state, searchSlice, action.index);
+      let newState = generateNewState(state, searchSlice, action.payload.stateIndex);
       return newState;
     }
     default: {

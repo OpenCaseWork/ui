@@ -14,26 +14,26 @@ export class MockBaseDataService extends BaseDataService {
     super(httpService, logService);
   }
 
-  post<T>(request: BasePostRequest<T>): Observable<BaseResponse<T>> {
+  post(request: BasePostRequest): Observable<BaseResponse> {
     this.logService.log(this.getClassName() + '.post');
-    let response = new BaseResponse<T>();
+    let response = new BaseResponse();
     response.data = request.data;
     return Observable.of(response);
   }
 
-  get<T>(request: EntityRequest): Observable<BaseResponse<T>> {
+  get(request: EntityRequest): Observable<BaseResponse> {
     this.logService.log(this.getClassName() + '.get');
     return this.httpService.getFile(request.resource)
       .map( res => res.json());
   }
 
-   search<T>(request: BasePostRequest<T>): Observable<BaseResponse<T>> {
+   search(request: BasePostRequest): Observable<BaseResponse> {
     this.logService.log(this.getClassName() + '.search');
     return this.httpService.getFile(request.resource)
       .map( res => res.json());
   }
 
-  loadDomains<T>(request: BaseRequest): Observable<BaseResponse<T>> {
+  loadDomains(request: BaseRequest): Observable<BaseResponse> {
     this.logService.log(this.getClassName() + '.loadDomains');
     return this.httpService.getFile(request.resource)
       .map (response => response.json());

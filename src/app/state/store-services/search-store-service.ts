@@ -20,7 +20,7 @@ export class SearchStoreService extends BaseStoreService {
       super();
     }
 
-   Searche$(searchEnum: SearchEnum): Observable<BaseEntity[]> {
+   Searche$(searchEnum: SearchEnum): Observable<any[]> {
     this.logService.log(this.getClassName() + ':Searche$:' + searchEnum);
     let getSearch = (globalState: GlobalReducer.GlobalState) => globalState.searchState.searches[searchEnum].results;
     return this.store.select(getSearch);
@@ -39,12 +39,13 @@ export class SearchStoreService extends BaseStoreService {
   }
 
   search(request: BaseFilter, searchEnum: SearchEnum): void {
-    let payload = new BasePostRequest<BaseFilter>();
+    let payload = new BasePostRequest();
     payload.resource = this.resourceService.getSearchResource(searchEnum);
     payload.data = request;
+    payload.stateIndex = searchEnum;
     let state: boolean;
     this.logService.log(this.getClassName() + ':start search:' + searchEnum);
-    this.store.dispatch(new SearchActions.SearchAction(payload, searchEnum));
+    this.store.dispatch(new SearchActions.SearchAction(payload));
   }
 
 }

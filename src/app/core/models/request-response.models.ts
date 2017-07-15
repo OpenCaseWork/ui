@@ -9,6 +9,7 @@ export class ResponseStatus {
   public statusCode: number;
   public message: string;
   public stackTrace: string;
+  public stateIndex: number;
   public errors: ResponseError[];
   constructor() {
     this.statusCode = 0;
@@ -18,20 +19,29 @@ export class ResponseStatus {
 export class BaseRequest {
   public resource: string;
   public id: number;
+  public stateIndex: number;
   public successMessage: string;
   public failureMessage: string;
   public successUrl: string;
 }
 
-export class BaseResponse<T> {
+export class BaseResponse {
   public responseInfo: ResponseStatus;
-  public data: T;
+  public stateIndex: number;
+  public data: any;
   constructor() {
     this.responseInfo = new ResponseStatus();
   }
 }
 
 export class BaseEntity {
+  public data: any;
+  public stateIndex: number;
+}
+
+export class BaseEntityList {
+  public data: Array<BaseEntity>;
+  public stateIndex: number;
 }
 
 export class BaseFilter {
@@ -42,8 +52,9 @@ export class BaseFilter {
   public successUrl: string;
 }
 
-export class BasePostRequest<T> {
-  public data: T;
+export class BasePostRequest {
+  public data: any;
+  public stateIndex: number;
   public resource: string;
   public successMessage: string;
   public failureMessage: string;
@@ -53,5 +64,6 @@ export class BasePostRequest<T> {
 export class EntityRequest {
   public resource: string;
   public id: number;
+  public stateIndex: number;
 }
 

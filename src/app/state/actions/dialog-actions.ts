@@ -7,17 +7,17 @@ export const CANCEL_DIALOG              = 'Cancel Dialog';
 
 export class OpenDialogAction implements Action {
   readonly type = OPEN_DIALOG;
-  constructor(public payload: BaseEntity, public index: number) {}
+  constructor(public payload: BaseEntity) {}
 }
 
 export class CloseDialogAction implements Action {
   readonly type = CLOSE_DIALOG;
-  constructor(public payload: BaseEntity, public index: number) {}
+  constructor(public payload: BaseEntity) {}
 }
 
 export class CancelDialogAction implements Action {
   readonly type = CANCEL_DIALOG;
-  constructor(public payload: BaseEntity, public index: number) {}
+  constructor(public payload: BaseEntity) {}
 }
  
 /**
