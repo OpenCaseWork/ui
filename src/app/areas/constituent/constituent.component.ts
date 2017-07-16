@@ -78,7 +78,8 @@ export class ConstituentComponent implements OnInit, OnDestroy {
   }
 
   saveConstituentAggregate() {
-    if (!this.nameAddressComponent.isValid()) {
+    if (!this.nameAddressComponent.isValid() ||
+        !this.demographicsComponent.isValid() ) {
       this.statusService.publishError('Please fix validation errors');
       return;
     }

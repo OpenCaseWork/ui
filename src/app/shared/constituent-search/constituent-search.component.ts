@@ -4,7 +4,6 @@ import { search }                                                               
 import { Subject }                                                                              from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 
-import { BaseDataTableService }                               from '../data-table/base-data-table.service';
 import { ConstituentSearchService }                           from './constituent-search.service';
 import { SearchTableComponent }                               from './search-table.component';
 import { ConstituentSearchRecord, ConstituentSearchRequest } from '../../models/constituents/search/constituents-search.models';
@@ -32,7 +31,6 @@ export class ConstituentSearchComponent implements OnInit, OnDestroy {
 
   constructor(public dialogRef: MdDialogRef<ConstituentSearchComponent>,
     private navService: NavigationStoreService,
-    private database: BaseDataTableService<ConstituentSearchRecord>,
     private logService: LogService,
     private cd: ChangeDetectorRef,
     private searchStore: SearchStoreService) {
@@ -48,14 +46,14 @@ export class ConstituentSearchComponent implements OnInit, OnDestroy {
       .subscribe(res => this.setSearching(res));
 
     // Subscribe to constituents search list
-    this.searchStore.Searche$(SearchEnum.Constituent)
+    /*this.searchStore.Searche$(SearchEnum.Constituent)
       .takeUntil(this.ngUnsubscribe)
       .subscribe(response => {
         if (response) {
           this.database.populateData(response);
           this.logService.log('search complete!');
         }
-      });
+      });*/
   }
 
   private setSearching(val: boolean) {
@@ -92,7 +90,6 @@ export class ConstituentSearchComponent implements OnInit, OnDestroy {
   }
 
   cancel() {
-    this.database.clearData();
     this.dialogRef.close();
   }
 

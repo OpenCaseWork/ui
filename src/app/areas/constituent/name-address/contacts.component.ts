@@ -51,6 +51,9 @@ export class ContactsComponent implements OnDestroy, OnChanges {
   ) {
     this.contacts = new Array<ConstituentContact>();
     this.loading = true;
+    setTimeout(() => {
+      this.loadingDone();
+    }, 5000);
     this.logService.log('ContactsComponent.constructor');
   }
 
@@ -93,7 +96,7 @@ export class ContactsComponent implements OnDestroy, OnChanges {
     }
   }
 
-  handleError() {
+  loadingDone() {
     this.loading = false;
     this.cd.markForCheck();
   }

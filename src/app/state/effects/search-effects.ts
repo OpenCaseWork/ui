@@ -27,21 +27,22 @@ export class SearchEffects extends BaseEffect {
         status.stateIndex = action.payload.stateIndex;
         // TODO: allow config for message
         status.message = 'Error searching for resource';
-        this.store.dispatch(new SearchActions.SearchFailAction(status));
-        this.store.dispatch(new StatusActions.FailAction(status));
         errorResponse.responseInfo = status;
         errorResponse.stateIndex = action.payload.stateIndex;
+        this.store.dispatch(new SearchActions.SearchFailAction(status));
+        this.store.dispatch(new StatusActions.FailAction(status));
         return Observable.of(errorResponse);
       })
       .map(res => {
         this.logService.log(this.getClassName() + ':search$ success', res);
-        res.stateIndex = action.payload.stateIndex;
-        res.responseInfo.stateIndex = action.payload.stateIndex;
-        if (res.responseInfo.statusCode !== 0) {
-          this.store.dispatch(new SearchActions.SearchFailAction(res.responseInfo));
-          return (new StatusActions.FailAction(res.responseInfo));
+        let clone = JSON.parse(JSON.stringify(res));
+        clone.stateIndex = action.payload.stateIndex;
+        clone.responseInfo.stateIndex = action.payload.stateIndex;
+        if (clone.responseInfo.statusCode !== 0) {
+          this.store.dispatch(new SearchActions.SearchFailAction(clone.responseInfo));
+          return (new StatusActions.FailAction(clone.responseInfo));
         } else {
-          return (new SearchActions.SearchSuccessAction(res));
+          return (new SearchActions.SearchSuccessAction(clone));
         }
       })
     );
