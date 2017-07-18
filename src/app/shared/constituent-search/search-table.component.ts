@@ -25,6 +25,16 @@ export class SearchTableComponent implements OnInit, OnDestroy {
   dataSource: ExampleDataSource | null;
   selection = new SelectionModel<ConstituentSearchRecord>(false, null, true);
   displayedColumns = ['checkbox', 'Id', 'LastName', 'FirstName', 'Phone', 'BirthDate', 'City', 'Address', 'ECCPIS'];
+    colToPropMap: { [key: string]: string; } = {
+      'Id': 'id',
+      'LastName': 'lastName',
+      'FirstName': 'firstName',
+      'Phone': 'phone',
+      'BirthDate': 'birthDate',
+      'City': 'city',
+      'Address': 'address',
+      'ECCPIS' : 'eCCPIS'
+    };
 
   constructor(private _peopleDatabase: BaseDataTableService<ConstituentSearchRecord>,
               private searchStore: SearchStoreService,
@@ -32,7 +42,7 @@ export class SearchTableComponent implements OnInit, OnDestroy {
     // _changeDetectorRef.detectChanges()
     // this.selection.selected()
 
-    this.exampleDatabase = new GenericDatabase(SearchEnum.Constituent, this.searchStore );
+    this.exampleDatabase = new GenericDatabase();
 
     // Subscribe database to constituents search
     this.exampleDatabase.subscription = this.searchStore.Searche$(SearchEnum.Constituent)
@@ -51,7 +61,7 @@ export class SearchTableComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.dataSource = new ExampleDataSource(this.exampleDatabase, this.sort, this.paginator);
+    this.dataSource = new ExampleDataSource(this.exampleDatabase, this.sort, this.paginator, this.colToPropMap);
   }
 
   ngOnDestroy() {

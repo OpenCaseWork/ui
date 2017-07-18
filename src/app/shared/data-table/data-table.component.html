@@ -4,7 +4,7 @@
     <!-- [style.display]="dataSource.displayedData.length ? '' : 'none'"> -->
 
     <!-- Column definitions. Each column is comprised of one or more cell templates. -->
-    <ng-container cdkColumnDef="checkbox">
+    <ng-container *ngIf="checkbox" cdkColumnDef="checkbox">
       <md-header-cell *cdkHeaderCellDef>
         <md-checkbox [indeterminate]="selection.hasValue()">
         </md-checkbox>
@@ -17,44 +17,9 @@
       </md-cell>
     </ng-container>
 
-    <ng-container cdkColumnDef="Id">
-      <md-header-cell md-sort-header *cdkHeaderCellDef>ID</md-header-cell>
-      <md-cell *cdkCellDef="let row">{{row.id}}</md-cell>
-    </ng-container>
-
-    <ng-container cdkColumnDef="LastName">
-      <md-header-cell md-sort-header *cdkHeaderCellDef>Last Name</md-header-cell>
-      <md-cell *cdkCellDef="let row">{{row.lastName}}</md-cell>
-    </ng-container>
-
-    <ng-container cdkColumnDef="FirstName">
-      <md-header-cell md-sort-header *cdkHeaderCellDef>First Name</md-header-cell>
-      <md-cell *cdkCellDef="let row">{{row.firstName}}</md-cell>
-    </ng-container>
-
-    <ng-container cdkColumnDef="Phone">
-      <md-header-cell md-sort-header *cdkHeaderCellDef>Phone</md-header-cell>
-      <md-cell *cdkCellDef="let row">{{row.phone}}</md-cell>
-    </ng-container>
-
-    <ng-container cdkColumnDef="BirthDate">
-      <md-header-cell  fxShow.gt-sm fxHide.lt-sm md-sort-header *cdkHeaderCellDef>Birth Date</md-header-cell>
-      <md-cell  fxShow.gt-sm fxHide.lt-sm *cdkCellDef="let row">{{formatDate(row.birthDate)}}</md-cell>
-    </ng-container>
-
-    <ng-container cdkColumnDef="City">
-      <md-header-cell md-sort-header *cdkHeaderCellDef>City</md-header-cell>
-      <md-cell *cdkCellDef="let row">{{row.city}}</md-cell>
-    </ng-container>
-
-    <ng-container cdkColumnDef="Address">
-      <md-header-cell fxShow.gt-sm fxHide.lt-sm md-sort-header *cdkHeaderCellDef>Address</md-header-cell>
-      <md-cell fxShow.gt-sm fxHide.lt-sm *cdkCellDef="let row">{{row.address}}</md-cell>
-    </ng-container>
-
-    <ng-container cdkColumnDef="ECCPIS">
-      <md-header-cell md-sort-header *cdkHeaderCellDef>ECCPIS</md-header-cell>
-      <md-cell *cdkCellDef="let row">{{row.eCCPIS}}</md-cell>
+    <ng-container *ngFor="let column of columns; let i = index"  [cdkColumnDef]="column.cdkColumnDef">
+      <md-header-cell  md-sort-header *cdkHeaderCellDef>{{column.cdkHeaderCellDef}}</md-header-cell>
+      <md-cell *cdkCellDef="let row">{{row[column.fieldName]}}</md-cell>
     </ng-container>
 
     <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>

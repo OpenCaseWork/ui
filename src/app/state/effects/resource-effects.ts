@@ -60,10 +60,10 @@ export class ResourceEffects extends BaseEffect {
         status.errorEnumId = 1;
         status.stateIndex = action.payload.stateIndex;
         status.message = 'Save failed';
-        this.store.dispatch(new ResourceActions.SaveFailAction(status));
-        this.store.dispatch(new StatusActions.FailAction(status));
         errorResponse.responseInfo = status;
         errorResponse.responseInfo.stateIndex = action.payload.stateIndex;
+        this.store.dispatch(new ResourceActions.SaveFailAction(status));
+        this.store.dispatch(new StatusActions.FailAction(status));
         return Observable.of(errorResponse);
       })
       .map(res => {

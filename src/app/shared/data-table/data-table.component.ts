@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, OnInit, ViewChild, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit, ViewChild, OnDestroy, ChangeDetectionStrategy, Input, OnChanges } from '@angular/core';
 import { SelectionModel, MdSort, MdPaginator } from '@angular/material';
 import { BaseDataTableService } from '../data-table/base-data-table.service';
 import { DataSource } from '@angular/cdk';
@@ -9,28 +9,45 @@ import { GenericDatabase, ExampleDataSource } from '../data-table/generic-data-s
 import { SearchEnum } from '../../state/resources/resource.service';
 import { SearchStoreService } from '../../state/store-services/search-store-service';
 import { Constituent } from '../../models/constituents/constituents.models';
+import { LogService } from '../../core/logging/log.service';
+
+export class ColumnDefinition {
+  cdkColumnDef: string;
+  cdkHeaderCellDef: string;
+  fieldName: string;
+  dataType: string;
+}
 
 @Component({
   moduleId: module.id,
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'ocw-data-table',
   templateUrl: 'data-table.component.html',
   styleUrls: ['data-table.component.css'],
 })
-export class DataTableComponent implements OnInit, OnDestroy {
+export class DataTableComponent implements OnInit, OnDestroy, OnChanges {
+  @Input() columns: ColumnDefinition[];
+  @Input() checkbox: boolean;
+  @Input() data: any[];
   @ViewChild(MdSort) sort: MdSort;
   @ViewChild(MdPaginator) paginator: MdPaginator;
 
-  exampleDatabase = new GenericDatabase();
+  selection = new SelectionModel<any>(false, null, true);
+  displayedColumns: string[];
+  colToPropMap = {};
+  exampleDatabase: GenericDatabase;
   dataSource: ExampleDataSource | null;
-  selection = new SelectionModel<ConstituentSearchRecord>(false, null, true);
-  displayedColumns = ['checkbox', 'Id', 'LastName', 'FirstName', 'Phone', 'BirthDate', 'City', 'Address', 'ECCPIS'];
 
-  constructor(private _peopleDatabase: BaseDataTableService<ConstituentSearchRecord>,
-              private searchStore: SearchStoreService,
-              private _changeDetectorRef: ChangeDetectorRef) {
-    // _changeDetectorRef.detectChanges()
+  constructor(private _changeDetectorRef: ChangeDetectorRef,
+    private logService: LogService) {
     // this.selection.selected()
+    this.logService.log('DataTableComponent.constructor:');
+    this.exampleDatabase = new GenericDatabase();
+
+  }
+
+  populateData(input: any[]) {
+    this.exampleDatabase.populateData(input);
   }
 
   formatDate(date: Date): string {
@@ -38,19 +55,28 @@ export class DataTableComponent implements OnInit, OnDestroy {
     return datePipe.transform(date, 'MM/dd/yyyy');
   }
 
+  ngOnChanges() {
+    this.exampleDatabase.populateData(this.data);
+  }
+
   ngOnInit() {
-    this.dataSource = new ExampleDataSource(this.exampleDatabase, this.sort, this.paginator);
+    if (this.checkbox) {
+      this.displayedColumns = ['checkbox'];
+    }
+    this.displayedColumns = this.displayedColumns.concat(this.columns.map(p => p.cdkColumnDef));
+
+    this.columns.forEach(element => {
+      if (element.fieldName.length > 0) {
+        this.colToPropMap[element.cdkColumnDef] = element.fieldName;
+      }
+    });
+
+    this.dataSource = new ExampleDataSource(this.exampleDatabase, this.sort, this.paginator, this.colToPropMap);
+    //this._changeDetectorRef.detectChanges();
   }
 
   ngOnDestroy() {
     this.exampleDatabase.unsubscribe();
   }
-
-
-  getOpacity(progress: number) {
-    let distanceFromMiddle = Math.abs(50 - progress);
-    return distanceFromMiddle / 50 + .3;
-  }
-
 
 }

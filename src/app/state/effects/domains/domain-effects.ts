@@ -32,9 +32,9 @@ export class DomainEffects extends BaseEffect {
       })
       .map(res => {
         this.logService.log(this.getClassName() + ':domain$ success', res);
+        res.stateIndex = action.payload.stateIndex;
+        res.responseInfo.stateIndex = action.payload.stateIndex;
         if (res.responseInfo.statusCode !== 0) {
-          res.stateIndex = action.payload.stateIndex;
-          res.responseInfo.stateIndex = action.payload.stateIndex;
           this.store.dispatch(new StatusActions.FailAction(res.responseInfo));
           return (new DomainActions.DomainLoadFailAction(res.responseInfo));
         } else {

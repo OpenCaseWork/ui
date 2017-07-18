@@ -16,3 +16,8 @@
   margin-top: 20px;
   margin-bottom: 10px;
 }
+
+.flex-end {
+    display: flex; 
+    justify-content: space-between;
+}

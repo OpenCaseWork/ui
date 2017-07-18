@@ -145,7 +145,6 @@ export class NameAddressComponent implements OnInit, OnChanges {
   }
 
   displaySelectValue(selected: SelectItem): any {
-    console.log('selected:', selected);
     return selected ? selected.shortDescription : selected;
   }
 

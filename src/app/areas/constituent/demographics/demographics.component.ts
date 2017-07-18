@@ -30,6 +30,7 @@ export class DemographicsComponent implements OnChanges {
   filteredMaritalStatus: Observable<SelectItem[]>;
   dateMask = [/[0-9]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/];
   yesNoMask = [/[YyNn]/];
+  displaySelectValue = this.autoCompleteService.displaySelectValue;
 
   // control references for validation
   birthDate: AbstractControl;
@@ -140,11 +141,10 @@ export class DemographicsComponent implements OnChanges {
     return constituentToUpdate;
   }
 
-
-  displaySelectValue(selected: SelectItem): any {
-    console.log('selected:', selected);
-    return selected ? selected.shortDescription : selected;
-  }
+  //TODO: move to shared service
+  //displaySelectValue(selected: SelectItem): any {
+  //  return selected ? selected.shortDescription : selected;
+  //}
 
 
 }

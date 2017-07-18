@@ -1,0 +1,28 @@
+<div class="container" fxLayoutWrap>
+  <div style="flex-grow:1;margin-bottom:10px;margin-right:10px">
+  <md-card style="max-width:500px">
+    <md-card-subtitle>
+      <div class="container flex-end" fxLayoutWrap>
+        <div>Questionnaires</div>
+        <button md-mini-fab color="primary" type="button" (click)="addQuestionnaire()">
+          <md-icon class="md-24">add</md-icon>
+        </button>
+      </div>
+    </md-card-subtitle>
+    <ocw-data-table [columns]="columns" [checkbox]="true" [data]="data"></ocw-data-table>
+  </md-card>
+  </div>
+<div style="flex-grow:1">
+  <md-card style="max-width:500px">
+    <md-card-subtitle>
+      <div class="container flex-end" fxLayoutWrap>
+        <div>Napis Intakes</div>
+        <button md-mini-fab color="primary" type="button" (click)="addQuestionnaire()">
+          <md-icon class="md-24">add</md-icon>
+        </button>
+      </div>
+    </md-card-subtitle>
+    <ocw-data-table [columns]="columns" [checkbox]="true" [data]="data"></ocw-data-table>
+  </md-card>
+</div>
+</div>

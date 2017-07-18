@@ -17,7 +17,7 @@ import { ContactEventDomains } from '../../models/contact-events/domains/contact
 import { DomainsState } from '../../state/reducers/domains/domains-reducer';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'ocw-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })

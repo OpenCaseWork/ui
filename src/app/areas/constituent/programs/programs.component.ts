@@ -126,7 +126,6 @@ export class ProgramsComponent implements OnChanges {
 
 
   displaySelectValue(selected: SelectItem): any {
-    console.log('selected:', selected);
     return selected ? selected.shortDescription : selected;
   }
 

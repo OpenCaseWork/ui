@@ -1,0 +1,7 @@
+:host /deep/ .cdk-column-Id {
+ max-width: 70px;
+}
+ 
+:host /deep/ .cdk-column-checkbox {
+ max-width: 50px;
+}

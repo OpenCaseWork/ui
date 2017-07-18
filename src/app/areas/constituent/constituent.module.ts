@@ -14,6 +14,10 @@ import { DemographicsComponent }  from './demographics/demographics.component';
 import { ContactsComponent } from './name-address/contacts.component';
 import { AddContactComponent } from './name-address/add-contact.component';
 import { UppercaseDirective } from './demographics/uppercase.directive';
+import { NapisComponent } from './napis/napis.component';
+import { ProgramsComponent } from './programs/programs.component';
+import { SharedModule } from '../../shared/shared.module';
+import { QuestionnaireComponent } from './napis/questionnaire.component';
 
 @NgModule({
   imports: [
@@ -23,6 +27,7 @@ import { UppercaseDirective } from './demographics/uppercase.directive';
     CustomMaterialModule,
     FlexLayoutModule,
     TextMaskModule,
+    SharedModule,
   ],
   declarations: [
     ConstituentComponent,
@@ -32,19 +37,25 @@ import { UppercaseDirective } from './demographics/uppercase.directive';
     ContactsComponent,
     AddContactComponent,
     UppercaseDirective,
+    ProgramsComponent,
+    NapisComponent,
+    QuestionnaireComponent
   ],
   exports: [
     ConstituentComponent,
     NameAddressComponent,
     DemographicsComponent,
     ContactsComponent,
+    //ProgramsComponent,
+    //NapisComponent
   ],
   providers: [
     HttpService,
     LogService,
   ],
   entryComponents: [
-    AddContactComponent
+    AddContactComponent,
+    QuestionnaireComponent
   ]
 })
 export class ConstituentModule { }

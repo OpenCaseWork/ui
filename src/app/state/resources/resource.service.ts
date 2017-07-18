@@ -17,7 +17,9 @@ export enum DomainEnum {
 
 export enum ResourceEnum {
   Constituent = 0,
-  ContactEvent = 1
+  ContactEvent = 1,
+  Questionnaire = 2,
+  NapisIntake = 3
 }
 
 export enum SearchEnum {

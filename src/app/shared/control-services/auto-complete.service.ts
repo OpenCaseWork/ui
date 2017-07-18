@@ -20,6 +20,10 @@ export class AutoCompleteService {
     }
   }
 
+  displaySelectValue(selected: SelectItem): any {
+    return selected ? selected.shortDescription : selected;
+  }
+
   setSelectValue(patchObject: any, id: number, domainList: Array<SelectItem>, fieldName: string ) {
     patchObject[fieldName] = domainList.find(p => p.id === id);
   }

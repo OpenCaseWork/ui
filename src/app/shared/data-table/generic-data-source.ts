@@ -17,6 +17,43 @@ export interface PaginationData {
   pageLength: number;
 }
 
+
+  function nullsToBottom(a, b) {
+    return a === b ? 0 : a === null ? 1 : -1;
+  }
+
+  function comparison(a, b) {
+    let propertyA: number|string = '';
+    let propertyB: number|string = '';
+
+    let key = (this._sort.active);
+    let value = this._colToPropMap[key];
+    [propertyA, propertyB] = [a[value], b[value]];
+
+    let valueA = isNaN(+propertyA) ? propertyA : +propertyA;
+    let valueB = isNaN(+propertyB) ? propertyB : +propertyB;
+
+    return (valueA < valueB ? -1 : 1) * (this._sort.direction === 'asc' ? 1 : -1);
+  }
+
+  function withComparators(...comparators: any[]) {
+
+    return function (a, b) {
+        let len = comparators.length, i = 0, result;
+
+        for (; i < len; i++) {
+            result = comparators[i](a, b);
+            if (result) {
+              return result;
+            }
+        }
+
+        return 0;
+    };
+
+  }
+
+
 export class GenericDatabase {
   subscription: Subscription;
   dataChange: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
@@ -25,7 +62,9 @@ export class GenericDatabase {
   constructor() {}
 
   unsubscribe() {
-    this.subscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   addEntity(entity: any) {
@@ -35,9 +74,12 @@ export class GenericDatabase {
   }
 
   populateData(records: any[]) {
-    this.clearData();
-    for (let i = 0; i < records.length; i++) {
-      this.addEntity(records[i]);
+    console.log('populate table data:', records);
+    if (records) {
+      this.clearData();
+      for (let i = 0; i < records.length; i++) {
+        this.addEntity(records[i]);
+      }
     }
   }
 
@@ -49,7 +91,11 @@ export class GenericDatabase {
 }
 
 export class ExampleDataSource extends DataSource<any> {
-  constructor(private _exampleDatabase: GenericDatabase, private _sort: MdSort, private _paginator: MdPaginator) {
+
+  constructor(private _exampleDatabase: GenericDatabase,
+     private _sort: MdSort,
+     private _paginator: MdPaginator,
+     private _colToPropMap: any) {
     super();
   }
 
@@ -75,21 +121,8 @@ export class ExampleDataSource extends DataSource<any> {
     const data = this._exampleDatabase.data.slice();
     if (!this._sort.active || this._sort.direction === '') { return data; }
 
-    return data.sort((a, b) => {
-      let propertyA: number|string = '';
-      let propertyB: number|string = '';
-
-      switch (this._sort.active) {
-        case 'userId': [propertyA, propertyB] = [a.id, b.id]; break;
-        case 'userName': [propertyA, propertyB] = [a.name, b.name]; break;
-        case 'progress': [propertyA, propertyB] = [a.progress, b.progress]; break;
-        case 'color': [propertyA, propertyB] = [a.color, b.color]; break;
-      }
-
-      let valueA = isNaN(+propertyA) ? propertyA : +propertyA;
-      let valueB = isNaN(+propertyB) ? propertyB : +propertyB;
-
-      return (valueA < valueB ? -1 : 1) * (this._sort.direction === 'asc' ? 1 : -1);
-    });
+    return data.sort(withComparators(nullsToBottom, comparison));
   }
+
+
 }

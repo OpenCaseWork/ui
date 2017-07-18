@@ -4,7 +4,6 @@ import { search }                                                               
 import { Subject }                                                                              from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 
-import { ConstituentSearchService }                           from './constituent-search.service';
 import { SearchTableComponent }                               from './search-table.component';
 import { ConstituentSearchRecord, ConstituentSearchRequest } from '../../models/constituents/search/constituents-search.models';
 import { LogService }                                         from '../../core/logging/log.service';

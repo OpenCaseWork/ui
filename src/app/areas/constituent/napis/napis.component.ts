@@ -12,30 +12,71 @@ import { AutoCompleteService, SELECT_DESCRIPTION_FIELD } from '../../../shared/c
 import { ValidatorService } from '../../../shared/control-services/validator.service';
 import { SelectItem } from '../../../models/domains/domains.models';
 import { ConstituentAggregate } from '../../../models/constituents/constituents-aggregates.models';
+import { ColumnDefinition, DataTableComponent } from '../../../shared/data-table/data-table.component';
+import { MdDialog, MdDialogRef, MdDialogConfig, MD_DIALOG_DATA } from '@angular/material';
+import { QuestionnaireComponent } from './questionnaire.component';
+import { Subject } from 'rxjs/Subject';
+import { QuestionnaireAggregate } from '../../../models/questionnaires/questionnaire.models';
+
 
 @Component({
   selector: 'ocw-napis',
   templateUrl: './napis.component.html',
+  styleUrls: ['./napis.component.css']
 })
-export class NapisComponent implements OnChanges {
+export class NapisComponent implements OnChanges, OnInit {
+  @ViewChild(DataTableComponent) private tableComponent: DataTableComponent;
   @Input() constituent: ConstituentAggregate;
   @Input() domains: ConstituentDomains;
+  ngUnsubscribe: Subject<void> = new Subject<void>();
+  dialogRef: MdDialogRef<QuestionnaireComponent>;
   form: FormGroup;
 
-  // control references for validation
-  //birthDate: AbstractControl;
+  columns: ColumnDefinition[];
+  checkBox: boolean;
+  data: any[];
 
   constructor(private logService: LogService,
     private autoCompleteService: AutoCompleteService,
     private validatorService: ValidatorService,
     private formBuilder: FormBuilder,
-    private cd: ChangeDetectorRef) {
+    private cd: ChangeDetectorRef,
+    public dialog: MdDialog) {
+
     this.createForm();
-    //this.birthDate = this.demographicsForm.controls['birthDate'];
-    console.log('ProgramsComponent.constructor');
+    this.logService.log('NapisComponent.constructor');
+
+    this.columns = new Array<ColumnDefinition>();
+    let column: ColumnDefinition = {
+      cdkColumnDef: 'Id',
+      cdkHeaderCellDef: 'Id',
+      dataType: 'number',
+      fieldName: 'id'
+    };
+    this.columns.push(column);
+
+    let column2: ColumnDefinition = {
+      cdkColumnDef: 'ProviderNumber',
+      cdkHeaderCellDef: 'Provider Number',
+      dataType: 'string',
+      fieldName: 'providerNumber'
+    };
+    this.columns.push(column2);
+
+    let column3: ColumnDefinition = {
+      cdkColumnDef: 'CreateDate',
+      cdkHeaderCellDef: 'Create Date',
+      dataType: 'Date',
+      fieldName: 'createDate'
+    };
+    this.columns.push(column3);
+
+    this.checkBox = true;
+
   }
 
-
+  ngOnInit() {
+  }
 
   ngOnChanges() {
     this.form.reset();
@@ -43,66 +84,16 @@ export class NapisComponent implements OnChanges {
     if (this.domains && this.domains.cities) {
       domainsPopulated = true;
     }
-    /*
-    // populate domain dependent fields, only if domains populated, but fields note
-    if (domainsPopulated && !this.filteredEthnicity) {
-      this.filteredEthnicity = this.autoCompleteService.filteredItemAbstract$<SelectItem>(
-        this.domains.ethnicities, this.demographicsForm.controls['ethnicity'], SELECT_DESCRIPTION_FIELD);
-      this.filteredGender = this.autoCompleteService.filteredItemAbstract$<SelectItem>(
-        this.domains.genders, this.demographicsForm.controls['gender'], SELECT_DESCRIPTION_FIELD);
-      this.filteredIncomeLevel = this.autoCompleteService.filteredItemAbstract$<SelectItem>(
-        this.domains.incomeLevels, this.demographicsForm.controls['incomeLevel'], SELECT_DESCRIPTION_FIELD);
-      this.filteredMaritalStatus = this.autoCompleteService.filteredItemAbstract$<SelectItem>(
-        this.domains.maritalStatuses, this.demographicsForm.controls['maritalStatus'], SELECT_DESCRIPTION_FIELD);
-      this.filteredPreferredLanguage = this.autoCompleteService.filteredItemAbstract$<SelectItem>(
-        this.domains.languages, this.demographicsForm.controls['preferredLanguage'], SELECT_DESCRIPTION_FIELD);
-      this.filteredRace = this.autoCompleteService.filteredItemAbstract$<SelectItem>(
-        this.domains.races, this.demographicsForm.controls['race'], SELECT_DESCRIPTION_FIELD);
-      this.logService.log('demogrpahics domains loaded');
-    }
-
-    // populate form, but only if have populated constituent
-    if (this.constituent && this.constituent.constituent && domainsPopulated) {
-      this.logService.log('demographics constituent patch object', this.constituent.constituent);
-      let patchObject = Object.assign({}, this.constituent.constituent);
-      //const datePipe = new DatePipe('en-US');
-      //patchObject.birthDate = datePipe.transform(this.constituent.constituent.birthDate, 'MM/dd/yyyy');
-
-      this.autoCompleteService.setSelectValue(patchObject, patchObject.ethnicityId, this.domains.ethnicities, 'ethnicity');
-      this.autoCompleteService.setSelectValue(patchObject, patchObject.genderId, this.domains.genders, 'gender');
-      this.autoCompleteService.setSelectValue(patchObject, patchObject.incomeLevelId, this.domains.incomeLevels, 'incomeLevel');
-      this.autoCompleteService.setSelectValue(patchObject, patchObject.maritalStatusId, this.domains.maritalStatuses, 'maritalStatus');
-      this.autoCompleteService.setSelectValue(patchObject, patchObject.preferredLanguageId, this.domains.languages, 'preferredLanguage');
-      this.autoCompleteService.setSelectValue(patchObject, patchObject.minorityId, this.domains.races, 'race');
-
-      this.logService.log('demographics patch object', patchObject);
-      this.demographicsForm.patchValue(patchObject, { onlySelf: true });
-    }
-    */
-    this.logService.log('ProgramsComponent.ngOnChanges');
+    this.data = new Array<any>();
+    this.data.push({id: 1});
+    this.logService.log('NapisComponent.ngOnChanges');
   }
 
   createForm() {
     this.form = this.formBuilder.group({
       birthDate: ['', [Validators.pattern(this.validatorService.dateRegex())]],
       livingAlone: ['', [Validators.pattern(this.validatorService.yesNoRegex())]],
-      livesInNursingHome: ['', Validators.pattern(this.validatorService.yesNoRegex())],
-      caseWorkerRisk: ['', Validators.pattern(this.validatorService.yesNoRegex())],
-      pet: ['', Validators.pattern(this.validatorService.yesNoRegex())],
-      homeless: ['', Validators.pattern(this.validatorService.yesNoRegex())],
-      femaleHeadedHousehold: ['', Validators.pattern(this.validatorService.yesNoRegex())],
-      frailDisabled: ['', Validators.pattern(this.validatorService.yesNoRegex())],
-      eccpisNumber: [''],
-      rinNumber: '',
-      grgCount: '',
-
-      ethnicity: '',
-      gender: '',
-      incomeLevel: '',
-      maritalStatus: '',
-      preferredLanguage: '',
-      race: ''
-
+      livesInNursingHome: ['', Validators.pattern(this.validatorService.yesNoRegex())]
     });
   }
 
@@ -114,12 +105,6 @@ export class NapisComponent implements OnChanges {
   updateConstituentFromForm(constituentToUpdate: ConstituentAggregate): ConstituentAggregate {
     const formModel = this.form.value;
     const saveConstituent: Constituent = Object.assign({}, constituentToUpdate.constituent, formModel);
-    saveConstituent.ethnicityId = this.autoCompleteService.assignSelectValue(saveConstituent['ethnicity']);
-    saveConstituent.genderId = this.autoCompleteService.assignSelectValue(saveConstituent['gender']);
-    saveConstituent.incomeLevelId = this.autoCompleteService.assignSelectValue(saveConstituent['incomeLevel']);
-    saveConstituent.maritalStatusId = this.autoCompleteService.assignSelectValue(saveConstituent['maritalStatus']);
-    saveConstituent.preferredLanguageId = this.autoCompleteService.assignSelectValue(saveConstituent['preferredLanguage']);
-    saveConstituent.minorityId = this.autoCompleteService.assignSelectValue(saveConstituent['race']);
     constituentToUpdate.constituent = saveConstituent;
     return constituentToUpdate;
   }
@@ -128,6 +113,30 @@ export class NapisComponent implements OnChanges {
   displaySelectValue(selected: SelectItem): any {
     console.log('selected:', selected);
     return selected ? selected.shortDescription : selected;
+  }
+
+    /***************************************************** */
+  /* Called from HTML Template to add a new contact type */
+  /***************************************************** */
+  addQuestionnaire() {
+    this.dialogRef = this.dialog.open(QuestionnaireComponent);
+
+    this.dialogRef.afterClosed()
+      .takeUntil(this.ngUnsubscribe)
+      .subscribe(result => {
+        this.logService.log('addContact result', result);
+        if (result) {
+          this.addNewQuestionnaire(result);
+        }
+      });
+  }
+
+  addNewQuestionnaire(placeHolder: QuestionnaireAggregate) {
+    /*
+    let defaults = this.domains.contactTypes.filter(p => p.placeHolder === placeHolder);
+    this.updateLocalContacts(defaults);
+    this.logService.log('local contacts count:', this.contacts.length);
+    this.cd.markForCheck();*/
   }
 
 

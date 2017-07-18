@@ -96,7 +96,7 @@ export function reducer(state = initialState, action: ResourceActions.Actions): 
     }
     case ResourceActions.NEW: {
       const resourceSlice: ResourceSlice = {
-        results: action.payload,
+        results: action.payload.data,
         loading: false,
         new: true
       };
